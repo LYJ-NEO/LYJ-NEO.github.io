@@ -126,7 +126,7 @@
 <meta property="og:image" content="http://yoursite.com/2018/10/15/Sql-Window-Functions/over_per_disc.png">
 <meta property="og:image" content="http://yoursite.com/2018/10/15/Sql-Window-Functions/over_per_rank.png">
 <meta property="og:image" content="http://yoursite.com/2018/10/15/Sql-Window-Functions/over_grouping.png">
-<meta property="og:updated_time" content="2018-12-18T14:17:27.369Z">
+<meta property="og:updated_time" content="2018-12-18T14:22:00.463Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Sql Window Functions">
 <meta name="twitter:description" content="何谓SQL窗口函数  窗口函数主要应用于由Over子句定义的行集的函数，在应用关联的开窗函数前确定行集的分区和排序,OVER 子句定义查询结果集内的窗口或用户指定的行集。 然后，开窗函数将计算窗口中每一行的值。 可以将 OVER 子句与函数一起使用，以便计算各种聚合值，例如移动平均值、累积聚合、运行总计或每组结果的前N个结果。 窗口函数主要用于分析作用，对于窗口函数的主要依据标准SQL中的wind">
@@ -389,7 +389,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-12-18 22:17:27" itemprop="dateModified" datetime="2018-12-18T22:17:27+08:00">2018-12-18</time>
+                <time title="修改时间：2018-12-18 22:22:00" itemprop="dateModified" datetime="2018-12-18T22:22:00+08:00">2018-12-18</time>
               
             
           </span>
@@ -461,8 +461,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">通过指定分区中的起点和终点，进一步限制分区中的行数。 这是通过按照逻辑关联或物理关联对当前行指定某一范围的行实现的。 物理关联通过使用 ROWS 子句实现</span><br><span class="line">基于 ORDER BY 子句中的顺序对之前和之后的行进行定义。</span><br><span class="line"></span><br><span class="line">UNBOUNDED PRECEDING ： </span><br><span class="line">指定窗口在分区中的第一行开始。 UNBOUNDED PRECEDING 只能指定为窗口起点。</span><br><span class="line">&lt;无符号值指定&gt; PRECEDING</span><br><span class="line">使用 &lt;无符号值指定&gt; 指示要置于当前行之前的行或值的数目。</span><br><span class="line"></span><br><span class="line">CURRENT ROW ：</span><br><span class="line">在与 ROWS 一起使用时指定窗口在当前行开始或结束。</span><br><span class="line"></span><br><span class="line">UNBOUNDED FOLLOWING：</span><br><span class="line">指定窗口在分区的最后一行结束。 UNBOUNDED FOLLOWING 只能指定为窗口终点。如，RANGE BETWEEN CURRENT ROW AND UNBOUNDED FOLLOWING 定义以当前行开始、以分区的最后一行结束的窗口。</span><br><span class="line">&lt;无符号值指定&gt; FOLLOWING</span><br><span class="line">使用 &lt;无符号值指定&gt; 指示要置于当前行之后的行或值的数目</span><br><span class="line"></span><br><span class="line">PRECEDING：往前</span><br><span class="line">FOLLOWING：往后</span><br><span class="line">CURRENT ROW：当前行</span><br><span class="line">UNBOUNDED：起点，UNBOUNDED PRECEDING 表示从前面的起点， UNBOUNDED FOLLOWING：表示到后面的终点</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h2>使用窗口函数</h2>
-
+<p></p><h2>使用窗口函数</h2><br><a id="more"></a><p></p>
 <p></p><h3>聚合函数</h3><br>聚合函数对一组值执行计算，并返回单个值。除了 COUNT 外，聚合函数都会忽略 Null 值 ，所有聚合函数均为确定性函数。 换言之，每次使用一组特定的输入值调用聚合函数时，它们所返回的值都是<br>相同的。 OVER子句可以跟在除 GROUPING 或 GROUPING_ID 函数以外的所有聚合函数的后面<p></p>
 <ul>
 <li><p>只是由PARTITION BY指定了分区列 SalesOrderID。后在制定的分区中使用聚合函数。结果中对应SalesOrderID都有汇总值，且都是相同的。</p>
@@ -541,8 +540,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/10/12/about-hue/" rel="next" title="about hue">
-                <i class="fa fa-chevron-left"></i> about hue
+              <a href="/2018/10/11/秋天/" rel="next" title="秋天">
+                <i class="fa fa-chevron-left"></i> 秋天
               </a>
             
           </div>
@@ -627,7 +626,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">29</span>
+                    <span class="site-state-item-count">30</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -733,7 +732,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>

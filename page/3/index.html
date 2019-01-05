@@ -315,7 +315,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/12/about-hue/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/15/Sql-Window-Functions/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -334,8 +334,8 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/10/12/about-hue/" itemprop="url">
-                  about hue
+                <a class="post-title-link" href="/2018/10/15/Sql-Window-Functions/" itemprop="url">
+                  Sql Window Functions
                 </a>
               
             
@@ -361,12 +361,24 @@
                 
               
 
-              <time title="创建时间：2018-10-12 10:30:04 / 修改时间：14:55:50" itemprop="dateCreated datePublished" datetime="2018-10-12T10:30:04+08:00">2018-10-12</time>
+              <time title="创建时间：2018-10-15 09:52:03" itemprop="dateCreated datePublished" datetime="2018-10-15T09:52:03+08:00">2018-10-15</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-12-18 22:22:00" itemprop="dateModified" datetime="2018-12-18T22:22:00+08:00">2018-12-18</time>
               
             
           </span>
@@ -418,9 +430,35 @@
 
       
         
-          
-            
-          
+          <h2>何谓SQL窗口函数</h2>
+
+<p>窗口函数主要应用于由Over子句定义的行集的函数，在应用关联的开窗函数前确定行集的分区和排序,OVER 子句定义查询结果集内的窗口或用户指定的行<br>集。 然后，开窗函数将计算窗口中每一行的值。 可以将 OVER 子句与函数一起使用，以便计算各种聚合值，例如移动平均值、累积聚合、运行总计或每<br>组结果的前N个结果。</p>
+<p>窗口函数主要用于分析作用，对于窗口函数的主要依据标准SQL中的window概念，在这个概念下，允许针对集合，窗口，行集执行各种的计算并放回一个结果<br>通过窗口函数有助于解决各种查询任务通过更简单，直观，有效的数据集。</p>
+<p>对于窗口函数的使用，目前主流的关系数据库都有支持，针对Hive Sql也支持使用窗口函数。为简单期间，使用sqlserver进行对窗口函数的使用说明</p>
+<h2>数据的准备</h2><br>针对在Sqlserver上使用窗口函数，使用的测试数据为AdventureWorks，相关的表结构信息：<br><br><a href="http://jeremykdev.github.io/SqlServerDatabaseDocumentationGenerator/AdventureWorks-sample.html" target="_blank" rel="noopener">表结构信息</a><br><br><a href="https://github.com/Microsoft/sql-server-samples/releases/tag/adventureworks" target="_blank" rel="noopener">AdventureWorks数据库Github地址</a><br><br><a href="https://docs.microsoft.com/zh-cn/sql/t-sql/queries/select-over-clause-transact-sql?view=sql-server-2017" target="_blank" rel="noopener">MSDN文档参考</a><br><br><h2>窗口函数语法</h2>
+
+<ul>
+<li><p>OVER 语法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">OVER (   </span><br><span class="line">       [ &lt;PARTITION BY clause&gt; ]  </span><br><span class="line">       [ &lt;ORDER BY clause&gt; ]   </span><br><span class="line">       [ &lt;ROW or RANGE clause&gt; ]  </span><br><span class="line">      )</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>PARTITION BY 子句 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;PARTITION BY clause&gt; ::=  </span><br><span class="line">PARTITION BY value_expression , ... [ n ]  </span><br><span class="line"></span><br><span class="line">PARTITION BY</span><br><span class="line">将查询结果集分为多个分区。 开窗函数分别应用于每个分区，并为每个分区重新启动计算。</span><br><span class="line"></span><br><span class="line">value_expression</span><br><span class="line">指定行集按其分区的列。 value_expression 只能引用可供 FROM 子句使用的列。 value_expression 不能引用选择列表中的表达式或别名。 value_expression 可以是列表达式、标量子查询、标量函数或用户定义的变量。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>ORDER BY 子句 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;ORDER BY clause&gt; ::=  </span><br><span class="line">ORDER BY order_by_expression  </span><br><span class="line">    [ COLLATE collation_name ]   </span><br><span class="line">    [ ASC | DESC ]   </span><br><span class="line">    [ ,...n ] </span><br><span class="line">定义结果集的每个分区中行的逻辑顺序。 也就是说，它指定按其执行开窗函数计算的逻辑顺序</span><br><span class="line"></span><br><span class="line">order_by_expression</span><br><span class="line">指定用于进行排序的列或表达式。 order_by_expression 只能引用可供 FROM 子句使用的列。 不能将整数指定为表示列名或别名</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>ROWS | RANGE 子句 , 也叫做Window子句</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">通过指定分区中的起点和终点，进一步限制分区中的行数。 这是通过按照逻辑关联或物理关联对当前行指定某一范围的行实现的。 物理关联通过使用 ROWS 子句实现</span><br><span class="line">基于 ORDER BY 子句中的顺序对之前和之后的行进行定义。</span><br><span class="line"></span><br><span class="line">UNBOUNDED PRECEDING ： </span><br><span class="line">指定窗口在分区中的第一行开始。 UNBOUNDED PRECEDING 只能指定为窗口起点。</span><br><span class="line">&lt;无符号值指定&gt; PRECEDING</span><br><span class="line">使用 &lt;无符号值指定&gt; 指示要置于当前行之前的行或值的数目。</span><br><span class="line"></span><br><span class="line">CURRENT ROW ：</span><br><span class="line">在与 ROWS 一起使用时指定窗口在当前行开始或结束。</span><br><span class="line"></span><br><span class="line">UNBOUNDED FOLLOWING：</span><br><span class="line">指定窗口在分区的最后一行结束。 UNBOUNDED FOLLOWING 只能指定为窗口终点。如，RANGE BETWEEN CURRENT ROW AND UNBOUNDED FOLLOWING 定义以当前行开始、以分区的最后一行结束的窗口。</span><br><span class="line">&lt;无符号值指定&gt; FOLLOWING</span><br><span class="line">使用 &lt;无符号值指定&gt; 指示要置于当前行之后的行或值的数目</span><br><span class="line"></span><br><span class="line">PRECEDING：往前</span><br><span class="line">FOLLOWING：往后</span><br><span class="line">CURRENT ROW：当前行</span><br><span class="line">UNBOUNDED：起点，UNBOUNDED PRECEDING 表示从前面的起点， UNBOUNDED FOLLOWING：表示到后面的终点</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p></p><h2>使用窗口函数</h2><br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/10/15/Sql-Window-Functions/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -590,6 +628,524 @@
           
             <p>每个夏天的离去就是一次年轻的死亡，抓不住的夏蝉，悟不透夏禅 。</p>
 <p>每个秋天的到来就是一次抑郁的滋长，挽不住的秋叶，勾不住秋思 。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/05/hive-内置函数/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/fly.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LYJ-NEO">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/05/hive-内置函数/" itemprop="url">
+                  hive-内置函数
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-10-05 15:55:28" itemprop="dateCreated datePublished" datetime="2018-10-05T15:55:28+08:00">2018-10-05</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-01-05 16:08:13" itemprop="dateModified" datetime="2019-01-05T16:08:13+08:00">2019-01-05</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Tec/" itemprop="url" rel="index"><span itemprop="name">Tec</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2>Hive内置函数</h2>
+
+<ul>
+<li>数学函数</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>返回类型</th>
+<th style="text-align:left">函数</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DOUBLE</td>
+<td style="text-align:left">round(DOUBLE a)</td>
+<td style="text-align:left">返回对a四舍五入的BIGINT值</td>
+</tr>
+<tr>
+<td>DOUBLE</td>
+<td style="text-align:left">round(DOUBLE a, INT d)</td>
+<td style="text-align:left">返回DOUBLE型d的保留n位小数的DOUBLW型的近似值</td>
+</tr>
+<tr>
+<td>DOUBLE</td>
+<td style="text-align:left">bround(DOUBLE a)</td>
+<td style="text-align:left">舍入法（1~4：舍，6~9：进，5-&gt;前位数是偶：舍，5-&gt;前位数是奇：进）</td>
+</tr>
+<tr>
+<td>DOUBLE</td>
+<td style="text-align:left">bround(DOUBLE a, INT d)</td>
+<td style="text-align:left">舍入法,保留d位小数</td>
+</tr>
+<tr>
+<td>BIGINT</td>
+<td style="text-align:left">floor(DOUBLE a)</td>
+<td style="text-align:left">向下取整，最数轴上最接近要求的值的左边的值  如：6.10-&gt;6   -3.4-&gt;-4</td>
+</tr>
+<tr>
+<td>BIGINT</td>
+<td style="text-align:left">ceil(DOUBLE a), ceiling(DOUBLE a)</td>
+<td style="text-align:left">求其不小于小给定实数的最小整数如：ceil(6) = ceil(6.1)= ceil(6.9) = 6</td>
+</tr>
+<tr>
+<td>DOUBLE</td>
+<td style="text-align:left">rand(), rand(INT seed)</td>
+<td style="text-align:left">每行返回一个DOUBLE型随机数seed是随机因子</td>
+</tr>
+<tr>
+<td>DOUBLE</td>
+<td style="text-align:left">exp(DOUBLE a), exp(DECIMAL a)</td>
+<td style="text-align:left">返回e的a幂次方， a可为小数</td>
+</tr>
+<tr>
+<td>DOUBLE</td>
+<td style="text-align:left">ln(DOUBLE a), ln(DECIMAL a)</td>
+<td style="text-align:left">以自然数为底d的对数，a可为小数</td>
+</tr>
+<tr>
+<td>DOUBLE</td>
+<td style="text-align:left">log10(DOUBLE a), log11(DECIMAL a)</td>
+<td style="text-align:left">以10为底d的对数，a可为小数</td>
+</tr>
+<tr>
+<td>DOUBLE</td>
+<td style="text-align:left">log2(DOUBLE a), log3(DECIMAL a)</td>
+<td style="text-align:left">以2为底数d的对数，a可为小数</td>
+</tr>
+<tr>
+<td>DOUBLE</td>
+<td style="text-align:left">log(DOUBLE base, DOUBLE a)</td>
+<td style="text-align:left">以base为底的对数，base 与 a都是DOUBLE类型</td>
+</tr>
+<tr>
+<td>DOUBLE</td>
+<td style="text-align:left">pow(DOUBLE a, DOUBLE p), power(DOUBLE a, DOUBLE p)</td>
+<td style="text-align:left">计算a的p次幂</td>
+</tr>
+<tr>
+<td>DOUBLE</td>
+<td style="text-align:left">sqrt(DOUBLE a), sqrt(DECIMAL a)</td>
+<td style="text-align:left">计算a的平方根</td>
+</tr>
+<tr>
+<td>STRING</td>
+<td style="text-align:left">bin(BIGINT a)</td>
+<td style="text-align:left">计算二进制a的STRING类型，a为BIGINT类型</td>
+</tr>
+<tr>
+<td>STRING</td>
+<td style="text-align:left">hex(BIGINT a) hex(STRING a) hex(BINARY a)</td>
+<td style="text-align:left">计算十六进制a的STRING类型，如果a为STRING类型就转换成字符相对应的十六进制</td>
+</tr>
+<tr>
+<td>BINARY</td>
+<td style="text-align:left">unhex(STRING a)</td>
+<td style="text-align:left">hex的逆方法</td>
+</tr>
+<tr>
+<td>STRING</td>
+<td style="text-align:left">conv(BIGINT num, INT from_base, INT to_base), conv(STRING num, INT from_base, INT to_base)</td>
+<td style="text-align:left">将GIGINT/STRING类型的num从from_base进制转换成to_base进制</td>
+</tr>
+<tr>
+<td>DOUBLE</td>
+<td style="text-align:left">abs(DOUBLE a)</td>
+<td style="text-align:left">计算a的绝对值</td>
+</tr>
+<tr>
+<td>INT or DOUBLE</td>
+<td style="text-align:left">pmod(INT a, INT b), pmod(DOUBLE a, DOUBLE b)</td>
+<td style="text-align:left">a对b取模</td>
+</tr>
+<tr>
+<td>DOUBLE</td>
+<td style="text-align:left">sin(DOUBLE a), sin(DECIMAL a)</td>
+<td style="text-align:left">求a的正弦值</td>
+</tr>
+<tr>
+<td>DOUBLE</td>
+<td style="text-align:left">asin(DOUBLE a), asin(DECIMAL a)</td>
+<td style="text-align:left">求d的反正弦值</td>
+</tr>
+<tr>
+<td>DOUBLE</td>
+<td style="text-align:left">cos(DOUBLE a), cos(DECIMAL a)</td>
+<td style="text-align:left">求余弦值</td>
+</tr>
+<tr>
+<td>DOUBLE</td>
+<td style="text-align:left">acos(DOUBLE a), acos(DECIMAL a)</td>
+<td style="text-align:left">求反余弦值</td>
+</tr>
+<tr>
+<td>DOUBLE</td>
+<td style="text-align:left">tan(DOUBLE a), tan(DECIMAL a)</td>
+<td style="text-align:left">求正切值</td>
+</tr>
+<tr>
+<td>DOUBLE</td>
+<td style="text-align:left">atan(DOUBLE a), atan(DECIMAL a)</td>
+<td style="text-align:left">求反正切值</td>
+</tr>
+<tr>
+<td>DOUBLE</td>
+<td style="text-align:left">degrees(DOUBLE a), degrees(DECIMAL a)</td>
+<td style="text-align:left">奖弧度值转换角度值</td>
+</tr>
+<tr>
+<td>DOUBLE</td>
+<td style="text-align:left">radians(DOUBLE a), radians(DOUBLE a)</td>
+<td style="text-align:left">将角度值转换成弧度值</td>
+</tr>
+<tr>
+<td>INT or DOUBLE</td>
+<td style="text-align:left">positive(INT a), positive(DOUBLE a)</td>
+<td style="text-align:left">返回a</td>
+</tr>
+<tr>
+<td>INT or DOUBLE</td>
+<td style="text-align:left">negative(INT a), negative(DOUBLE a)</td>
+<td style="text-align:left">返回a的相反数</td>
+</tr>
+<tr>
+<td>DOUBLE or INT</td>
+<td style="text-align:left">sign(DOUBLE a), sign(DECIMAL a)</td>
+<td style="text-align:left">如果a是正数则返回1.0，是负数则返回-1.0，否则返回0.0</td>
+</tr>
+<tr>
+<td>DOUBLE</td>
+<td style="text-align:left">e()</td>
+<td style="text-align:left">数学常数e</td>
+</tr>
+<tr>
+<td>DOUBLE</td>
+<td style="text-align:left">pi()</td>
+<td style="text-align:left">数学常数pi</td>
+</tr>
+<tr>
+<td>BIGINT</td>
+<td style="text-align:left">factorial(INT a)</td>
+<td style="text-align:left">求a的阶乘</td>
+</tr>
+<tr>
+<td>DOUBLE</td>
+<td style="text-align:left">cbrt(DOUBLE a)</td>
+<td style="text-align:left">求a的立方根</td>
+</tr>
+<tr>
+<td>BIGINT</td>
+<td style="text-align:left">shiftrightunsigned(BIGINT a, INT b)</td>
+<td style="text-align:left">无符号按位右移（&lt;&lt;&lt;）</td>
+</tr>
+<tr>
+<td>T</td>
+<td style="text-align:left">greatest(T v1, T v3, …)</td>
+<td style="text-align:left">求最大值</td>
+</tr>
+<tr>
+<td>T</td>
+<td style="text-align:left">least(T v1, T v3, …)</td>
+<td style="text-align:left">求最小值</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>统计函数</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>返回类型</th>
+<th style="text-align:left">函数</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BIGINT</td>
+<td style="text-align:left">count(*)</td>
+<td style="text-align:left">统计总行数，包括含有NULL值的行</td>
+</tr>
+<tr>
+<td>BIGINT</td>
+<td style="text-align:left">count(expr)</td>
+<td style="text-align:left">统计提供非NULL的expr表达式值的行数</td>
+</tr>
+<tr>
+<td>BIGINT</td>
+<td style="text-align:left">count(DISTINCT expr[, expr…])</td>
+<td style="text-align:left">统计提供非NULL且去重后的expr表达式值的行数</td>
+</tr>
+<tr>
+<td>DOUBLE</td>
+<td style="text-align:left">sum(col), sum(DISTINCT col)</td>
+<td style="text-align:left">sum(col),表示求指定列的和，sum(DISTINCT col)表示求去重后的列的和</td>
+</tr>
+<tr>
+<td>DOUBLE</td>
+<td style="text-align:left">avg(col), avg(DISTINCT col)</td>
+<td style="text-align:left">avg(col),表示求指定列的平均值，avg(DISTINCT col)表示求去重后的列的平均值</td>
+</tr>
+<tr>
+<td>DOUBLE</td>
+<td style="text-align:left">min(col)</td>
+<td style="text-align:left">求指定列的最小值</td>
+</tr>
+<tr>
+<td>DOUBLE</td>
+<td style="text-align:left">max(col)</td>
+<td style="text-align:left">求指定列的最大值</td>
+</tr>
+<tr>
+<td>DOUBLE</td>
+<td style="text-align:left">variance(col), var_pop(col)</td>
+<td style="text-align:left">求指定列数值的方差</td>
+</tr>
+<tr>
+<td>DOUBLE</td>
+<td style="text-align:left">var_samp(col)</td>
+<td style="text-align:left">求指定列数值的样本方差</td>
+</tr>
+<tr>
+<td>DOUBLE</td>
+<td style="text-align:left">stddev_pop(col)</td>
+<td style="text-align:left">求指定列数值的标准偏差</td>
+</tr>
+<tr>
+<td>DOUBLE</td>
+<td style="text-align:left">stddev_samp(col)</td>
+<td style="text-align:left">求指定列数值的样本标准偏差</td>
+</tr>
+<tr>
+<td>DOUBLE</td>
+<td style="text-align:left">covar_pop(col1, col3)</td>
+<td style="text-align:left">求指定列数值的协方差</td>
+</tr>
+<tr>
+<td>DOUBLE</td>
+<td style="text-align:left">covar_samp(col1, col3)</td>
+<td style="text-align:left">求指定列数值的样本协方差</td>
+</tr>
+<tr>
+<td>DOUBLE</td>
+<td style="text-align:left">corr(col1, col3)</td>
+<td style="text-align:left">返回两列数值的相关系数</td>
+</tr>
+<tr>
+<td>DOUBLE</td>
+<td style="text-align:left">percentile(BIGINT col, p)</td>
+<td style="text-align:left">返回col的p%分位数</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>表生成函数</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>返回类型</th>
+<th style="text-align:left">函数</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Array Type</td>
+<td style="text-align:left">explode(array<type> a)</type></td>
+<td style="text-align:left">对于a中的每个元素，将生成一行且包含该元素</td>
+</tr>
+<tr>
+<td>N rows</td>
+<td style="text-align:left">explode(ARRAY)</td>
+<td style="text-align:left">每行对应数组中的一个元素</td>
+</tr>
+<tr>
+<td>N rows</td>
+<td style="text-align:left">explode(MAP)</td>
+<td style="text-align:left">每行对应每个map键-值，其中一个字段是map的键，另一个字段是map的值</td>
+</tr>
+<tr>
+<td>N rows</td>
+<td style="text-align:left">posexplode(ARRAY)</td>
+<td style="text-align:left">与explode类似，不同的是还返回各元素在数组中的位置</td>
+</tr>
+<tr>
+<td>N rows</td>
+<td style="text-align:left">stack(INT n, v_1, v_3, …, v_k)</td>
+<td style="text-align:left">把M列转换成N行，每行有M/N个字段，其中n必须是个常数</td>
+</tr>
+<tr>
+<td>tuple</td>
+<td style="text-align:left">json_tuple(jsonStr, k1, k3, …)</td>
+<td style="text-align:left">从一个JSON字符串中获取多个键并作为一个元组返回，与get_json_object不同的是此函数能一次获取多个键值</td>
+</tr>
+<tr>
+<td>tuple</td>
+<td style="text-align:left">parse_url_tuple(url, p1, p3, …)</td>
+<td style="text-align:left">返回从URL中抽取指定N部分的内容，参数url是URL字符串，而参数p1,p2,….是要抽取的部分，这个参数包含HOST, PATH, QUERY, REF, PROTOCOL, AUTHORITY, FILE, USERINFO, QUERY:<key></key></td>
+</tr>
+<tr>
+<td></td>
+<td style="text-align:left">inline(ARRAY&lt;STRUCT[,STRUCT]&gt;)</td>
+<td style="text-align:left">将结构体数组提取出来并插入到表中</td>
+</tr>
+</tbody>
+</table>
 
           
         
@@ -1918,7 +2474,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">29</span>
+                    <span class="site-state-item-count">30</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2008,7 +2564,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
