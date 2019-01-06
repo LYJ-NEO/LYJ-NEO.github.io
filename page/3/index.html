@@ -315,7 +315,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/15/Sql-Window-Functions/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/05/1-导入数据到Hive/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -334,8 +334,8 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/10/15/Sql-Window-Functions/" itemprop="url">
-                  Sql Window Functions
+                <a class="post-title-link" href="/2018/11/05/1-导入数据到Hive/" itemprop="url">
+                  1-导入数据到Hive
                 </a>
               
             
@@ -361,7 +361,7 @@
                 
               
 
-              <time title="创建时间：2018-10-15 09:52:03" itemprop="dateCreated datePublished" datetime="2018-10-15T09:52:03+08:00">2018-10-15</time>
+              <time title="创建时间：2018-11-05 14:56:45" itemprop="dateCreated datePublished" datetime="2018-11-05T14:56:45+08:00">2018-11-05</time>
             
 
             
@@ -378,7 +378,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-12-18 22:22:00" itemprop="dateModified" datetime="2018-12-18T22:22:00+08:00">2018-12-18</time>
+                <time title="修改时间：2019-01-06 17:17:09" itemprop="dateModified" datetime="2019-01-06T17:17:09+08:00">2019-01-06</time>
               
             
           </span>
@@ -430,31 +430,17 @@
 
       
         
-          <h2>何谓SQL窗口函数</h2>
-
-<p>窗口函数主要应用于由Over子句定义的行集的函数，在应用关联的开窗函数前确定行集的分区和排序,OVER 子句定义查询结果集内的窗口或用户指定的行<br>集。 然后，开窗函数将计算窗口中每一行的值。 可以将 OVER 子句与函数一起使用，以便计算各种聚合值，例如移动平均值、累积聚合、运行总计或每<br>组结果的前N个结果。</p>
-<p>窗口函数主要用于分析作用，对于窗口函数的主要依据标准SQL中的window概念，在这个概念下，允许针对集合，窗口，行集执行各种的计算并放回一个结果<br>通过窗口函数有助于解决各种查询任务通过更简单，直观，有效的数据集。</p>
-<p>对于窗口函数的使用，目前主流的关系数据库都有支持，针对Hive Sql也支持使用窗口函数。为简单期间，使用sqlserver进行对窗口函数的使用说明</p>
-<h2>数据的准备</h2><br>针对在Sqlserver上使用窗口函数，使用的测试数据为AdventureWorks，相关的表结构信息：<br><br><a href="http://jeremykdev.github.io/SqlServerDatabaseDocumentationGenerator/AdventureWorks-sample.html" target="_blank" rel="noopener">表结构信息</a><br><br><a href="https://github.com/Microsoft/sql-server-samples/releases/tag/adventureworks" target="_blank" rel="noopener">AdventureWorks数据库Github地址</a><br><br><a href="https://docs.microsoft.com/zh-cn/sql/t-sql/queries/select-over-clause-transact-sql?view=sql-server-2017" target="_blank" rel="noopener">MSDN文档参考</a><br><br><h2>窗口函数语法</h2>
-
-<ul>
-<li><p>OVER 语法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">OVER (   </span><br><span class="line">       [ &lt;PARTITION BY clause&gt; ]  </span><br><span class="line">       [ &lt;ORDER BY clause&gt; ]   </span><br><span class="line">       [ &lt;ROW or RANGE clause&gt; ]  </span><br><span class="line">      )</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>PARTITION BY 子句 </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;PARTITION BY clause&gt; ::=  </span><br><span class="line">PARTITION BY value_expression , ... [ n ]  </span><br><span class="line"></span><br><span class="line">PARTITION BY</span><br><span class="line">将查询结果集分为多个分区。 开窗函数分别应用于每个分区，并为每个分区重新启动计算。</span><br><span class="line"></span><br><span class="line">value_expression</span><br><span class="line">指定行集按其分区的列。 value_expression 只能引用可供 FROM 子句使用的列。 value_expression 不能引用选择列表中的表达式或别名。 value_expression 可以是列表达式、标量子查询、标量函数或用户定义的变量。</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>ORDER BY 子句 </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;ORDER BY clause&gt; ::=  </span><br><span class="line">ORDER BY order_by_expression  </span><br><span class="line">    [ COLLATE collation_name ]   </span><br><span class="line">    [ ASC | DESC ]   </span><br><span class="line">    [ ,...n ] </span><br><span class="line">定义结果集的每个分区中行的逻辑顺序。 也就是说，它指定按其执行开窗函数计算的逻辑顺序</span><br><span class="line"></span><br><span class="line">order_by_expression</span><br><span class="line">指定用于进行排序的列或表达式。 order_by_expression 只能引用可供 FROM 子句使用的列。 不能将整数指定为表示列名或别名</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>ROWS | RANGE 子句 , 也叫做Window子句</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">通过指定分区中的起点和终点，进一步限制分区中的行数。 这是通过按照逻辑关联或物理关联对当前行指定某一范围的行实现的。 物理关联通过使用 ROWS 子句实现</span><br><span class="line">基于 ORDER BY 子句中的顺序对之前和之后的行进行定义。</span><br><span class="line"></span><br><span class="line">UNBOUNDED PRECEDING ： </span><br><span class="line">指定窗口在分区中的第一行开始。 UNBOUNDED PRECEDING 只能指定为窗口起点。</span><br><span class="line">&lt;无符号值指定&gt; PRECEDING</span><br><span class="line">使用 &lt;无符号值指定&gt; 指示要置于当前行之前的行或值的数目。</span><br><span class="line"></span><br><span class="line">CURRENT ROW ：</span><br><span class="line">在与 ROWS 一起使用时指定窗口在当前行开始或结束。</span><br><span class="line"></span><br><span class="line">UNBOUNDED FOLLOWING：</span><br><span class="line">指定窗口在分区的最后一行结束。 UNBOUNDED FOLLOWING 只能指定为窗口终点。如，RANGE BETWEEN CURRENT ROW AND UNBOUNDED FOLLOWING 定义以当前行开始、以分区的最后一行结束的窗口。</span><br><span class="line">&lt;无符号值指定&gt; FOLLOWING</span><br><span class="line">使用 &lt;无符号值指定&gt; 指示要置于当前行之后的行或值的数目</span><br><span class="line"></span><br><span class="line">PRECEDING：往前</span><br><span class="line">FOLLOWING：往后</span><br><span class="line">CURRENT ROW：当前行</span><br><span class="line">UNBOUNDED：起点，UNBOUNDED PRECEDING 表示从前面的起点， UNBOUNDED FOLLOWING：表示到后面的终点</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p></p><h2>使用窗口函数</h2><br>
+          <p></p><h2>导入数据到Hive</h2><br>    可以通过各种不同的方法和工具，将各种不同数据源导入Hive中,对于Hive中的数据库本质上仅仅是表的一个目录或者命名空间。<br>所以Hive实际上并不存储实际的数据。对于要导入到Hive的数据，是存放在HDFS上的各种格式数据文件。<p></p>
+<p></p><h3>文本文件数据</h3><br>    从文本文件（CSV，TSV）将文件存放到HDFS后导入到Hive中<p></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">将文本文件上传到HDFS文件系统，使用 hadoop hdfs dfs -put local_file_path  hdfs_file_path</span><br><span class="line"></span><br><span class="line">具体的导入数据的操作方法:</span><br><span class="line"></span><br><span class="line">1 先将本地文件上传到虚拟机中(数据是AdventureWorks中的部分表数据)</span><br><span class="line">$ scp.exe -P 2222 *.csv root@sandbox-hdp.hortonworks.com:~/hive_data</span><br></pre></td></tr></table></figure>
+<p><img src="/2018/11/05/1-导入数据到Hive/1_scp_file.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2 将数据文件直接导入到HDFS文件系统</span><br><span class="line">hdfs dfs -put file_name</span><br></pre></td></tr></table></figure>
+<p><img src="/2018/11/05/1-导入数据到Hive/2_put_file.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">3 创建相应的表,指定数据路径</span><br><span class="line"></span><br><span class="line">创建数据库:</span><br><span class="line">CREATE DATABASE IF NOT EXISTS AdventureWorksDW;</span><br><span class="line">由于使用的Hadoop是分布式配置模式，</span><br><span class="line">&lt;property&gt; </span><br><span class="line">      &lt;name&gt;hive.metastore.warehouse.dir&lt;/name&gt;   </span><br><span class="line">      &lt;value&gt;/apps/hive/warehouse&lt;/value&gt; </span><br><span class="line">&lt;/property&gt;</span><br></pre></td></tr></table></figure>
+<p><img src="/2018/11/05/1-导入数据到Hive/4_db_position.png" alt=""></p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/10/15/Sql-Window-Functions/#more" rel="contents">
+            <a class="btn" href="/2018/11/05/1-导入数据到Hive/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -510,7 +496,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/11/秋天/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/11/3-Hive数据定义/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -529,8 +515,8 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/10/11/秋天/" itemprop="url">
-                  秋天
+                <a class="post-title-link" href="/2018/11/11/3-Hive数据定义/" itemprop="url">
+                  3-Hive数据定义
                 </a>
               
             
@@ -556,7 +542,7 @@
                 
               
 
-              <time title="创建时间：2018-10-11 18:24:50" itemprop="dateCreated datePublished" datetime="2018-10-11T18:24:50+08:00">2018-10-11</time>
+              <time title="创建时间：2018-11-11 11:22:32" itemprop="dateCreated datePublished" datetime="2018-11-11T11:22:32+08:00">2018-11-11</time>
             
 
             
@@ -573,7 +559,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-12-14 09:17:47" itemprop="dateModified" datetime="2018-12-14T09:17:47+08:00">2018-12-14</time>
+                <time title="修改时间：2019-01-06 17:18:00" itemprop="dateModified" datetime="2019-01-06T17:18:00+08:00">2019-01-06</time>
               
             
           </span>
@@ -590,7 +576,372 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/feeling/" itemprop="url" rel="index"><span itemprop="name">feeling</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Tec/" itemprop="url" rel="index"><span itemprop="name">Tec</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2>Hive数据定义</h2>
+
+<p>HiveQL是Hive查询语言,作为ANSI SQL的一种方言。但是其还是有和关系数据库支持的SQL中有本质的差异。如：Hive不支持事务，且默认情况下不支持行级别插入，更新，删除操作。<br>虽然可以在HiveQL中使用关联子句，但HiveQL中并没有主外键概念，也就没有强制的约束控制，这样数据的存储可以宽泛很多。</p>
+<h3>Hive数据库</h3>
+
+<p>Hive中的数据库概念本质上仅仅是目录或者命名空间，然而用户来说，这样可以避免表命名冲突。通常使用数据库将生产表组织成逻辑组。</p>
+<h4>数据库</h4>
+
+<p>在Hive中有一个默认的库 default。<br><strong>Hive 为每个数据库创建一个目录</strong>。数据库中的表将会以这个数据库目录的子目录形式存在。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">创建创建库：</span><br><span class="line">CREATE DATABASE IF NOT EXISTS DB_NAME;</span><br><span class="line"></span><br><span class="line">获取数据库列表 ：</span><br><span class="line">show databases;  </span><br><span class="line">show databases LIKE &apos;h.*&apos;</span><br><span class="line"></span><br><span class="line">查看数据库的详细信息:</span><br><span class="line">DESCRIBE DATABASE DB_NAME;</span><br><span class="line">DESCRIBE DATABASE EXTENDED DB_NAME;</span><br><span class="line"></span><br><span class="line">删除数据库：</span><br><span class="line">DROP DATABASE IF EXISTS DB_NAME;</span><br><span class="line"></span><br><span class="line">修改数据库,可以用来对数据库的DBPROPERTIES设置键值对属性，数据库的元数据信息不可以修改：</span><br><span class="line">ALTER DATABASE DB_NAME SET DBPROPERTIES(&apos;A&apos;=&apos;B&apos;);</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/11/11/3-Hive数据定义/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/20/4-Hive数据操作/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/fly.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LYJ-NEO">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/20/4-Hive数据操作/" itemprop="url">
+                  4-Hive数据操作
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-11-20 11:23:26" itemprop="dateCreated datePublished" datetime="2018-11-20T11:23:26+08:00">2018-11-20</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-01-06 17:18:37" itemprop="dateModified" datetime="2019-01-06T17:18:37+08:00">2019-01-06</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Tec/" itemprop="url" rel="index"><span itemprop="name">Tec</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2>管理表中装载数据</h2>
+
+<p>使用LOAD命令装载数据,分别可以从本地和HDFS上进行上传。</p>
+<p>使用的命令分别是  LOAD DATA LOCAL INPATH ‘file://local_path’<br>                 LOAD DATA INPATH ‘HDFS://hdfs_path’<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">在本地文件是数据导入到Hive表中，使用 AdventureWorks下的DimAccount表说明，创建数据库和对应的表</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2018/11/20/4-Hive数据操作/1_create_db.png" alt=""><br><img src="/2018/11/20/4-Hive数据操作/2_create_tb.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LOAD DATA LOCAL 加载数据 , 从本地路径 (相关脚本可以在对应的github项目中下载)</span><br></pre></td></tr></table></figure>
+<p><img src="/2018/11/20/4-Hive数据操作/3_load_data.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LOAD DATA 加载数据 , 从HDFS上 (相关脚本可以在对应的github项目中下载)</span><br></pre></td></tr></table></figure>
+<p><img src="/2018/11/20/4-Hive数据操作/5_load_data.png" alt=""></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/11/20/4-Hive数据操作/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/01/5-Hive数据查询/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/fly.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LYJ-NEO">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/01/5-Hive数据查询/" itemprop="url">
+                  5-Hive数据查询
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-12-01 11:24:02" itemprop="dateCreated datePublished" datetime="2018-12-01T11:24:02+08:00">2018-12-01</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-01-06 18:36:40" itemprop="dateModified" datetime="2019-01-06T18:36:40+08:00">2019-01-06</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Tec/" itemprop="url" rel="index"><span itemprop="name">Tec</span></a></span>
 
                 
                 
@@ -626,8 +977,30 @@
       
         
           
-            <p>每个夏天的离去就是一次年轻的死亡，抓不住的夏蝉，悟不透夏禅 。</p>
-<p>每个秋天的到来就是一次抑郁的滋长，挽不住的秋叶，勾不住秋思 。</p>
+            <h2>SELECT子句</h2>
+
+<ul>
+<li>针对复合类型列的查询(数组，字典，结构)</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">含有复合类型列的样表：</span><br><span class="line">CREATE TABLE IF NOT EXISTS employees_t</span><br><span class="line">(</span><br><span class="line">    name STRING  COMMENT &apos;Employee name&apos;,</span><br><span class="line">    salary FLOAT COMMENT &apos;Employee salary&apos;,</span><br><span class="line">    subordinates ARRAY&lt;STRING&gt; COMMENT &apos; Names of subordinates&apos;,</span><br><span class="line">    deducations  MAP&lt;STRING,FLOAT&gt; COMMENT &apos; Keys are deducations names , Values are percentags&apos;,</span><br><span class="line">    address      STRUCT&lt;street:STRING,city:STRING,state:STRING,zip:INT&gt; COMMENT &apos;Home Address&apos;</span><br><span class="line">)</span><br><span class="line">COMMENT &apos;the table of empoyee&apos;</span><br><span class="line">ROW FORMAT DELIMITED</span><br><span class="line">FIELDS TERMINATED BY &apos;\001&apos;</span><br><span class="line">COLLECTION ITEMS TERMINATED BY &apos;\002&apos;</span><br><span class="line">MAP KEYS TERMINATED BY &apos;\003&apos;</span><br><span class="line">LINES TERMINATED BY &apos;\n&apos;</span><br><span class="line">STORED AS TEXTFILE;</span><br><span class="line">数据样式：</span><br></pre></td></tr></table></figure>
+<p><img src="/2018/12/01/5-Hive数据查询/1_mul_data_style.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">访问数组列，使用下标索引:</span><br><span class="line">SELECT name , subordinates[0] FROM employees_t linit 3;</span><br></pre></td></tr></table></figure>
+<p><img src="/2018/12/01/5-Hive数据查询/2_array_sub.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">访问Map元素，使用键值索引</span><br><span class="line">SELECT name , deducations[&quot;State Taxes&quot;] FROM employees_t limit 3;</span><br></pre></td></tr></table></figure>
+<p><img src="/2018/12/01/5-Hive数据查询/3_map_sub.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">访问struct中的元素，使用.</span><br><span class="line">SELECT name , address.city FROM employees_t limit 3;</span><br></pre></td></tr></table></figure>
+<p><img src="/2018/12/01/5-Hive数据查询/4_struct_sub.png" alt=""></p>
+<p></p><h3>函数</h3><br>对于Hive提供了丰富的内置函数,请查阅 <p></p>
+<p><a href="https://shadow-blue.top/2018/10/05/hive-内置函数/" target="_blank" rel="noopener">Hive内置函数</a></p>
+<p></p><h2>JOIN子句</h2><br>针对在标准SQL中定义个各种连接在Hive中都有相应支持，但是又去对于Hive的一些独特性。<p></p>
+<ul>
+<li><p>Hive连接中对表的执行的顺序是从左到右，逐个扫描<br><strong>所以在查询中将的表的大小从左到右增加,这样可以达到优化的目的，将小表放到内存，提高执行速度</strong><br><strong>开启的优化项：set hive.auto.convert.join=true;</strong></p>
+</li>
+<li><p>LEFT SEMI-JOIN<br><strong>左半开表，放回左边表的记录，前提是其记录对于右边表满足ON语句中的判断条件</strong></p>
+</li>
+</ul>
+<p></p><h2>排序</h2><br><strong>order by 和 sort by</strong><br>order by 对执行的数据集进行一次全局排序，这样是通过一个reducer进行处理，当数据量很大的时候，将会很费时。<br>对于Hive中增加了sort by只会对每个reducer进行排序，进行一次局部的排序，只是保证每个reducer的输出是有序的。<br>有助于后续的全局排序提高效率。<p></p>
+<p>由于order by 操作可能会造成运行时间很长，如果属性hive.mappred.mode的值是strict，那hive 查询中必须有limit 。</p>
 
           
         
@@ -681,7 +1054,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/05/hive-内置函数/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/12/2-Hive数据类型和文件格式/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -700,8 +1073,8 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/10/05/hive-内置函数/" itemprop="url">
-                  hive-内置函数
+                <a class="post-title-link" href="/2018/12/12/2-Hive数据类型和文件格式/" itemprop="url">
+                  2-Hive数据类型和文件格式
                 </a>
               
             
@@ -727,7 +1100,7 @@
                 
               
 
-              <time title="创建时间：2018-10-05 15:55:28" itemprop="dateCreated datePublished" datetime="2018-10-05T15:55:28+08:00">2018-10-05</time>
+              <time title="创建时间：2018-12-12 11:21:50" itemprop="dateCreated datePublished" datetime="2018-12-12T11:21:50+08:00">2018-12-12</time>
             
 
             
@@ -744,7 +1117,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-01-05 16:08:13" itemprop="dateModified" datetime="2019-01-05T16:08:13+08:00">2019-01-05</time>
+                <time title="修改时间：2019-01-06 18:02:53" itemprop="dateModified" datetime="2019-01-06T18:02:53+08:00">2019-01-06</time>
               
             
           </span>
@@ -797,355 +1170,163 @@
       
         
           
-            <h2>Hive内置函数</h2>
+            <h2>Hive数据类型和文件格式</h2>
 
-<ul>
-<li>数学函数</li>
-</ul>
+<p>Hive 支持关系数据库中的大多数基本的数据类型，同时也支持在关系数据库中很少出现的三种 <strong>数据集合</strong> 类型。<br>和大多数数据库相比，Hive具有一个独特的功能，就是对数据在文件中的编码方式具有相当大的灵活性，大多数据库对数据具有完全控制，也包括<br>对数据什么周期的控制，Hive将这些方面的控制权交给用户，以便更加容易的使用各种各样的工具来管理和处理数据。</p>
+<h3>基本数据类型</h3>
+
 <table>
 <thead>
 <tr>
-<th>返回类型</th>
-<th style="text-align:left">函数</th>
-<th style="text-align:left">说明</th>
+<th>类型</th>
+<th style="text-align:center">描述</th>
+<th style="text-align:right">示例</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>DOUBLE</td>
-<td style="text-align:left">round(DOUBLE a)</td>
-<td style="text-align:left">返回对a四舍五入的BIGINT值</td>
+<td>TINYINT</td>
+<td style="text-align:center">1个字节8位有符号整数</td>
+<td style="text-align:right">1</td>
 </tr>
 <tr>
-<td>DOUBLE</td>
-<td style="text-align:left">round(DOUBLE a, INT d)</td>
-<td style="text-align:left">返回DOUBLE型d的保留n位小数的DOUBLW型的近似值</td>
+<td>SMALLINT</td>
+<td style="text-align:center">2字节16位有符号整数</td>
+<td style="text-align:right">1</td>
 </tr>
 <tr>
-<td>DOUBLE</td>
-<td style="text-align:left">bround(DOUBLE a)</td>
-<td style="text-align:left">舍入法（1~4：舍，6~9：进，5-&gt;前位数是偶：舍，5-&gt;前位数是奇：进）</td>
-</tr>
-<tr>
-<td>DOUBLE</td>
-<td style="text-align:left">bround(DOUBLE a, INT d)</td>
-<td style="text-align:left">舍入法,保留d位小数</td>
+<td>INT</td>
+<td style="text-align:center">4字节32位有符号整数</td>
+<td style="text-align:right">1</td>
 </tr>
 <tr>
 <td>BIGINT</td>
-<td style="text-align:left">floor(DOUBLE a)</td>
-<td style="text-align:left">向下取整，最数轴上最接近要求的值的左边的值  如：6.10-&gt;6   -3.4-&gt;-4</td>
+<td style="text-align:center">8字节64位有符号整数</td>
+<td style="text-align:right">1</td>
 </tr>
 <tr>
-<td>BIGINT</td>
-<td style="text-align:left">ceil(DOUBLE a), ceiling(DOUBLE a)</td>
-<td style="text-align:left">求其不小于小给定实数的最小整数如：ceil(6) = ceil(6.1)= ceil(6.9) = 6</td>
-</tr>
-<tr>
-<td>DOUBLE</td>
-<td style="text-align:left">rand(), rand(INT seed)</td>
-<td style="text-align:left">每行返回一个DOUBLE型随机数seed是随机因子</td>
+<td>FLOAT</td>
+<td style="text-align:center">4字节32位单精度浮点数</td>
+<td style="text-align:right">1.0</td>
 </tr>
 <tr>
 <td>DOUBLE</td>
-<td style="text-align:left">exp(DOUBLE a), exp(DECIMAL a)</td>
-<td style="text-align:left">返回e的a幂次方， a可为小数</td>
+<td style="text-align:center">8字节64位双精度浮点数</td>
+<td style="text-align:right">1.0</td>
 </tr>
 <tr>
-<td>DOUBLE</td>
-<td style="text-align:left">ln(DOUBLE a), ln(DECIMAL a)</td>
-<td style="text-align:left">以自然数为底d的对数，a可为小数</td>
-</tr>
-<tr>
-<td>DOUBLE</td>
-<td style="text-align:left">log10(DOUBLE a), log11(DECIMAL a)</td>
-<td style="text-align:left">以10为底d的对数，a可为小数</td>
-</tr>
-<tr>
-<td>DOUBLE</td>
-<td style="text-align:left">log2(DOUBLE a), log3(DECIMAL a)</td>
-<td style="text-align:left">以2为底数d的对数，a可为小数</td>
-</tr>
-<tr>
-<td>DOUBLE</td>
-<td style="text-align:left">log(DOUBLE base, DOUBLE a)</td>
-<td style="text-align:left">以base为底的对数，base 与 a都是DOUBLE类型</td>
-</tr>
-<tr>
-<td>DOUBLE</td>
-<td style="text-align:left">pow(DOUBLE a, DOUBLE p), power(DOUBLE a, DOUBLE p)</td>
-<td style="text-align:left">计算a的p次幂</td>
-</tr>
-<tr>
-<td>DOUBLE</td>
-<td style="text-align:left">sqrt(DOUBLE a), sqrt(DECIMAL a)</td>
-<td style="text-align:left">计算a的平方根</td>
+<td>BOOLEAN</td>
+<td style="text-align:center">true,false</td>
+<td style="text-align:right">true</td>
 </tr>
 <tr>
 <td>STRING</td>
-<td style="text-align:left">bin(BIGINT a)</td>
-<td style="text-align:left">计算二进制a的STRING类型，a为BIGINT类型</td>
+<td style="text-align:center">字符串</td>
+<td style="text-align:right">‘hao’</td>
 </tr>
 <tr>
-<td>STRING</td>
-<td style="text-align:left">hex(BIGINT a) hex(STRING a) hex(BINARY a)</td>
-<td style="text-align:left">计算十六进制a的STRING类型，如果a为STRING类型就转换成字符相对应的十六进制</td>
+<td>TIMESTAMP</td>
+<td style="text-align:center">整型，浮点或字符串</td>
+<td style="text-align:right">1327882394</td>
 </tr>
 <tr>
 <td>BINARY</td>
-<td style="text-align:left">unhex(STRING a)</td>
-<td style="text-align:left">hex的逆方法</td>
-</tr>
-<tr>
-<td>STRING</td>
-<td style="text-align:left">conv(BIGINT num, INT from_base, INT to_base), conv(STRING num, INT from_base, INT to_base)</td>
-<td style="text-align:left">将GIGINT/STRING类型的num从from_base进制转换成to_base进制</td>
-</tr>
-<tr>
-<td>DOUBLE</td>
-<td style="text-align:left">abs(DOUBLE a)</td>
-<td style="text-align:left">计算a的绝对值</td>
-</tr>
-<tr>
-<td>INT or DOUBLE</td>
-<td style="text-align:left">pmod(INT a, INT b), pmod(DOUBLE a, DOUBLE b)</td>
-<td style="text-align:left">a对b取模</td>
-</tr>
-<tr>
-<td>DOUBLE</td>
-<td style="text-align:left">sin(DOUBLE a), sin(DECIMAL a)</td>
-<td style="text-align:left">求a的正弦值</td>
-</tr>
-<tr>
-<td>DOUBLE</td>
-<td style="text-align:left">asin(DOUBLE a), asin(DECIMAL a)</td>
-<td style="text-align:left">求d的反正弦值</td>
-</tr>
-<tr>
-<td>DOUBLE</td>
-<td style="text-align:left">cos(DOUBLE a), cos(DECIMAL a)</td>
-<td style="text-align:left">求余弦值</td>
-</tr>
-<tr>
-<td>DOUBLE</td>
-<td style="text-align:left">acos(DOUBLE a), acos(DECIMAL a)</td>
-<td style="text-align:left">求反余弦值</td>
-</tr>
-<tr>
-<td>DOUBLE</td>
-<td style="text-align:left">tan(DOUBLE a), tan(DECIMAL a)</td>
-<td style="text-align:left">求正切值</td>
-</tr>
-<tr>
-<td>DOUBLE</td>
-<td style="text-align:left">atan(DOUBLE a), atan(DECIMAL a)</td>
-<td style="text-align:left">求反正切值</td>
-</tr>
-<tr>
-<td>DOUBLE</td>
-<td style="text-align:left">degrees(DOUBLE a), degrees(DECIMAL a)</td>
-<td style="text-align:left">奖弧度值转换角度值</td>
-</tr>
-<tr>
-<td>DOUBLE</td>
-<td style="text-align:left">radians(DOUBLE a), radians(DOUBLE a)</td>
-<td style="text-align:left">将角度值转换成弧度值</td>
-</tr>
-<tr>
-<td>INT or DOUBLE</td>
-<td style="text-align:left">positive(INT a), positive(DOUBLE a)</td>
-<td style="text-align:left">返回a</td>
-</tr>
-<tr>
-<td>INT or DOUBLE</td>
-<td style="text-align:left">negative(INT a), negative(DOUBLE a)</td>
-<td style="text-align:left">返回a的相反数</td>
-</tr>
-<tr>
-<td>DOUBLE or INT</td>
-<td style="text-align:left">sign(DOUBLE a), sign(DECIMAL a)</td>
-<td style="text-align:left">如果a是正数则返回1.0，是负数则返回-1.0，否则返回0.0</td>
-</tr>
-<tr>
-<td>DOUBLE</td>
-<td style="text-align:left">e()</td>
-<td style="text-align:left">数学常数e</td>
-</tr>
-<tr>
-<td>DOUBLE</td>
-<td style="text-align:left">pi()</td>
-<td style="text-align:left">数学常数pi</td>
-</tr>
-<tr>
-<td>BIGINT</td>
-<td style="text-align:left">factorial(INT a)</td>
-<td style="text-align:left">求a的阶乘</td>
-</tr>
-<tr>
-<td>DOUBLE</td>
-<td style="text-align:left">cbrt(DOUBLE a)</td>
-<td style="text-align:left">求a的立方根</td>
-</tr>
-<tr>
-<td>BIGINT</td>
-<td style="text-align:left">shiftrightunsigned(BIGINT a, INT b)</td>
-<td style="text-align:left">无符号按位右移（&lt;&lt;&lt;）</td>
-</tr>
-<tr>
-<td>T</td>
-<td style="text-align:left">greatest(T v1, T v3, …)</td>
-<td style="text-align:left">求最大值</td>
-</tr>
-<tr>
-<td>T</td>
-<td style="text-align:left">least(T v1, T v3, …)</td>
-<td style="text-align:left">求最小值</td>
+<td style="text-align:center">字节数组</td>
+<td style="text-align:right">-</td>
 </tr>
 </tbody>
 </table>
-<ul>
-<li>统计函数</li>
-</ul>
+<p>所有这些数据类型都是对Java中的接口实现,因此这些类型具体行为细节和Java中对应的类型完全一致.</p>
+<h3>集合数据类型</h3>
+
 <table>
 <thead>
 <tr>
-<th>返回类型</th>
-<th style="text-align:left">函数</th>
+<th>类型</th>
+<th style="text-align:center">描述</th>
+<th style="text-align:right">示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ARRAY</td>
+<td style="text-align:center">一组有序字段。字段的类型必须相同</td>
+<td style="text-align:right">Array(1,2)</td>
+</tr>
+<tr>
+<td>MAP</td>
+<td style="text-align:center">一组无序的键/值对。键的类型必须是原子的，值可以是任何类型，同一个映射的键的类型必须相同，值得类型也必须相同</td>
+<td style="text-align:right">map(‘a’,1,’b’,2)</td>
+</tr>
+<tr>
+<td>STRUCT</td>
+<td style="text-align:center">一组命名的字段。字段类型可以不同</td>
+<td style="text-align:right">Struct(‘a’,1,1,0)</td>
+</tr>
+</tbody>
+</table>
+<p></p><h3>HDFS文本文件数据编码</h3><br>Hive中默认记录和字段分隔符<p></p>
+<table>
+<thead>
+<tr>
+<th>分隔符</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>\n</td>
+<td style="text-align:center">对于文本文件来说，每行都是一条记录，因此换行符可以分割记录</td>
+</tr>
+<tr>
+<td>^A(Ctrl+A)</td>
+<td style="text-align:center">用于分隔字段（列）,在CREATE TABLE 语句中可以使用八进制编码\001表示</td>
+</tr>
+<tr>
+<td>^B</td>
+<td style="text-align:center">用于分隔ARRAY或者STRUCT中的元素，或用于MAP中键值对之间的分隔，在CREATE TABLE语句中可以使用八进制\002表示</td>
+</tr>
+<tr>
+<td>^C</td>
+<td style="text-align:center">用于MAP中键和值之间的分离。在CREATE TABLE中可以使用八进制编码\003表示</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">综合示例：</span><br><span class="line">CREATE TABLE IF NOT EXISTS mydb.employees</span><br><span class="line">(</span><br><span class="line">    name STRING  COMMENT &apos;Employee name&apos;,</span><br><span class="line">    salary FLOAT COMMENT &apos;Employee salary&apos;,</span><br><span class="line">    subordinates ARRAY&lt;STRING&gt; COMMENT &apos; Names of subordinates&apos;,</span><br><span class="line">    deducations  MAP&lt;STRING,FLOAT&gt; COMMENT &apos; Keys are deducations names , Values are percentags&apos;,</span><br><span class="line">    address      STRUCT&lt;street:STRING,city:STRING,state:STRING,zip:INT&gt; COMMENT &apos;Home Address&apos;</span><br><span class="line">)</span><br><span class="line">COMMENT &apos;the table of empoyee&apos;</span><br><span class="line">ROW FORMAT DELIMITED</span><br><span class="line">FIELDS TERMINATED BY &apos;\001&apos;</span><br><span class="line">COLLECTION ITEMS TERMINATED BY &apos;\002&apos;</span><br><span class="line">MAP KEYS TERMINATED BY &apos;\003&apos;</span><br><span class="line">LINES TERMINATED BY &apos;\n&apos;</span><br><span class="line">STORED AS TEXTFILE</span><br><span class="line">LOCATION &apos;/user/hive/warehouse/mydb.db/employees&apos;;</span><br><span class="line"></span><br><span class="line">ROW FORMAT DELIMITED  : 这组关键字必须些在其他子句之前（除STOREED AS .... 子句）</span><br><span class="line">FIELDS TERMINATED BY  : 指定 列 分隔符，使用默认分隔符 ^A</span><br><span class="line">COLLECTION ITEMS TERMINATED BY  : 指定 集合 元素间的分割符，使用默认分隔符 ^B</span><br><span class="line">MAP KEYS TERMINATED BY : 指定MAP中 键和值之间的分离，使用默认分隔符 ^C</span><br><span class="line">LINES TERMINATED BY    : 指定 行 分隔符，使用默认的换行符 \n</span><br><span class="line">STORED AS TEXTFILE     : 指定Hive表的存储格式</span><br><span class="line">LOCATION : 指定数据文件位置</span><br></pre></td></tr></table></figure>
+<p></p><h3>Hive表存储格式</h3><br>有4种主要的存储格式，使用依据为数据类型和分析需要。但是在绝大数情况下，使用ORC或Parquet，它们为大多数数据类型提供了最佳的压缩和速度优势。<p></p>
+<table>
+<thead>
+<tr>
+<th>存储格式</th>
 <th style="text-align:left">说明</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>BIGINT</td>
-<td style="text-align:left">count(*)</td>
-<td style="text-align:left">统计总行数，包括含有NULL值的行</td>
+<td>Text file</td>
+<td style="text-align:left">使用数据已unicode编码的原始文本格式存储</td>
 </tr>
 <tr>
-<td>BIGINT</td>
-<td style="text-align:left">count(expr)</td>
-<td style="text-align:left">统计提供非NULL的expr表达式值的行数</td>
+<td>Sequence file</td>
+<td style="text-align:left">数据以二进制键值对格式存储</td>
 </tr>
 <tr>
-<td>BIGINT</td>
-<td style="text-align:left">count(DISTINCT expr[, expr…])</td>
-<td style="text-align:left">统计提供非NULL且去重后的expr表达式值的行数</td>
+<td>RCFile</td>
+<td style="text-align:left">数据以列优化格式存储 (而不是行优化)</td>
 </tr>
 <tr>
-<td>DOUBLE</td>
-<td style="text-align:left">sum(col), sum(DISTINCT col)</td>
-<td style="text-align:left">sum(col),表示求指定列的和，sum(DISTINCT col)表示求去重后的列的和</td>
+<td>ORC</td>
+<td style="text-align:left">优化的行列格式, 可以显著提高 hive性能</td>
 </tr>
 <tr>
-<td>DOUBLE</td>
-<td style="text-align:left">avg(col), avg(DISTINCT col)</td>
-<td style="text-align:left">avg(col),表示求指定列的平均值，avg(DISTINCT col)表示求去重后的列的平均值</td>
-</tr>
-<tr>
-<td>DOUBLE</td>
-<td style="text-align:left">min(col)</td>
-<td style="text-align:left">求指定列的最小值</td>
-</tr>
-<tr>
-<td>DOUBLE</td>
-<td style="text-align:left">max(col)</td>
-<td style="text-align:left">求指定列的最大值</td>
-</tr>
-<tr>
-<td>DOUBLE</td>
-<td style="text-align:left">variance(col), var_pop(col)</td>
-<td style="text-align:left">求指定列数值的方差</td>
-</tr>
-<tr>
-<td>DOUBLE</td>
-<td style="text-align:left">var_samp(col)</td>
-<td style="text-align:left">求指定列数值的样本方差</td>
-</tr>
-<tr>
-<td>DOUBLE</td>
-<td style="text-align:left">stddev_pop(col)</td>
-<td style="text-align:left">求指定列数值的标准偏差</td>
-</tr>
-<tr>
-<td>DOUBLE</td>
-<td style="text-align:left">stddev_samp(col)</td>
-<td style="text-align:left">求指定列数值的样本标准偏差</td>
-</tr>
-<tr>
-<td>DOUBLE</td>
-<td style="text-align:left">covar_pop(col1, col3)</td>
-<td style="text-align:left">求指定列数值的协方差</td>
-</tr>
-<tr>
-<td>DOUBLE</td>
-<td style="text-align:left">covar_samp(col1, col3)</td>
-<td style="text-align:left">求指定列数值的样本协方差</td>
-</tr>
-<tr>
-<td>DOUBLE</td>
-<td style="text-align:left">corr(col1, col3)</td>
-<td style="text-align:left">返回两列数值的相关系数</td>
-</tr>
-<tr>
-<td>DOUBLE</td>
-<td style="text-align:left">percentile(BIGINT col, p)</td>
-<td style="text-align:left">返回col的p%分位数</td>
+<td>Parquet</td>
+<td style="text-align:left">一种列格式, 可提供对其他 hadoop 工具的可移植性, 包括Hive, Drill, Impala, Crunch, and Pig</td>
 </tr>
 </tbody>
 </table>
-<ul>
-<li>表生成函数</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>返回类型</th>
-<th style="text-align:left">函数</th>
-<th style="text-align:left">说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Array Type</td>
-<td style="text-align:left">explode(array<type> a)</type></td>
-<td style="text-align:left">对于a中的每个元素，将生成一行且包含该元素</td>
-</tr>
-<tr>
-<td>N rows</td>
-<td style="text-align:left">explode(ARRAY)</td>
-<td style="text-align:left">每行对应数组中的一个元素</td>
-</tr>
-<tr>
-<td>N rows</td>
-<td style="text-align:left">explode(MAP)</td>
-<td style="text-align:left">每行对应每个map键-值，其中一个字段是map的键，另一个字段是map的值</td>
-</tr>
-<tr>
-<td>N rows</td>
-<td style="text-align:left">posexplode(ARRAY)</td>
-<td style="text-align:left">与explode类似，不同的是还返回各元素在数组中的位置</td>
-</tr>
-<tr>
-<td>N rows</td>
-<td style="text-align:left">stack(INT n, v_1, v_3, …, v_k)</td>
-<td style="text-align:left">把M列转换成N行，每行有M/N个字段，其中n必须是个常数</td>
-</tr>
-<tr>
-<td>tuple</td>
-<td style="text-align:left">json_tuple(jsonStr, k1, k3, …)</td>
-<td style="text-align:left">从一个JSON字符串中获取多个键并作为一个元组返回，与get_json_object不同的是此函数能一次获取多个键值</td>
-</tr>
-<tr>
-<td>tuple</td>
-<td style="text-align:left">parse_url_tuple(url, p1, p3, …)</td>
-<td style="text-align:left">返回从URL中抽取指定N部分的内容，参数url是URL字符串，而参数p1,p2,….是要抽取的部分，这个参数包含HOST, PATH, QUERY, REF, PROTOCOL, AUTHORITY, FILE, USERINFO, QUERY:<key></key></td>
-</tr>
-<tr>
-<td></td>
-<td style="text-align:left">inline(ARRAY&lt;STRUCT[,STRUCT]&gt;)</td>
-<td style="text-align:left">将结构体数组提取出来并插入到表中</td>
-</tr>
-</tbody>
-</table>
+<p></p><h3>表类型</h3><br>在Hive中包括2种类型的表，内部表和外部表。<p></p>
+<p><strong>内部表</strong><br>创建方式，常规的 CREATE TABLE 语句。对于内部表，由Hive完全控制，如删除了内部表，在Hive的表定义和对应的表数据都会被删除。</p>
+<p><strong>外部表</strong><br>创建方法, CREATE EXTERNAL TABLE IF NOT EXISTS Names_text ，关键字为 EXTRENAL 。对于外部表不由Hive控制,对于外部表只是使用表元数据信息而进入到原始文本数据中。<br>如果删除了外部表，只有表的元数据信息被删除，实际的数据还是会被保留。数据是驻留在Hive之外的，或者是需要保留原始数据的表。</p>
 
           
         
@@ -1199,7 +1380,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/14/使用python扩展Pig/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/12/6-Hive视图/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -1218,8 +1399,8 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/09/14/使用python扩展Pig/" itemprop="url">
-                  使用python扩展Pig
+                <a class="post-title-link" href="/2018/12/12/6-Hive视图/" itemprop="url">
+                  6-Hive视图
                 </a>
               
             
@@ -1245,201 +1426,12 @@
                 
               
 
-              <time title="创建时间：2018-09-14 14:53:51 / 修改时间：14:55:01" itemprop="dateCreated datePublished" datetime="2018-09-14T14:53:51+08:00">2018-09-14</time>
+              <time title="创建时间：2018-12-12 11:24:32" itemprop="dateCreated datePublished" datetime="2018-12-12T11:24:32+08:00">2018-12-12</time>
             
 
-            
-              
-
-              
             
           </span>
 
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Tec/" itemprop="url" rel="index"><span itemprop="name">Tec</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2>使用Python扩展Pig</h2>
-
-<p>pig通过用户定义的函数(UDFs)为自定义处理提供了广泛的支持。pig目前支持UDFs六种语言: Java, Jython, Python, JavaScript, Ruby 和 Groovy。<br>当pig执行时,它会自动检测UDF的用法。为了运行python UDFs, pig调用python命令行并对数据IO操作。</p>
-<p></p><h3>注册UDF</h3><br>在pig脚本中可以使用Python UDF之前, 必须对其进行注册, 以便pig知道在调用UDF时要查看的位置。要注册Python UDF文件, 使用pig的寄存器语句。<p></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">REGISTER &apos;udfs/myudf.py&apos; USING streaming_python AS my_udf;</span><br></pre></td></tr></table></figure>
-<p>一旦UDF函数注册成功，就可以在pig脚本中调用,在这个例子中引用my_udf:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">relation = FOREACH data GENERATE my_udf.function(field);</span><br></pre></td></tr></table></figure></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/09/14/使用python扩展Pig/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/13/感觉，懂否/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/fly.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LYJ-NEO">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/09/13/感觉，懂否/" itemprop="url">
-                  感觉，懂否
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-09-13 18:22:46 / 修改时间：18:26:58" itemprop="dateCreated datePublished" datetime="2018-09-13T18:22:46+08:00">2018-09-13</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/feeling/" itemprop="url" rel="index"><span itemprop="name">feeling</span></a></span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -1470,8 +1462,7 @@
       
         
           
-            <p>占座……. 想着写什么 ………..</p>
-
+            
           
         
       
@@ -1524,7 +1515,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/13/Python-mrjob库的安装和使用/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/12/6-Hive索引/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -1543,8 +1534,8 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/09/13/Python-mrjob库的安装和使用/" itemprop="url">
-                  Python-mrjob库的安装和使用
+                <a class="post-title-link" href="/2018/12/12/6-Hive索引/" itemprop="url">
+                  6-Hive索引
                 </a>
               
             
@@ -1570,46 +1561,12 @@
                 
               
 
-              <time title="创建时间：2018-09-13 13:42:18" itemprop="dateCreated datePublished" datetime="2018-09-13T13:42:18+08:00">2018-09-13</time>
+              <time title="创建时间：2018-12-12 11:24:58" itemprop="dateCreated datePublished" datetime="2018-12-12T11:24:58+08:00">2018-12-12</time>
             
 
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-08-13 13:42:18" itemprop="dateModified" datetime="2018-08-13T13:42:18+08:00">2018-08-13</time>
-              
             
           </span>
 
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Tec/" itemprop="url" rel="index"><span itemprop="name">Tec</span></a></span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -1639,30 +1596,9 @@
 
       
         
-          <h2>Python-mrjob库的安装和使用</h2>
-
-<p>mrjob是一个Python MapReduce库, 由yelp创建, 封装了Hadoop streaming,允许MapReduce应用程序以更python的方式编写。mrjob允许用纯Python编写多步骤MapReduce作业。MapReduce用 mrjob编写的作业可以在本地进行测试, 在Hadoop群集上运行,或者使用亚马逊弹性云(EMR)中运行。</p>
-<p>使用mrjob编写MapReduce有很多的好处:</p>
-<ul>
-<li>mrjob 目前是一个非常活跃的发展框架, 每个星期都有提交多个提交。</li>
-<li>mrjob 有大量文档,比支持Hadoop上的Python的任何其他框架或库都多。</li>
-<li>mrjob 应用程序可以在不安装 hadoop 的情况下执行和测试, 在部署到 hadoop 群集之前启用开发和测试。</li>
-<li>mrjob 允许在单个类中写入 MapReduce 应用程序, 而不是为mapper和reducer编写单独的程。</li>
-</ul>
-<p>虽然 mrjob 是一个伟大的解决方案, 它确实有它的缺点。mrjob 是简化的, 因此它不会给出与其他 api 提供的 Hadoop相同的访问级别。mrjob不使用typedbytes,因此其他库可能更快。</p>
-<h3>安装</h3><br>mrjob 的安装简单;可以使用pip进行安装:<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pip install mrjob</span><br></pre></td></tr></table></figure><br><br>或从源码安装:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ python setup.py install</span><br></pre></td></tr></table></figure><br><br><h3>使用mrjob编写WordCount</h3>
-
-<ul>
-<li>Example 2-3 python/MapReduce/mrjob/word_count.py</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">from mrjob.job import MRJob</span><br><span class="line">class MRWordCount(MRJob):</span><br><span class="line"></span><br><span class="line">    def mapper(self, _, line):</span><br><span class="line">        for word in line.split():</span><br><span class="line">        yield(word, 1)</span><br><span class="line"></span><br><span class="line">    def reducer(self, word, counts):</span><br><span class="line">        yield(word, sum(counts))</span><br><span class="line"></span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    MRWordCount.run()</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/09/13/Python-mrjob库的安装和使用/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+          
+            
+          
         
       
     </div>
@@ -1714,7 +1650,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/12/Hadoop-Data-Flow/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/12/7-Hive设计模式/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -1733,8 +1669,8 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/09/12/Hadoop-Data-Flow/" itemprop="url">
-                  Hadoop Data Flow
+                <a class="post-title-link" href="/2018/12/12/7-Hive设计模式/" itemprop="url">
+                  7-Hive设计模式
                 </a>
               
             
@@ -1760,46 +1696,12 @@
                 
               
 
-              <time title="创建时间：2018-09-12 17:53:14" itemprop="dateCreated datePublished" datetime="2018-09-12T17:53:14+08:00">2018-09-12</time>
+              <time title="创建时间：2018-12-12 11:25:17" itemprop="dateCreated datePublished" datetime="2018-12-12T11:25:17+08:00">2018-12-12</time>
             
 
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-01-12 17:53:14" itemprop="dateModified" datetime="2018-01-12T17:53:14+08:00">2018-01-12</time>
-              
             
           </span>
 
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Tec/" itemprop="url" rel="index"><span itemprop="name">Tec</span></a></span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -1829,17 +1731,9 @@
 
       
         
-          <p>MapReduce 是一种编程模型, 它通过将工作划分为独立的任务, 并在一组计算机上并行执行任务, 从而使大量数据得以处理和生成。MapReduce 编程风格是由函数式编程构造映射和减少所激发的, 通常用于处理数据列表。在高级别, 每个MapReduce程序将输入数据元素列表转换为输出数据元素列表两次, 一次在映射阶段, 一次在还原阶段。</p>
-<p>本章首先介绍MapReduce编程模型,并描述数据如何流经模型的不同阶段。示例将展示如何使用python编写MapReduce作业可。</p>
-<p></p><h2>数据流</h2><br>MapReduce 框架由三个主要阶段组成:map,shuffle和sort,reduce。本节介绍每个阶段。<p></p>
-<h3>map映射阶段</h3><br>MapReduce 应用程序的第一个阶段是映射阶段。在映射阶段中, 函数(称为映射器)处理一系列键值对。映射程序依次处理每个键值对，生成0个或多个键值对。<br><br><img src="/2018/09/12/Hadoop-Data-Flow/2-1MapReduce.png" alt=""><br><br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/09/12/Hadoop-Data-Flow/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+          
+            
+          
         
       
     </div>
@@ -1891,7 +1785,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/12/Hadoop-Streaming-with-python/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/12/8-Hive调优/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -1910,8 +1804,8 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/09/12/Hadoop-Streaming-with-python/" itemprop="url">
-                  Hadoop Streaming with python
+                <a class="post-title-link" href="/2018/12/12/8-Hive调优/" itemprop="url">
+                  8-Hive调优
                 </a>
               
             
@@ -1937,46 +1831,12 @@
                 
               
 
-              <time title="创建时间：2018-09-12 17:17:41" itemprop="dateCreated datePublished" datetime="2018-09-12T17:17:41+08:00">2018-09-12</time>
+              <time title="创建时间：2018-12-12 11:25:41" itemprop="dateCreated datePublished" datetime="2018-12-12T11:25:41+08:00">2018-12-12</time>
             
 
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-08-12 17:17:41" itemprop="dateModified" datetime="2018-08-12T17:17:41+08:00">2018-08-12</time>
-              
             
           </span>
 
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Tec/" itemprop="url" rel="index"><span itemprop="name">Tec</span></a></span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -2006,20 +1866,9 @@
 
       
         
-          <h2>Hadoop数据流</h2>
-
-<p>hadoop流是一个实用工具,附带了Hadoop分布式功能, 允许创建任何可执的mapper/reducer的MapReduce作业。Hadoop流实用程序使Python、shell脚本或任何其他语言都可以用作mapper、reducer或二者。</p>
-<h3>工作机制</h3><br>mapper和reducer都是从标准输入一行一行读取、输出到标准输出。Hadoop流程序创建MapReduce作业,将作业提交到群集,并监视其进度, 直到完成。初始化映射程序时, 每个映射任务将指定的可执行文件作为单独的进程启动。mapper读取输入文件, 并通过stdin向可执行文件显示每一行。在可执行文件处理每一行输入之后, mapper从标准输出中收集结果, 并将每一行转换为键值对。该键由第一个 tab 字符之前行的部分组成, 该值由第一个制表符后面的行部分组成。如果行不包含制表符, 则整行被视为键, 值为 null。<br><br>在初始化reducer时,每个reducer任务都将指定的可执行文件作为单独的进程启动。reducer将输入键值对转换行通过标准输入传递给可执行程序。reducer从标准输出中收集可执行文件结果, 并将每一行转换为键值对。与mapper类似,可执行文件通过tab制表符分隔键和值来指定键值对。<br><br><h3>python程序示例</h3>
-
-<p>为了演示hadoop流实用程序如何在hadoop群集上以MapReduce应用程序的方式运行Python, WordCount应用程序可以由两个Python程序实现:mapper.py<br>和reducer.py</p>
-<p>mapper.py是在WordCount的映射阶段实现逻辑的Python程序。它从标准输入读取数据, 将行拆分为单词, 并将每个单词的中间计数输出到标准输出。example2-1实现mapper.py的逻辑:<br></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/09/12/Hadoop-Streaming-with-python/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+          
+            
+          
         
       
     </div>
@@ -2071,7 +1920,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/11/python-snakebite/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/15/冷/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -2090,8 +1939,8 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/09/11/python-snakebite/" itemprop="url">
-                  python-snakebite
+                <a class="post-title-link" href="/2018/12/15/冷/" itemprop="url">
+                  冷~
                 </a>
               
             
@@ -2117,238 +1966,12 @@
                 
               
 
-              <time title="创建时间：2018-09-11 11:19:38" itemprop="dateCreated datePublished" datetime="2018-09-11T11:19:38+08:00">2018-09-11</time>
+              <time title="创建时间：2018-12-15 20:25:47" itemprop="dateCreated datePublished" datetime="2018-12-15T20:25:47+08:00">2018-12-15</time>
             
 
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-09-12 17:18:42" itemprop="dateModified" datetime="2018-09-12T17:18:42+08:00">2018-09-12</time>
-              
             
           </span>
 
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Tec/" itemprop="url" rel="index"><span itemprop="name">Tec</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2>Python-Snakebite库</h2>
-
-<p>Snakebite是由Spotify创建的python包, 它提供了python客户端库,运行以编程方式从Python应用程序访问HDFS。客户端库使用 protobuf 消息直接与 NameNode 通信。Snakebite还包括一个基于客户端库的 HDFS 的命令行界面。</p>
-<p>本节介绍如何安装和配置SnakeBite包。对Snakebite的客户端库进行了详细的解释, 其中有多个示例, Snakebite的内置CLI被作为python非必要hdfs命令工具而介绍。</p>
-<h3>安装</h3>
-
-<p>Snakebite目前只支持Python2,需要Python-protobuf最低版本为2.4.1;python3目前还不支持。Snakebite通过PyPI进行分发，可以使用pip进行安装:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pip install snakebite</span><br></pre></td></tr></table></figure>
-<h3>客户端库</h3>
-
-<p>客户端库是用 Python 编写的, 使用 protobuf 消息, 并实现 Hadoop RPC 协议来与 NameNode 通信。这使得 Python 应用程序可以直接与 HDFS 通信, 而不必对 HDFS dfs 进行系统调用。</p>
-<h4>列举目录信息</h4>
-
-<ul>
-<li>Example 1-1.python/HDFS/list_directory.py<br>使用Snakebite客户端列举在HDFS根目录下的信息:</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">from snakebite.client import Client</span><br><span class="line">client = Client(&apos;localhost&apos;, 9000)</span><br><span class="line">for x in client.ls([&apos;/&apos;]):</span><br><span class="line">    print x</span><br></pre></td></tr></table></figure>
-<p>以上代码中最重要的行，也是其他使用Snakebite客户端的程序中都需要的是 创建客户端到HDFS的NameNode的连接:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">client = Client(&apos;localhost&apos;, 9000)</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/09/11/python-snakebite/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/10/The-One-Only-One/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/fly.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LYJ-NEO">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/09/10/The-One-Only-One/" itemprop="url">
-                  The One,Only One
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-09-10 18:42:06" itemprop="dateCreated datePublished" datetime="2018-09-10T18:42:06+08:00">2018-09-10</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2017-04-01 18:42:06" itemprop="dateModified" datetime="2017-04-01T18:42:06+08:00">2017-04-01</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/left/" itemprop="url" rel="index"><span itemprop="name">left</span></a></span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -2379,13 +2002,7 @@
       
         
           
-            <p>the One , Lost in the sea</p>
-<p><img src="/2018/09/10/The-One-Only-One/window.jpg" alt=""></p>
-<p>the One , Lost in the night</p>
-<p><img src="/2018/09/10/The-One-Only-One/night.jpg" alt=""></p>
-<p>the One , Lost in the blue shadow wall</p>
-<p><img src="/2018/09/10/The-One-Only-One/wall.jpg" alt=""></p>
-
+            
           
         
       

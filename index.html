@@ -315,7 +315,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/25/1-导入数据到Hive/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/27/The-One-Only-One/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -334,8 +334,8 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/25/1-导入数据到Hive/" itemprop="url">
-                  1-导入数据到Hive
+                <a class="post-title-link" href="/2018/04/27/The-One-Only-One/" itemprop="url">
+                  The One,Only One
                 </a>
               
             
@@ -361,7 +361,7 @@
                 
               
 
-              <time title="创建时间：2018-12-25 14:56:45" itemprop="dateCreated datePublished" datetime="2018-12-25T14:56:45+08:00">2018-12-25</time>
+              <time title="创建时间：2018-04-27 18:42:06" itemprop="dateCreated datePublished" datetime="2018-04-27T18:42:06+08:00">2018-04-27</time>
             
 
             
@@ -378,7 +378,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-12-31 17:22:14" itemprop="dateModified" datetime="2018-12-31T17:22:14+08:00">2018-12-31</time>
+                <time title="修改时间：2019-01-06 17:06:37" itemprop="dateModified" datetime="2019-01-06T17:06:37+08:00">2019-01-06</time>
               
             
           </span>
@@ -395,7 +395,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Tec/" itemprop="url" rel="index"><span itemprop="name">Tec</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/left/" itemprop="url" rel="index"><span itemprop="name">left</span></a></span>
 
                 
                 
@@ -431,20 +431,12 @@
       
         
           
-            <p></p><h2>导入数据到Hive</h2><br>    可以通过各种不同的方法和工具，将各种不同数据源导入Hive中,对于Hive中的数据库本质上仅仅是表的一个目录或者命名空间。<br>所以Hive实际上并不存储实际的数据。对于要导入到Hive的数据，是存放在HDFS上的各种格式数据文件。<p></p>
-<p></p><h3>文本文件数据</h3><br>    从文本文件（CSV，TSV）将文件存放到HDFS后导入到Hive中<p></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">将文本文件上传到HDFS文件系统，使用 hadoop hdfs dfs -put local_file_path  hdfs_file_path</span><br><span class="line"></span><br><span class="line">具体的导入数据的操作方法:</span><br><span class="line"></span><br><span class="line">1 先将本地文件上传到虚拟机中(数据是AdventureWorks中的部分表数据)</span><br><span class="line">$ scp.exe -P 2222 *.csv root@sandbox-hdp.hortonworks.com:~/hive_data</span><br></pre></td></tr></table></figure>
-<p><img src="/2018/12/25/1-导入数据到Hive/1_scp_file.png" alt=""></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2 将数据文件直接导入到HDFS文件系统</span><br><span class="line">hdfs dfs -put file_name</span><br></pre></td></tr></table></figure>
-<p><img src="/2018/12/25/1-导入数据到Hive/2_put_file.png" alt=""></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">3 创建相应的表,指定数据路径</span><br><span class="line"></span><br><span class="line">创建数据库:</span><br><span class="line">CREATE DATABASE IF NOT EXISTS AdventureWorksDW;</span><br><span class="line">由于使用的Hadoop是分布式配置模式，</span><br><span class="line">&lt;property&gt; </span><br><span class="line">      &lt;name&gt;hive.metastore.warehouse.dir&lt;/name&gt;   </span><br><span class="line">      &lt;value&gt;/apps/hive/warehouse&lt;/value&gt; </span><br><span class="line">&lt;/property&gt;</span><br></pre></td></tr></table></figure>
-<p><img src="/2018/12/25/1-导入数据到Hive/4_db_position.png" alt=""></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">创建表:创建表中，指定的数据的路径是一个目录，不是特定的数据文件，而数据文件在这张表下。</span><br></pre></td></tr></table></figure>
-<p><img src="/2018/12/25/1-导入数据到Hive/5_create_table.png" alt=""></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">默认的情况下，这些表文件的目录，放在对应的数据库文件夹下(.db的文件),但本次的AdventureWorks例子，并没有将数据表目录放在数据库文件夹下，而是放在其他HDFS目录下。</span><br></pre></td></tr></table></figure>
-<p><img src="/2018/12/25/1-导入数据到Hive/6_default_table_style.png" alt=""></p>
-<p></p><h3>Spark数据</h3><br>    从Spark中获取数据导入到Hive表中。<p></p>
-<p></p><h3>从关系数据库</h3><br>    借助ETL工具：Sqoop ， kettle ，SSIS等<p></p>
+            <p>the One , Lost in the sea</p>
+<p><img src="/2018/04/27/The-One-Only-One/window.jpg" alt=""></p>
+<p>the One , Lost in the night</p>
+<p><img src="/2018/04/27/The-One-Only-One/night.jpg" alt=""></p>
+<p>the One , Lost in the blue wall</p>
+<p><img src="/2018/04/27/The-One-Only-One/wall.jpg" alt=""></p>
 
           
         
@@ -498,7 +490,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/25/0-Hive命令/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/01/人间失格，何如/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -517,8 +509,8 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/25/0-Hive命令/" itemprop="url">
-                  0-Hive命令
+                <a class="post-title-link" href="/2018/05/01/人间失格，何如/" itemprop="url">
+                  人间失格，何如
                 </a>
               
             
@@ -544,7 +536,7 @@
                 
               
 
-              <time title="创建时间：2018-12-25 11:19:47" itemprop="dateCreated datePublished" datetime="2018-12-25T11:19:47+08:00">2018-12-25</time>
+              <time title="创建时间：2018-05-01 17:01:28" itemprop="dateCreated datePublished" datetime="2018-05-01T17:01:28+08:00">2018-05-01</time>
             
 
             
@@ -561,7 +553,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-12-30 17:49:36" itemprop="dateModified" datetime="2018-12-30T17:49:36+08:00">2018-12-30</time>
+                <time title="修改时间：2019-01-06 22:31:09" itemprop="dateModified" datetime="2019-01-06T22:31:09+08:00">2019-01-06</time>
               
             
           </span>
@@ -578,561 +570,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Tec/" itemprop="url" rel="index"><span itemprop="name">Tec</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2>HDFS命令</h2>
-
-<ul>
-<li>HDFS命令大全</li>
-</ul>
-<p>Usage: hdfs [–config confdir] COMMAND where COMMAND is one of:</p>
-<table>
-<thead>
-<tr>
-<th>命令</th>
-<th style="text-align:left">说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>dfs</strong></td>
-<td style="text-align:left">执行hadoop支持的文件系统命令run a filesystem command on the file systems supported in Hadoop.</td>
-</tr>
-<tr>
-<td><strong>namenode -format</strong></td>
-<td style="text-align:left">格式化文件系统format the DFS filesystem</td>
-</tr>
-<tr>
-<td><strong>secondarynamenode</strong></td>
-<td style="text-align:left">启用secondary namenode服务 run the DFS secondary namenode</td>
-</tr>
-<tr>
-<td><strong>namenode</strong></td>
-<td style="text-align:left">启用namenode服务 run the DFS namenode</td>
-</tr>
-<tr>
-<td><strong>journalnode</strong></td>
-<td style="text-align:left">启用journalnode服务 run the DFS journalnode</td>
-</tr>
-<tr>
-<td><strong>zkfc</strong></td>
-<td style="text-align:left">启用 ZK 备援控制驻守服务 run the ZK Failover Controller daemon</td>
-</tr>
-<tr>
-<td><strong>datanode</strong></td>
-<td style="text-align:left">启用 datanode服务 run a DFS datanode</td>
-</tr>
-<tr>
-<td><strong>dfsadmin</strong></td>
-<td style="text-align:left">启用 DFS admin客户端 run a DFS admin client</td>
-</tr>
-<tr>
-<td><strong>haadmin</strong></td>
-<td style="text-align:left">启用 DFS HA admin 客户端 run a DFS HA admin client</td>
-</tr>
-<tr>
-<td><strong>fsck</strong></td>
-<td style="text-align:left">启用 DFS 文件系统检查组件 run a DFS filesystem checking utility</td>
-</tr>
-<tr>
-<td><strong>balancer</strong></td>
-<td style="text-align:left">启用 集群负载均衡工具 run a cluster balancing utility</td>
-</tr>
-<tr>
-<td><strong>jmxget</strong></td>
-<td style="text-align:left">get JMX exported values from NameNode or DataNode.</td>
-</tr>
-<tr>
-<td><strong>oiv</strong></td>
-<td style="text-align:left">应用脱机fsimage查看器 apply the offline fsimage viewer to an fsimage</td>
-</tr>
-<tr>
-<td><strong>oev</strong></td>
-<td style="text-align:left">应用脱机编辑查看器 apply the offline edits viewer to an edits file</td>
-</tr>
-<tr>
-<td><strong>fetchdt</strong></td>
-<td style="text-align:left">从NameNode分发一个代理token fetch a delegation token from the NameNode</td>
-</tr>
-<tr>
-<td><strong>getconf</strong></td>
-<td style="text-align:left">获取配置信息 get config values from configuration</td>
-</tr>
-<tr>
-<td><strong>groups</strong></td>
-<td style="text-align:left">获取用户所属的组 get the groups which users belong to</td>
-</tr>
-<tr>
-<td><strong>snapshotDiff</strong></td>
-<td style="text-align:left">比较一个目录的两个快照的不同 diff two snapshots of a directory or diff the current directory contents with a snapshot</td>
-</tr>
-<tr>
-<td><strong>lsSnapshottableDir</strong></td>
-<td style="text-align:left">列举属于本用户的所有表快照目录 list all snapshottable dirs owned by the current user</td>
-</tr>
-<tr>
-<td><strong>portmap</strong></td>
-<td style="text-align:left">启用portmap服务 run a portmap service</td>
-</tr>
-<tr>
-<td><strong>nfs3</strong></td>
-<td style="text-align:left">run an NFS version 3 gateway</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li>常用命令 </li>
-</ul>
-<p>对于HDFS dfs命令，针对在shell命令在大部分可以使用，只要在相应的命令前加 <strong>-</strong>。使用时，在Hive Cli可以省略hadoop命令。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">展示hdfs文件中的根目录：</span><br><span class="line">hdfs dfs -ls /</span><br><span class="line"></span><br><span class="line">展示home目录下的信息:</span><br><span class="line">hdfs dfs -ls</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">创建home目录下创建目录product,当没有加目录时，就是在对应用户的home目录</span><br><span class="line">hdfs dfs -mkdir product</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">拷贝文件到HDFS,将product.csv文件拷贝到刚才创建的product文件夹下。</span><br><span class="line">hdfs dfs -put product.csv product</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">将文件从HDFS上拷贝到本地系统</span><br><span class="line">hdfs dfs -get product/prodcut.csv product_copy.csv</span><br><span class="line"></span><br><span class="line">在HDFS文件系统内进行文件拷贝</span><br><span class="line">hdfs dfs -cp product/product.csv  product_copy.csv</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">删除文件</span><br><span class="line">hdfs dfs -rm  product_copy.csv</span><br><span class="line"></span><br><span class="line">删除一个目录</span><br><span class="line">hdfs dfs -rm -r product</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">获取HDFS转态报告(限管理员)</span><br><span class="line">hdfs dfsadmin -report</span><br><span class="line">输出结果：</span><br><span class="line">[root@sandbox-hdp hive_data]# hdfs dfsadmin -report                                                                                                                   </span><br><span class="line">Configured Capacity: 113791799296 (105.98 GB)</span><br><span class="line">Present Capacity: 86075118592 (80.16 GB)</span><br><span class="line">DFS Remaining: 84059177984 (78.29 GB)</span><br><span class="line">DFS Used: 2015940608 (1.88 GB)</span><br><span class="line">DFS Used%: 2.34%</span><br><span class="line">Under replicated blocks: 0</span><br><span class="line">Blocks with corrupt replicas: 0</span><br><span class="line">Missing blocks: 0</span><br><span class="line">Missing blocks (with replication factor 1): 0</span><br><span class="line"></span><br><span class="line">-------------------------------------------------</span><br><span class="line">report: Access denied for user root. Superuser privilege is required</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">对HDFS文件系统的健康型检查</span><br><span class="line">hdfs fsck /</span><br><span class="line"></span><br><span class="line">输出结果如下:</span><br><span class="line">Connecting to namenode via http://sandbox-hdp.hortonworks.com:50070/fsck?ugi=root&amp;path=%2F</span><br><span class="line">FSCK started by root (auth:SIMPLE) from /172.18.0.2 for path / at Sun Dec 30 09:35:33 UTC 2018</span><br><span class="line">...................................................................................Status: HEALTHY</span><br><span class="line"> Total size:    1984726046 B</span><br><span class="line"> Total dirs:    232</span><br><span class="line"> Total files:   1083</span><br><span class="line"> Total symlinks:                0 (Files currently being written: 1)</span><br><span class="line"> Total blocks (validated):      1081 (avg. block size 1836009 B) (Total open file blocks (not validated): 1)</span><br><span class="line"> Minimally replicated blocks:   1081 (100.0 %)</span><br><span class="line"> Over-replicated blocks:        0 (0.0 %)</span><br><span class="line"> Under-replicated blocks:       0 (0.0 %)</span><br><span class="line"> Mis-replicated blocks:         0 (0.0 %)</span><br><span class="line"> Default replication factor:    1</span><br><span class="line"> Average block replication:     1.0</span><br><span class="line"> Corrupt blocks:                0</span><br><span class="line"> Missing replicas:              0 (0.0 %)</span><br><span class="line"> Number of data-nodes:          1</span><br><span class="line"> Number of racks:               1</span><br><span class="line">FSCK ended at Sun Dec 30 09:35:33 UTC 2018 in 329 milliseconds</span><br><span class="line"></span><br><span class="line">The filesystem under path &apos;/&apos; is HEALTHY</span><br></pre></td></tr></table></figure>
-<p></p><h2>Hive命令</h2><br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/12/25/0-Hive命令/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/15/微软-商业智能PowerBI体系/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/fly.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LYJ-NEO">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/15/微软-商业智能PowerBI体系/" itemprop="url">
-                  微软-商业智能PowerBI体系
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-12-15 20:27:09" itemprop="dateCreated datePublished" datetime="2018-12-15T20:27:09+08:00">2018-12-15</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/15/冷/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/fly.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LYJ-NEO">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/15/冷/" itemprop="url">
-                  冷~
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-12-15 20:25:47" itemprop="dateCreated datePublished" datetime="2018-12-15T20:25:47+08:00">2018-12-15</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/14/我们都是中毒的人/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/fly.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LYJ-NEO">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/14/我们都是中毒的人/" itemprop="url">
-                  我们都是中毒的人
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-12-14 15:10:11" itemprop="dateCreated datePublished" datetime="2018-12-14T15:10:11+08:00">2018-12-14</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-12-15 20:28:57" itemprop="dateModified" datetime="2018-12-15T20:28:57+08:00">2018-12-15</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/feeling/" itemprop="url" rel="index"><span itemprop="name">feeling</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/prosiness/" itemprop="url" rel="index"><span itemprop="name">prosiness</span></a></span>
 
                 
                 
@@ -1168,7 +606,11 @@
       
         
           
-            
+            <h2>人间失格，何如</h2>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">我知道有人是爱我的，但我好像缺乏爱人的能力。所谓世人，不就是你吗？ 但是,生而为人，我很抱歉。</span><br></pre></td></tr></table></figure>
+<p>太宰治 &lt;&lt;人间失格&gt;&gt;</p>
+
           
         
       
@@ -1221,7 +663,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/14/Hortonworks-Data-Platform-大数据开发环境的使用/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/27/烟/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -1240,345 +682,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/14/Hortonworks-Data-Platform-大数据开发环境的使用/" itemprop="url">
-                  Hortonworks-Data-Platform-大数据开发环境的使用
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-12-14 14:40:49" itemprop="dateCreated datePublished" datetime="2018-12-14T14:40:49+08:00">2018-12-14</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-12-15 20:28:03" itemprop="dateModified" datetime="2018-12-15T20:28:03+08:00">2018-12-15</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2>Hortonworks</h2>
-
-<p>Hortonworks是国际领先的开发、推广和支持Apache Hadoop的商业供应商，它的Hadoop认证也是业界公认的Hadoop权威认证。<br>其有多款产品,其中HDP为数据平台，目前最新版本的 HDP 为企业提供了新的功能，支持敏捷的应用程序部署、机器学习/深度学习工作负载、实时数据仓储以及安全和治理。它是现代化数据架构的关键组件。</p>
-<p>HDP全称叫做Hortonworks Data Platform。<br>　　Hortonworks数据平台是一款基于Apache Hadoop的是开源数据平台，提供大数据云存储，大数据处理和分析等服务。该平台是专门用来应对多来源和多格式的数据，并使其处理起来能变成简单、更有成本效益。HDP还提供了一个开放，稳定和高度可扩展的平台，使得更容易地集成Apache Hadoop的数据流业务与现有的数据架构。该平台包括各种的Apache Hadoop项目以及Hadoop分布式文件系统（HDFS）、MapReduce、Pig、Hive、HBase、Zookeeper和其他各种组件，使Hadoop的平台更易于管理，更加具有开放性以及可扩展性</p>
-<p><a href="https://zh.hortonworks.com/" target="_blank" rel="noopener">网站地址</a></p>
-<p></p><h2>HDP SandBox</h2><br>Hortonworks Sandbox，可以使用它尝试一下最新的hdp特性和功能。它可以装在一个VM上，如此来说，给我们学习大数据相关内容提供了极大的便利。<br>成功导入虚拟机后的界面如下:<br><img src="/2018/12/14/Hortonworks-Data-Platform-大数据开发环境的使用/vm-startup-console.png" alt=""><p></p>
-<p></p><h2>使用HDP大数据开发环境</h2><p></p>
-<ul>
-<li><p>账号使用的初始化<br>从主页面中进入 Advanced HDP<br><img src="/2018/12/14/Hortonworks-Data-Platform-大数据开发环境的使用/mainwebui.png" alt=""></p>
-<p>进入到ADVANCED HDP QUICK LINKS界面，这样可以快速进入到各个管理界面，注意的是在每个管理入口中都显示了相应的登入方法或账号<br><img src="/2018/12/14/Hortonworks-Data-Platform-大数据开发环境的使用/quiltlink.png" alt=""></p>
-<p>首次使用root账号登录时，需要修改root密码，后续重置ambari admin账号后，才可以使用ambari管理界面<br><img src="/2018/12/14/Hortonworks-Data-Platform-大数据开发环境的使用/0-reset-ambari-admin.png" alt=""></p>
-</li>
-</ul>
-<p>使用命令: <strong>ambari-admin-password-reset</strong> 来重置admin账号,在成功的重置后，进入到ambari管理界面对Hadoop大数据体系各服务和组件进行使用,注意刚启动时，各个服务还未启动或还在启动，所以需要等待各个服务完全启动成功。<br><img src="/2018/12/14/Hortonworks-Data-Platform-大数据开发环境的使用/ambari.png" alt=""><br></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/12/14/Hortonworks-Data-Platform-大数据开发环境的使用/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/14/咳/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/fly.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LYJ-NEO">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/14/咳/" itemprop="url">
-                  咳
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-12-14 08:56:04" itemprop="dateCreated datePublished" datetime="2018-12-14T08:56:04+08:00">2018-12-14</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-12-15 20:29:40" itemprop="dateModified" datetime="2018-12-15T20:29:40+08:00">2018-12-15</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/feeling/" itemprop="url" rel="index"><span itemprop="name">feeling</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/13/烟/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/fly.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LYJ-NEO">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/13/烟/" itemprop="url">
+                <a class="post-title-link" href="/2018/05/27/烟/" itemprop="url">
                   烟
                 </a>
               
@@ -1605,7 +709,7 @@
                 
               
 
-              <time title="创建时间：2018-12-13 09:42:23" itemprop="dateCreated datePublished" datetime="2018-12-13T09:42:23+08:00">2018-12-13</time>
+              <time title="创建时间：2018-05-27 09:42:23" itemprop="dateCreated datePublished" datetime="2018-05-27T09:42:23+08:00">2018-05-27</time>
             
 
             
@@ -1622,7 +726,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-12-15 20:28:37" itemprop="dateModified" datetime="2018-12-15T20:28:37+08:00">2018-12-15</time>
+                <time title="修改时间：2019-01-06 22:28:06" itemprop="dateModified" datetime="2019-01-06T22:28:06+08:00">2019-01-06</time>
               
             
           </span>
@@ -1675,7 +779,10 @@
       
         
           
-            <p>在什么机缘巧合下，迷恋香烟，成为回忆和挣扎的宣泄口。</p>
+            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">点燃一根烟，缥缈的凋亡,所以自己烟化，可叠叠的烟圈毕竟熏红双眼 ；化作烟月的愁端，吟出烟嗓的流花 。</span><br><span class="line"></span><br><span class="line">手指染上淡淡烟草味，缠绕挥之不去 ， 毕竟这烟花是在你手中炸裂的。</span><br><span class="line"></span><br><span class="line">第一根烟是一个故事的开端，故事会一直进行，不愿故事再见 ； 没有结尾的故事，就不会是一个悲剧 。</span><br><span class="line"></span><br><span class="line">第一包烟是一个情绪的酝酿，情绪造现在的你，但愿情绪再见 ； 没有情绪的人类，就感觉不到快乐和伤心。</span><br><span class="line"></span><br><span class="line">后来你抽了一根又一根的烟，最终渐渐忘记了数量,忘记了最初的原因，只剩下心瘾的驱使。</span><br></pre></td></tr></table></figure>
+<p><img src="/2018/05/27/烟/yan.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">是否愿意相信，寂寞的抽烟人，都向往随烟而逝；化作烟月的朦胧-烟月是愁端 ； 凝结胭脂泪-化为长恨水。</span><br><span class="line"></span><br><span class="line">敏感的人抽烟了，会否认故意的在故事添加荒谬的情节，让香烟将一切释然。</span><br><span class="line"></span><br><span class="line">最后入如歌词里所述： 闭上一支烟，点上一根烟,能不能不管，你最近好吗，身体可无恙 。</span><br></pre></td></tr></table></figure>
+<p><img src="/2018/05/27/烟/moon.png" alt=""></p>
 
           
         
@@ -1729,7 +836,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/12/8-Hive调优/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/05/hive-内置函数/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -1748,8 +855,8 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/12/8-Hive调优/" itemprop="url">
-                  8-Hive调优
+                <a class="post-title-link" href="/2018/07/05/hive-内置函数/" itemprop="url">
+                  hive-内置函数
                 </a>
               
             
@@ -1775,9 +882,404 @@
                 
               
 
-              <time title="创建时间：2018-12-12 11:25:41" itemprop="dateCreated datePublished" datetime="2018-12-12T11:25:41+08:00">2018-12-12</time>
+              <time title="创建时间：2018-07-05 15:55:28" itemprop="dateCreated datePublished" datetime="2018-07-05T15:55:28+08:00">2018-07-05</time>
             
 
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-01-06 17:13:52" itemprop="dateModified" datetime="2019-01-06T17:13:52+08:00">2019-01-06</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Tec/" itemprop="url" rel="index"><span itemprop="name">Tec</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2>Hive内置函数</h2>
+
+<ul>
+<li>数学函数</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>返回类型</th>
+<th style="text-align:left">函数</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DOUBLE</td>
+<td style="text-align:left">round(DOUBLE a)</td>
+<td style="text-align:left">返回对a四舍五入的BIGINT值</td>
+</tr>
+<tr>
+<td>DOUBLE</td>
+<td style="text-align:left">round(DOUBLE a, INT d)</td>
+<td style="text-align:left">返回DOUBLE型d的保留n位小数的DOUBLW型的近似值</td>
+</tr>
+<tr>
+<td>DOUBLE</td>
+<td style="text-align:left">bround(DOUBLE a)</td>
+<td style="text-align:left">舍入法（1~4：舍，6~9：进，5-&gt;前位数是偶：舍，5-&gt;前位数是奇：进）</td>
+</tr>
+<tr>
+<td>DOUBLE</td>
+<td style="text-align:left">bround(DOUBLE a, INT d)</td>
+<td style="text-align:left">舍入法,保留d位小数</td>
+</tr>
+<tr>
+<td>BIGINT</td>
+<td style="text-align:left">floor(DOUBLE a)</td>
+<td style="text-align:left">向下取整，最数轴上最接近要求的值的左边的值  如：6.10-&gt;6   -3.4-&gt;-4</td>
+</tr>
+<tr>
+<td>BIGINT</td>
+<td style="text-align:left">ceil(DOUBLE a), ceiling(DOUBLE a)</td>
+<td style="text-align:left">求其不小于小给定实数的最小整数如：ceil(6) = ceil(6.1)= ceil(6.9) = 6</td>
+</tr>
+<tr>
+<td>DOUBLE</td>
+<td style="text-align:left">rand(), rand(INT seed)</td>
+<td style="text-align:left">每行返回一个DOUBLE型随机数seed是随机因子</td>
+</tr>
+<tr>
+<td>DOUBLE</td>
+<td style="text-align:left">exp(DOUBLE a), exp(DECIMAL a)</td>
+<td style="text-align:left">返回e的a幂次方， a可为小数</td>
+</tr>
+<tr>
+<td>DOUBLE</td>
+<td style="text-align:left">ln(DOUBLE a), ln(DECIMAL a)</td>
+<td style="text-align:left">以自然数为底d的对数，a可为小数</td>
+</tr>
+<tr>
+<td>DOUBLE</td>
+<td style="text-align:left">log10(DOUBLE a), log11(DECIMAL a)</td>
+<td style="text-align:left">以10为底d的对数，a可为小数</td>
+</tr>
+<tr>
+<td>DOUBLE</td>
+<td style="text-align:left">log2(DOUBLE a), log3(DECIMAL a)</td>
+<td style="text-align:left">以2为底数d的对数，a可为小数</td>
+</tr>
+<tr>
+<td>DOUBLE</td>
+<td style="text-align:left">log(DOUBLE base, DOUBLE a)</td>
+<td style="text-align:left">以base为底的对数，base 与 a都是DOUBLE类型</td>
+</tr>
+<tr>
+<td>DOUBLE</td>
+<td style="text-align:left">pow(DOUBLE a, DOUBLE p), power(DOUBLE a, DOUBLE p)</td>
+<td style="text-align:left">计算a的p次幂</td>
+</tr>
+<tr>
+<td>DOUBLE</td>
+<td style="text-align:left">sqrt(DOUBLE a), sqrt(DECIMAL a)</td>
+<td style="text-align:left">计算a的平方根</td>
+</tr>
+<tr>
+<td>STRING</td>
+<td style="text-align:left">bin(BIGINT a)</td>
+<td style="text-align:left">计算二进制a的STRING类型，a为BIGINT类型</td>
+</tr>
+<tr>
+<td>STRING</td>
+<td style="text-align:left">hex(BIGINT a) hex(STRING a) hex(BINARY a)</td>
+<td style="text-align:left">计算十六进制a的STRING类型，如果a为STRING类型就转换成字符相对应的十六进制</td>
+</tr>
+<tr>
+<td>BINARY</td>
+<td style="text-align:left">unhex(STRING a)</td>
+<td style="text-align:left">hex的逆方法</td>
+</tr>
+<tr>
+<td>STRING</td>
+<td style="text-align:left">conv(BIGINT num, INT from_base, INT to_base), conv(STRING num, INT from_base, INT to_base)</td>
+<td style="text-align:left">将GIGINT/STRING类型的num从from_base进制转换成to_base进制</td>
+</tr>
+<tr>
+<td>DOUBLE</td>
+<td style="text-align:left">abs(DOUBLE a)</td>
+<td style="text-align:left">计算a的绝对值</td>
+</tr>
+<tr>
+<td>INT or DOUBLE</td>
+<td style="text-align:left">pmod(INT a, INT b), pmod(DOUBLE a, DOUBLE b)</td>
+<td style="text-align:left">a对b取模</td>
+</tr>
+<tr>
+<td>DOUBLE</td>
+<td style="text-align:left">sin(DOUBLE a), sin(DECIMAL a)</td>
+<td style="text-align:left">求a的正弦值</td>
+</tr>
+<tr>
+<td>DOUBLE</td>
+<td style="text-align:left">asin(DOUBLE a), asin(DECIMAL a)</td>
+<td style="text-align:left">求d的反正弦值</td>
+</tr>
+<tr>
+<td>DOUBLE</td>
+<td style="text-align:left">cos(DOUBLE a), cos(DECIMAL a)</td>
+<td style="text-align:left">求余弦值</td>
+</tr>
+<tr>
+<td>DOUBLE</td>
+<td style="text-align:left">acos(DOUBLE a), acos(DECIMAL a)</td>
+<td style="text-align:left">求反余弦值</td>
+</tr>
+<tr>
+<td>DOUBLE</td>
+<td style="text-align:left">tan(DOUBLE a), tan(DECIMAL a)</td>
+<td style="text-align:left">求正切值</td>
+</tr>
+<tr>
+<td>DOUBLE</td>
+<td style="text-align:left">atan(DOUBLE a), atan(DECIMAL a)</td>
+<td style="text-align:left">求反正切值</td>
+</tr>
+<tr>
+<td>DOUBLE</td>
+<td style="text-align:left">degrees(DOUBLE a), degrees(DECIMAL a)</td>
+<td style="text-align:left">奖弧度值转换角度值</td>
+</tr>
+<tr>
+<td>DOUBLE</td>
+<td style="text-align:left">radians(DOUBLE a), radians(DOUBLE a)</td>
+<td style="text-align:left">将角度值转换成弧度值</td>
+</tr>
+<tr>
+<td>INT or DOUBLE</td>
+<td style="text-align:left">positive(INT a), positive(DOUBLE a)</td>
+<td style="text-align:left">返回a</td>
+</tr>
+<tr>
+<td>INT or DOUBLE</td>
+<td style="text-align:left">negative(INT a), negative(DOUBLE a)</td>
+<td style="text-align:left">返回a的相反数</td>
+</tr>
+<tr>
+<td>DOUBLE or INT</td>
+<td style="text-align:left">sign(DOUBLE a), sign(DECIMAL a)</td>
+<td style="text-align:left">如果a是正数则返回1.0，是负数则返回-1.0，否则返回0.0</td>
+</tr>
+<tr>
+<td>DOUBLE</td>
+<td style="text-align:left">e()</td>
+<td style="text-align:left">数学常数e</td>
+</tr>
+<tr>
+<td>DOUBLE</td>
+<td style="text-align:left">pi()</td>
+<td style="text-align:left">数学常数pi</td>
+</tr>
+<tr>
+<td>BIGINT</td>
+<td style="text-align:left">factorial(INT a)</td>
+<td style="text-align:left">求a的阶乘</td>
+</tr>
+<tr>
+<td>DOUBLE</td>
+<td style="text-align:left">cbrt(DOUBLE a)</td>
+<td style="text-align:left">求a的立方根</td>
+</tr>
+<tr>
+<td>BIGINT</td>
+<td style="text-align:left">shiftrightunsigned(BIGINT a, INT b)</td>
+<td style="text-align:left">无符号按位右移（&lt;&lt;&lt;）</td>
+</tr>
+<tr>
+<td>T</td>
+<td style="text-align:left">greatest(T v1, T v3, …)</td>
+<td style="text-align:left">求最大值</td>
+</tr>
+<tr>
+<td>T</td>
+<td style="text-align:left">least(T v1, T v3, …)</td>
+<td style="text-align:left">求最小值</td>
+</tr>
+</tbody>
+</table>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/07/05/hive-内置函数/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/07/微软-商业智能PowerBI体系/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/fly.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LYJ-NEO">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/07/微软-商业智能PowerBI体系/" itemprop="url">
+                  微软-商业智能PowerBI体系
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-08-07 20:27:09" itemprop="dateCreated datePublished" datetime="2018-08-07T20:27:09+08:00">2018-08-07</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-01-06 17:14:37" itemprop="dateModified" datetime="2019-01-06T17:14:37+08:00">2019-01-06</time>
+              
             
           </span>
 
@@ -1864,7 +1366,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/12/7-Hive设计模式/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/09/长相思/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -1883,8 +1385,8 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/12/7-Hive设计模式/" itemprop="url">
-                  7-Hive设计模式
+                <a class="post-title-link" href="/2018/09/09/长相思/" itemprop="url">
+                  长相思
                 </a>
               
             
@@ -1910,12 +1412,46 @@
                 
               
 
-              <time title="创建时间：2018-12-12 11:25:17" itemprop="dateCreated datePublished" datetime="2018-12-12T11:25:17+08:00">2018-12-12</time>
+              <time title="创建时间：2018-09-09 10:04:43" itemprop="dateCreated datePublished" datetime="2018-09-09T10:04:43+08:00">2018-09-09</time>
             
 
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-01-06 22:30:43" itemprop="dateModified" datetime="2019-01-06T22:30:43+08:00">2019-01-06</time>
+              
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/feeling/" itemprop="url" rel="index"><span itemprop="name">feeling</span></a></span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -1946,8 +1482,750 @@
       
         
           
+            <pre><code>长相思，在长安。长相思，摧心肝 。 -- 李白 
+
+每个人心中都有一个长安，怪不得，古人喜欢诗词于长安。
+</code></pre>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/11/python-snakebite/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/fly.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LYJ-NEO">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/11/python-snakebite/" itemprop="url">
+                  python-snakebite
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-09-11 11:19:38" itemprop="dateCreated datePublished" datetime="2018-09-11T11:19:38+08:00">2018-09-11</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-09-12 17:18:42" itemprop="dateModified" datetime="2018-09-12T17:18:42+08:00">2018-09-12</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Tec/" itemprop="url" rel="index"><span itemprop="name">Tec</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
             
           
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2>Python-Snakebite库</h2>
+
+<p>Snakebite是由Spotify创建的python包, 它提供了python客户端库,运行以编程方式从Python应用程序访问HDFS。客户端库使用 protobuf 消息直接与 NameNode 通信。Snakebite还包括一个基于客户端库的 HDFS 的命令行界面。</p>
+<p>本节介绍如何安装和配置SnakeBite包。对Snakebite的客户端库进行了详细的解释, 其中有多个示例, Snakebite的内置CLI被作为python非必要hdfs命令工具而介绍。</p>
+<h3>安装</h3>
+
+<p>Snakebite目前只支持Python2,需要Python-protobuf最低版本为2.4.1;python3目前还不支持。Snakebite通过PyPI进行分发，可以使用pip进行安装:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pip install snakebite</span><br></pre></td></tr></table></figure>
+<h3>客户端库</h3>
+
+<p>客户端库是用 Python 编写的, 使用 protobuf 消息, 并实现 Hadoop RPC 协议来与 NameNode 通信。这使得 Python 应用程序可以直接与 HDFS 通信, 而不必对 HDFS dfs 进行系统调用。</p>
+<h4>列举目录信息</h4>
+
+<ul>
+<li>Example 1-1.python/HDFS/list_directory.py<br>使用Snakebite客户端列举在HDFS根目录下的信息:</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">from snakebite.client import Client</span><br><span class="line">client = Client(&apos;localhost&apos;, 9000)</span><br><span class="line">for x in client.ls([&apos;/&apos;]):</span><br><span class="line">    print x</span><br></pre></td></tr></table></figure>
+<p>以上代码中最重要的行，也是其他使用Snakebite客户端的程序中都需要的是 创建客户端到HDFS的NameNode的连接:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">client = Client(&apos;localhost&apos;, 9000)</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/09/11/python-snakebite/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/12/Hadoop-Streaming-with-python/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/fly.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LYJ-NEO">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/12/Hadoop-Streaming-with-python/" itemprop="url">
+                  Hadoop Streaming with python
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-09-12 17:17:41" itemprop="dateCreated datePublished" datetime="2018-09-12T17:17:41+08:00">2018-09-12</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-08-12 17:17:41" itemprop="dateModified" datetime="2018-08-12T17:17:41+08:00">2018-08-12</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Tec/" itemprop="url" rel="index"><span itemprop="name">Tec</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2>Hadoop数据流</h2>
+
+<p>hadoop流是一个实用工具,附带了Hadoop分布式功能, 允许创建任何可执的mapper/reducer的MapReduce作业。Hadoop流实用程序使Python、shell脚本或任何其他语言都可以用作mapper、reducer或二者。</p>
+<h3>工作机制</h3><br>mapper和reducer都是从标准输入一行一行读取、输出到标准输出。Hadoop流程序创建MapReduce作业,将作业提交到群集,并监视其进度, 直到完成。初始化映射程序时, 每个映射任务将指定的可执行文件作为单独的进程启动。mapper读取输入文件, 并通过stdin向可执行文件显示每一行。在可执行文件处理每一行输入之后, mapper从标准输出中收集结果, 并将每一行转换为键值对。该键由第一个 tab 字符之前行的部分组成, 该值由第一个制表符后面的行部分组成。如果行不包含制表符, 则整行被视为键, 值为 null。<br><br>在初始化reducer时,每个reducer任务都将指定的可执行文件作为单独的进程启动。reducer将输入键值对转换行通过标准输入传递给可执行程序。reducer从标准输出中收集可执行文件结果, 并将每一行转换为键值对。与mapper类似,可执行文件通过tab制表符分隔键和值来指定键值对。<br><br><h3>python程序示例</h3>
+
+<p>为了演示hadoop流实用程序如何在hadoop群集上以MapReduce应用程序的方式运行Python, WordCount应用程序可以由两个Python程序实现:mapper.py<br>和reducer.py</p>
+<p>mapper.py是在WordCount的映射阶段实现逻辑的Python程序。它从标准输入读取数据, 将行拆分为单词, 并将每个单词的中间计数输出到标准输出。example2-1实现mapper.py的逻辑:<br></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/09/12/Hadoop-Streaming-with-python/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/12/Hadoop-Data-Flow/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/fly.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LYJ-NEO">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/12/Hadoop-Data-Flow/" itemprop="url">
+                  Hadoop Data Flow
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-09-12 17:53:14" itemprop="dateCreated datePublished" datetime="2018-09-12T17:53:14+08:00">2018-09-12</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-01-12 17:53:14" itemprop="dateModified" datetime="2018-01-12T17:53:14+08:00">2018-01-12</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Tec/" itemprop="url" rel="index"><span itemprop="name">Tec</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>MapReduce 是一种编程模型, 它通过将工作划分为独立的任务, 并在一组计算机上并行执行任务, 从而使大量数据得以处理和生成。MapReduce 编程风格是由函数式编程构造映射和减少所激发的, 通常用于处理数据列表。在高级别, 每个MapReduce程序将输入数据元素列表转换为输出数据元素列表两次, 一次在映射阶段, 一次在还原阶段。</p>
+<p>本章首先介绍MapReduce编程模型,并描述数据如何流经模型的不同阶段。示例将展示如何使用python编写MapReduce作业可。</p>
+<p></p><h2>数据流</h2><br>MapReduce 框架由三个主要阶段组成:map,shuffle和sort,reduce。本节介绍每个阶段。<p></p>
+<h3>map映射阶段</h3><br>MapReduce 应用程序的第一个阶段是映射阶段。在映射阶段中, 函数(称为映射器)处理一系列键值对。映射程序依次处理每个键值对，生成0个或多个键值对。<br><br><img src="/2018/09/12/Hadoop-Data-Flow/2-1MapReduce.png" alt=""><br><br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/09/12/Hadoop-Data-Flow/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/13/Python-mrjob库的安装和使用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/fly.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LYJ-NEO">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/13/Python-mrjob库的安装和使用/" itemprop="url">
+                  Python-mrjob库的安装和使用
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-09-13 13:42:18" itemprop="dateCreated datePublished" datetime="2018-09-13T13:42:18+08:00">2018-09-13</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-08-13 13:42:18" itemprop="dateModified" datetime="2018-08-13T13:42:18+08:00">2018-08-13</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Tec/" itemprop="url" rel="index"><span itemprop="name">Tec</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2>Python-mrjob库的安装和使用</h2>
+
+<p>mrjob是一个Python MapReduce库, 由yelp创建, 封装了Hadoop streaming,允许MapReduce应用程序以更python的方式编写。mrjob允许用纯Python编写多步骤MapReduce作业。MapReduce用 mrjob编写的作业可以在本地进行测试, 在Hadoop群集上运行,或者使用亚马逊弹性云(EMR)中运行。</p>
+<p>使用mrjob编写MapReduce有很多的好处:</p>
+<ul>
+<li>mrjob 目前是一个非常活跃的发展框架, 每个星期都有提交多个提交。</li>
+<li>mrjob 有大量文档,比支持Hadoop上的Python的任何其他框架或库都多。</li>
+<li>mrjob 应用程序可以在不安装 hadoop 的情况下执行和测试, 在部署到 hadoop 群集之前启用开发和测试。</li>
+<li>mrjob 允许在单个类中写入 MapReduce 应用程序, 而不是为mapper和reducer编写单独的程。</li>
+</ul>
+<p>虽然 mrjob 是一个伟大的解决方案, 它确实有它的缺点。mrjob 是简化的, 因此它不会给出与其他 api 提供的 Hadoop相同的访问级别。mrjob不使用typedbytes,因此其他库可能更快。</p>
+<h3>安装</h3><br>mrjob 的安装简单;可以使用pip进行安装:<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pip install mrjob</span><br></pre></td></tr></table></figure><br><br>或从源码安装:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ python setup.py install</span><br></pre></td></tr></table></figure><br><br><h3>使用mrjob编写WordCount</h3>
+
+<ul>
+<li>Example 2-3 python/MapReduce/mrjob/word_count.py</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">from mrjob.job import MRJob</span><br><span class="line">class MRWordCount(MRJob):</span><br><span class="line"></span><br><span class="line">    def mapper(self, _, line):</span><br><span class="line">        for word in line.split():</span><br><span class="line">        yield(word, 1)</span><br><span class="line"></span><br><span class="line">    def reducer(self, word, counts):</span><br><span class="line">        yield(word, sum(counts))</span><br><span class="line"></span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    MRWordCount.run()</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/09/13/Python-mrjob库的安装和使用/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
