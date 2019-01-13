@@ -108,14 +108,22 @@
 
 
 
-  <meta property="og:type" content="article">
+  <meta name="description" content="Hive设计模式  hive是基于Hadoop的一个数据仓库工具，可以将结构化的数据文件映射为一张数据库表，并提供简单的sql查询功能，可以将sql语句转换为MapReduce任务进行运行。对于传统关系数据构建数据仓库的建模方法，对于Hive是否适用 ； 针对Hive自身特点，需要如何合理构建 ，本文将记将进行探讨。 Hive看上去及实际行为都像一个关系型数据库，但Hive实现和使用和传统的关系型">
+<meta name="keywords" content="BigData,Hive">
+<meta property="og:type" content="article">
 <meta property="og:title" content="7-Hive设计模式">
 <meta property="og:url" content="http://yoursite.com/2018/12/12/7-Hive设计模式/index.html">
 <meta property="og:site_name" content="LYJ-NEO">
+<meta property="og:description" content="Hive设计模式  hive是基于Hadoop的一个数据仓库工具，可以将结构化的数据文件映射为一张数据库表，并提供简单的sql查询功能，可以将sql语句转换为MapReduce任务进行运行。对于传统关系数据构建数据仓库的建模方法，对于Hive是否适用 ； 针对Hive自身特点，需要如何合理构建 ，本文将记将进行探讨。 Hive看上去及实际行为都像一个关系型数据库，但Hive实现和使用和传统的关系型">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-12-12T03:25:17.309Z">
+<meta property="og:image" content="http://yoursite.com/2018/12/12/7-Hive设计模式/dw_model.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/12/12/7-Hive设计模式/3NF_dw_model.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/12/12/7-Hive设计模式/snow_model.png">
+<meta property="og:updated_time" content="2019-01-13T13:22:20.932Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="7-Hive设计模式">
+<meta name="twitter:description" content="Hive设计模式  hive是基于Hadoop的一个数据仓库工具，可以将结构化的数据文件映射为一张数据库表，并提供简单的sql查询功能，可以将sql语句转换为MapReduce任务进行运行。对于传统关系数据构建数据仓库的建模方法，对于Hive是否适用 ； 针对Hive自身特点，需要如何合理构建 ，本文将记将进行探讨。 Hive看上去及实际行为都像一个关系型数据库，但Hive实现和使用和传统的关系型">
+<meta name="twitter:image" content="http://yoursite.com/2018/12/12/7-Hive设计模式/dw_model.jpg">
 
 
 
@@ -361,8 +369,42 @@
             
 
             
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-01-13 21:22:20" itemprop="dateModified" datetime="2019-01-13T21:22:20+08:00">2019-01-13</time>
+              
+            
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Tec/" itemprop="url" rel="index"><span itemprop="name">Tec</span></a></span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -391,7 +433,59 @@
       
 
       
-        
+        <h2>Hive设计模式</h2>
+
+<p>hive是基于Hadoop的一个数据仓库工具，可以将结构化的数据文件映射为一张数据库表，并提供简单的sql查询功能，可以将sql语句转换为MapReduce任务进行运行。<br>对于传统关系数据构建数据仓库的建模方法，对于Hive是否适用 ； 针对Hive自身特点，需要如何合理构建 ，本文将记将进行探讨。</p>
+<p>Hive看上去及实际行为都像一个关系型数据库，但Hive实现和使用和传统的关系型数据库是非常不同的，事实上Hive是反模式的。</p>
+<h2>数据仓库数据模型</h2>
+
+<p><strong>数据模型是抽象描述现实世界的一种工具和方法，是通过抽象的实体及实体之间联系的形式，来表示现实世界中事务的相互关系的一种映射</strong></p>
+<p>数据仓库的数据模型的架构和数据仓库的整体架构是紧密关联在一起的，我们首先来了解一下整个数据仓库的数据模型应该包含的几个部分。<br>从下图我们可以很清楚地看到，整个数据模型的架构分成 5 大部分，每个部分其实都有其独特的功能。<br><img src="/2018/12/12/7-Hive设计模式/dw_model.jpg" alt=""></p>
+<ul>
+<li>系统记录域（System of Record）：这部分是主要的数据仓库业务数据存储区，数据模型在这里保证了数据的一致性。</li>
+<li>内部管理域（Housekeeping）：这部分主要存储数据仓库用于内部管理的元数据，数据模型在这里能够帮助进行统一的元数据的管理。</li>
+<li>汇总域（Summary of Area）：这部分数据来自于系统记录域的汇总，数据模型在这里保证了分析域的主题分析的性能，满足了部分的报表查询。</li>
+<li>分析域（Analysis Area）：这部分数据模型主要用于各个业务部分的具体的主题业务分析。这部分数据模型可以单独存储在相应的数据集市中。</li>
+<li>反馈域（Feedback Area）：可选项，这部分数据模型主要用于相应前端的反馈数据，数据仓库可以视业务的需要设置这一区域。</li>
+</ul>
+<p>常见数据仓库模型有3种方法：</p>
+<ul>
+<li><p>范式建模法（Third Normal Form，3NF）* 范式建模法（Third Normal Form，3NF）</p>
+<p>范式建模法其实是我们在构建数据模型常用的一个方法，该方法的主要由 Inmon 所提倡，主要解决关系型数据库得数据存储，利用的一种技术层面上的方法。<br>目前，在关系型数据库中的建模方法，大部分采用的是三范式建模法。</p>
+<p>从其表达的含义来看，一个符合第三范式的关系必须具有以下三个条件 :</p>
+<ul>
+<li>每个属性值唯一，不具有多义性 ;</li>
+<li>每个非主属性必须完全依赖于整个主键，而非主键的一部分 ;</li>
+<li>每个非主属性不能依赖于其他关系中的属性，因为这样的话，这种属性应该归到其他关系中去。</li>
+</ul>
+<p>使用这种方法：数据仓库模型得建设方法和业务系统的企业数据模型类似。在业务系统中，企业数据模型决定了数据的来源，而企业数据模型也分为两个层次，即主题域模型和逻辑模型。<br>同样，主题域模型可以看成是业务模型的概念模型，而逻辑模型则是域模型在关系型数据库上的实例话。</p>
+<ul>
+<li>数据仓库的域模型应该包含企业数据模型得域模型之间的关系，以及各主题域定义。数据仓库的域模型的概念应该比业务系统的主题域模型范围更加广。</li>
+<li>在数据仓库的逻辑模型需要从业务系统的数据模型中的逻辑模型中抽象实体，实体的属性，实体的子类，以及实体的关系等。<br><img src="/2018/12/12/7-Hive设计模式/3NF_dw_model.jpg" alt=""></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>维度建模法</p>
+<p>其最简单的描述就是，按照事实表，维表来构建数据仓库，数据集市。这种方法的最被人广泛知晓的名字就是星型模式（Star-schema）和雪花模型等。</p>
+<p>星型模式之所以广泛被使用，在于针对各个维作了大量的预处理，如按照维进行预先的统计、分类、排序等。通过这些预处理，能够极大的提升数据仓库的处理能力。特别是针对 3NF 的建模方法，星型模式在性能上占据明显的优势。<br><img src="/2018/12/12/7-Hive设计模式/snow_model.png" alt=""></p>
+</li>
+<li><p>Data Vault建模方法</p>
+<ul>
+<li>Data Vault方法需要跟踪所有数据的来源，因此其中每个数据行都要包含数据来源和装载时间属性，用以审计和跟踪数据值所对应的源系统。</li>
+<li>Data Vault不区分数据在业务层面的正确与错误，它保留操作型系统的所有时间的所有数据，装载数据时不做数据验证、清洗等工作，这点明显有别于其他数据仓库建模方法。</li>
+<li>Data Vault建模方法显式地将结构信息和属性信息分离，能够还原业务环境的变化。Data Vault允许并行数据装载，不需要重新设计就可以实现扩展。</li>
+<li>Data Vault对于NoSQL系统和大数据系统有良好支持。</li>
+<li>Data Vault模型有中心表（Hub）、链接表（Link）、附属表（Satellite）三个主要组成部分。中心表记录业务主键，链接表记录业务关系，附属表记录业务描述。</li>
+</ul>
+</li>
+</ul>
+<h2>针对Hive的数据模型</h2>
+
+<p>通过上述的3类数据建模的方法，都是有依赖SQL范式，但是对于Hive是反模式的，并没有范式的约束；对于选择合适的数据模型就很重要了，<br>否者数据就会变的更加的混乱不堪。针对上述的3种方法中的前两种进，需要对数据源进行仔细的清洗，在业务模型到数据模型的定型后，进行<br>修改后就不太容易。<br>针对在 &lt;&lt;数据架构 大数据 数据仓库以及Data Vault&gt;&gt; 一书中有论述使用 DV2模型对Nosql和大数据进行构建的相关的论述，针对其的适合<br>性和应变程度的特点。<br>由于使用 Data Vault 模型，并不会改变源数据，而是将保留全部的源数据。</p>
+<p>未完待续……..</p>
+<p><a href="https://www.ibm.com/developerworks/cn/data/library/techarticles/dm-0803zhousb/" target="_blank" rel="noopener">以上信息参考:浅谈数据仓库建设中的数据建模方法</a></p>
+
       
     </div>
 
@@ -409,6 +503,14 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/BigData/" rel="tag"># BigData</a>
+          
+            <a href="/tags/Hive/" rel="tag"># Hive</a>
+          
+        </div>
+      
 
       
       
@@ -418,8 +520,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/12/12/6-Hive索引/" rel="next" title="6-Hive索引">
-                <i class="fa fa-chevron-left"></i> 6-Hive索引
+              <a href="/2018/12/12/6-Hive视图和索引/" rel="next" title="6-Hive视图和索引">
+                <i class="fa fa-chevron-left"></i> 6-Hive视图和索引
               </a>
             
           </div>
@@ -475,8 +577,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -495,7 +606,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">30</span>
+                    <span class="site-state-item-count">29</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -571,6 +682,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">Hive设计模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">数据仓库数据模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">针对Hive的数据模型</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
