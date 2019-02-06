@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.4.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.4.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="概率计算  相关概念   随机现象：在一定条件下，并不总是出现相同结果的现象。 随机试验：可以重复的随机现象。 基本结果：随机现象最简单的结果，是统计中的抽样的基本单元，故也称为样本点。 基本空间：随机现象所有基本结果的全体。 随机事件：某些基本结果组成的集合称为随机事件。 必然事件和不可能事件：一定会发生的时间和不可能发生的事件。 维恩图：可以用来表示在基本空间中的事件关系的椭圆形图，较直观。">
+<meta name="keywords" content="统计">
+<meta property="og:type" content="article">
+<meta property="og:title" content="4概率计算">
+<meta property="og:url" content="http://yoursite.com/2019/02/06/4概率计算/index.html">
+<meta property="og:site_name" content="LYJ-NEO">
+<meta property="og:description" content="概率计算  相关概念   随机现象：在一定条件下，并不总是出现相同结果的现象。 随机试验：可以重复的随机现象。 基本结果：随机现象最简单的结果，是统计中的抽样的基本单元，故也称为样本点。 基本空间：随机现象所有基本结果的全体。 随机事件：某些基本结果组成的集合称为随机事件。 必然事件和不可能事件：一定会发生的时间和不可能发生的事件。 维恩图：可以用来表示在基本空间中的事件关系的椭圆形图，较直观。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2019/02/06/4概率计算/1数据图表的使用/4_1_include.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/06/4概率计算/1数据图表的使用/4_2_overline.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/06/4概率计算/1数据图表的使用/4_formula_1.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/06/4概率计算/1数据图表的使用/4_formula_2.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/06/4概率计算/1数据图表的使用/4_formula_3.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/06/4概率计算/1数据图表的使用/4_formula_4.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/06/4概率计算/1数据图表的使用/4_formula_5.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/06/4概率计算/1数据图表的使用/4_formula_6.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/06/4概率计算/1数据图表的使用/4_formula_7.png">
+<meta property="og:updated_time" content="2019-02-06T09:03:16.972Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="4概率计算">
+<meta name="twitter:description" content="概率计算  相关概念   随机现象：在一定条件下，并不总是出现相同结果的现象。 随机试验：可以重复的随机现象。 基本结果：随机现象最简单的结果，是统计中的抽样的基本单元，故也称为样本点。 基本空间：随机现象所有基本结果的全体。 随机事件：某些基本结果组成的集合称为随机事件。 必然事件和不可能事件：一定会发生的时间和不可能发生的事件。 维恩图：可以用来表示在基本空间中的事件关系的椭圆形图，较直观。">
+<meta name="twitter:image" content="http://yoursite.com/2019/02/06/4概率计算/1数据图表的使用/4_1_include.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/06/4概率计算/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>4概率计算 | LYJ-NEO</title>
+  
+
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?0a1c584f1b6f1f91344a2a4d65406eff";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">LYJ-NEO</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">Gone With The Wind</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/06/4概率计算/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/fly.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LYJ-NEO">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">4概率计算
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-02-06 17:02:20 / 修改时间：17:03:16" itemprop="dateCreated datePublished" datetime="2019-02-06T17:02:20+08:00">2019-02-06</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2>概率计算</h2>
+
+<h3>相关概念</h3>
+
+<ul>
+<li>随机现象：在一定条件下，并不总是出现相同结果的现象。</li>
+<li>随机试验：可以重复的随机现象。</li>
+<li>基本结果：随机现象最简单的结果，是统计中的抽样的基本单元，故也称为样本点。</li>
+<li>基本空间：随机现象所有基本结果的全体。</li>
+<li>随机事件：某些基本结果组成的集合称为随机事件。</li>
+<li>必然事件和不可能事件：一定会发生的时间和不可能发生的事件。</li>
+<li><p>维恩图：可以用来表示在基本空间中的事件关系的椭圆形图，较直观。</p>
+</li>
+<li><p>事件的包含关系：<br>  事件A的任意结果都在事件B中，B包含A，使用符号 A⊂B，注意开口方向。<br><img src="/2019/02/06/4概率计算/1数据图表的使用/4_1_include.png" alt=""><br>$$<br>  A \subset B<br>$$</p>
+</li>
+<li><p>事件相等 : 事件A中的任意结果都在B中，而B中的任意结果也都在A中 A = B</p>
+</li>
+<li>事件互斥 : 事件A和B没有相同的结果</li>
+</ul>
+<p><strong>事件的计算</strong></p>
+<ul>
+<li><p>对立事件 : 不在A中的一切基本结果称为事件A的对立事件，在事件A上加一条横线。 二者相加为1<br><img src="/2019/02/06/4概率计算/1数据图表的使用/4_2_overline.png" alt=""><br>$$<br>\overline{x}<br>$$</p>
+</li>
+<li><p>事件A与B的并： A ∪ B</p>
+</li>
+<li>事件A与B的交： A ∩ B</li>
+<li>事件A与B的差：在事件A中而不在事件B中的基本结果 B – A</li>
+</ul>
+<h3>事件的概率计算</h3>
+
+<ul>
+<li>P(A) = 事件A发生中的基本结果个数 / 基本空间中的所有基本结果的个数 。</li>
+<li>在进行求解概率的过程中 使用维恩图能够更高的进行理解。</li>
+<li>在计算概率中多使用到排列组合进行计算基本事件的个数，所以对于排列中应该进行</li>
+</ul>
+<h3>概率计算中的相关的公式</h3>
+
+<p>相关定理内容摘录： 概率与数理统计（茆诗松 周纪芗）</p>
+<ul>
+<li><p>概率计算中的相关定理和性质:</p>
+</li>
+<li><p>1<br><img src="/2019/02/06/4概率计算/1数据图表的使用/4_formula_1.png" alt=""></p>
+</li>
+<li><p>2<br><img src="/2019/02/06/4概率计算/1数据图表的使用/4_formula_2.png" alt=""></p>
+</li>
+<li><p>3<br><img src="/2019/02/06/4概率计算/1数据图表的使用/4_formula_3.png" alt=""></p>
+</li>
+<li><p>4<br><img src="/2019/02/06/4概率计算/1数据图表的使用/4_formula_4.png" alt=""></p>
+</li>
+<li><p>5<br><img src="/2019/02/06/4概率计算/1数据图表的使用/4_formula_5.png" alt=""></p>
+</li>
+<li><p>6<br><img src="/2019/02/06/4概率计算/1数据图表的使用/4_formula_6.png" alt=""></p>
+</li>
+<li><p>7<br><img src="/2019/02/06/4概率计算/1数据图表的使用/4_formula_7.png" alt=""></p>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/统计/" rel="tag"># 统计</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/06/3方差和数据的分散性/" rel="next" title="3方差和数据的分散性">
+                <i class="fa fa-chevron-left"></i> 3方差和数据的分散性
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/06/5条件概率和贝叶斯公式/" rel="prev" title="5条件概率和贝叶斯公式">
+                5条件概率和贝叶斯公式 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/fly.jpg"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">38</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">9</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">概率计算</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">1.1.</span> <span class="nav-text">相关概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">1.2.</span> <span class="nav-text">事件的概率计算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">1.3.</span> <span class="nav-text">概率计算中的相关的公式</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder"></span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动 v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Pisces</a> v6.4.1</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.4.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
