@@ -1905,6 +1905,483 @@
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/16/在Hive中使用CUBE-ROLLUP-GROUPING-SETS等分析函数/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/fly.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LYJ-NEO">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/16/在Hive中使用CUBE-ROLLUP-GROUPING-SETS等分析函数/" itemprop="url">
+                  在Hive中使用CUBE,ROLLUP,GROUPING SETS等分析函数
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-02-16 22:09:35 / 修改时间：22:25:01" itemprop="dateCreated datePublished" datetime="2019-02-16T22:09:35+08:00">2019-02-16</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Tec/" itemprop="url" rel="index"><span itemprop="name">Tec</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>在上次介绍了Sql中的窗口分析函数，本次在Hive上进行实操说明CUBE,ROLLUP,GROUPING SETS等分析函数。</p>
+<p>对于这些函数子句可以认为是对于 Hive中的 增强型聚合函数 ，可以使用它们构建<strong>小型的多维分析模型</strong></p>
+<ul>
+<li>CUBE创建列集维度的所有可能组合的小计。一旦在一组维度上计算了一个立方体，我们就可以得到这些维度上所有可能的聚合问题的答案</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">GROUP BY a, b, c WITH CUBE 相当于如下两种表示</span><br><span class="line">GROUP BY a, b, c </span><br><span class="line">GROUPING SETS ( (a, b, c), (a, b), (b, c), (a, c), (a), (b), (c), ( ))</span><br></pre></td></tr></table></figure>
+<ul>
+<li>ROLLUP子句与GROUP BY一起用于计算维度层次结构级别的聚合</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GROUP BY a, b, c with ROLLUP 是构建从 a 钻探到b钻探到c的层次结构数据 相当于</span><br><span class="line">GROUPING SETS ( (a, b, c), (a, b), (a), ( ))</span><br></pre></td></tr></table></figure>
+<ul>
+<li>普通的 聚合函数</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SELECT CategoryName , SalesCountry  , sum(SalesAmount) SalesAmount </span><br><span class="line">FROM InternetSales </span><br><span class="line">GROUP BY CategoryName , SalesCountry</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/02/16/在Hive中使用CUBE-ROLLUP-GROUPING-SETS等分析函数/1.png" alt="常规聚合函数"></p>
+<p><img src="/2019/02/16/在Hive中使用CUBE-ROLLUP-GROUPING-SETS等分析函数/2.png" alt="计算的结果"></p>
+<ul>
+<li>使用GROUPING SETS子句及其对应的使用常规gourping by 后union 起来的结果<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SELECT CategoryName , SalesCountry  , sum(SalesAmount) </span><br><span class="line">FROM InternetSales </span><br><span class="line">GROUP BY CategoryName , SalesCountry GROUPING SETS((CategoryName , SalesCountry),CategoryName)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><img src="/2019/02/16/在Hive中使用CUBE-ROLLUP-GROUPING-SETS等分析函数/3.png" alt="grouping sets"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SELECT CategoryName , SalesCountry  , sum(SalesAmount) SalesAmount FROM InternetSales </span><br><span class="line">GROUP BY CategoryName , SalesCountry </span><br><span class="line">UNION ALL</span><br><span class="line">SELECT CategoryName , null SalesCountry, sum(SalesAmount) SalesAmount FROM InternetSales </span><br><span class="line">GROUP BY CategoryName</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/02/16/在Hive中使用CUBE-ROLLUP-GROUPING-SETS等分析函数/4.png" alt="grouping by 后 union"></p>
+<p>在上述的 使用GROUPING SETS或CUBE，ROLLUP进行聚合的时候，会得到对于null的汇总的结果，但是对于这种情况，无法判断，值原来就是null还是在聚合的过程组合而成的null。<br>这可能会发生冲突。需要有一些方法来标识列中的NULL是值，也就是说用来表示列中聚合的NULL是值。 GROUPING__ID函数就用来解决这个问题。如下例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SELECT WeightUnitMeasureCode , SizeUnitMeasureCode , COUNT(*) CNT</span><br><span class="line">FROM test.DimProduct</span><br><span class="line">GROUP BY WeightUnitMeasureCode , SizeUnitMeasureCode WITH CUBE</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">所以使用 GROUPING__ID进行分组标识 , 通过 GROUPING__ID 可以得到</span><br><span class="line">SELECT WeightUnitMeasureCode , SizeUnitMeasureCode , GROUPING__ID , COUNT(*) CNT FROM test.DimProduct</span><br><span class="line">GROUP BY WeightUnitMeasureCode , SizeUnitMeasureCode WITH CUBE</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/02/16/在Hive中使用CUBE-ROLLUP-GROUPING-SETS等分析函数/7.png" alt="grouping__id"></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/23/在Hive上构建数据仓库使用的数据模型/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/fly.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LYJ-NEO">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/23/在Hive上构建数据仓库使用的数据模型/" itemprop="url">
+                  在Hive上构建数据仓库使用的数据模型
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-02-23 13:13:07 / 修改时间：13:23:34" itemprop="dateCreated datePublished" datetime="2019-02-23T13:13:07+08:00">2019-02-23</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Tec/" itemprop="url" rel="index"><span itemprop="name">Tec</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="现状"><a href="#现状" class="headerlink" title="现状"></a>现状</h2><p>针对大数据Hadoop体系中，Hive作为数据仓库工具;但是对于大数据中数据仓库上构建数据模型的方法和传统的关系数据库的方法<br>是否还是可以使用。</p>
+<p>世间万物不会孤立的存在，它们以各种关系进行联系;构建的数据模型如何体现这些关系。<br>从目前各大厂商(IBM,微软)的数据仓库构建方法中，还是保留原来关系型数据仓库(传统的数据仓库)的模式，<br>在Hive中构建各表及其间的关系;尽管在Hive中并不是只存储了结构化的数据，并没有强制的约束要求。<br>所以各种数据模型，是否适合在Hive上构建，要根据业务模型，数据量等因素，<br>但是Data Vault模型是较为适合当前大数据体系上构建(在&lt;&lt;数据构架,大数据,数据仓库及Data vault&gt;&gt;有相关论述)</p>
+<p>本文说明3种常见的数据模型，并在后续种针对3种模型构建MS NorthWind数据库的相关的数据仓库。</p>
+<h3 id="相关的概念"><a href="#相关的概念" class="headerlink" title="相关的概念"></a>相关的概念</h3><table>
+<thead>
+<tr>
+<th>概念</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ODS，是Operational Data Store</td>
+<td style="text-align:left">一个面向主题的、集成的、可变的、当前的细节数据集合，用于支持企业对于即时性的、操作性的、集成的全体信息的需求</td>
+</tr>
+<tr>
+<td>ETL</td>
+<td style="text-align:left">数据抽取、转换、装载，ETL是建立数据仓库最重要的处理过程，也是最体现工作量的环节</td>
+</tr>
+<tr>
+<td>变化数据捕获技术</td>
+<td style="text-align:left">捕获数据变化的机制</td>
+</tr>
+<tr>
+<td>CDC 变化数据捕获</td>
+<td style="text-align:left">常用的变化数据捕获方法有时间戳、快照、触发器和日志四种(关系型数据库) 。对应维度模型种的渐变维度</td>
+</tr>
+<tr>
+<td>数据仓库</td>
+<td style="text-align:left">是一个面向主题的、集成的、随时间变化的、非易失的数据集合，用于支持管理者的决策过程</td>
+</tr>
+<tr>
+<td>数据集市</td>
+<td style="text-align:left">数据集市是按主题域组织的数据集合，用于支持部门级的决策，两种类型的数据集市：独立数据集市和从属数据集市</td>
+</tr>
+<tr>
+<td>代理键 Surrogate key</td>
+<td style="text-align:left">代理关键字一般是指维度表中使用顺序分配的整数值作为主键</td>
+</tr>
+</tbody>
+</table>
+<h3 id="3种数据仓库模型"><a href="#3种数据仓库模型" class="headerlink" title="3种数据仓库模型"></a>3种数据仓库模型</h3><p>  3.1 关系数据模型(范式建模法)</p>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>超键 super key</td>
+<td style="text-align:left">一个列或者列集，唯一标识表中的一条记录。超键可能包含用于唯一标识记录所不必要的额外的列</td>
+</tr>
+<tr>
+<td>候选键 Alternate Key</td>
+<td style="text-align:left">仅包含唯一标识记录所必需的最小数量列的超键</td>
+</tr>
+<tr>
+<td>主键 Primary Key</td>
+<td style="text-align:left">唯一标识表中记录的候选键。主键是唯一、非空的</td>
+</tr>
+<tr>
+<td>外键 Froeign Key</td>
+<td style="text-align:left">一个表中的一个列或多个列的集合，这些列匹配某些其他表中的候选键。注意外键所引用的不一定是主键，但一定是候选键</td>
+</tr>
+</tbody>
+</table>
+<p>关系：数据模型是抽象描述现实世界的一种工具和方法，是通过抽象的实体及实体之间联系的形式，来表示现实世界中事务的相互关系的一种映射。<br>所以在数据库中，通过表间的关系作为现实中的实体关系的映射。通过表间的关系，也是构造出数据模型的基础，这样才能表达出丰富的业务关系。</p>
+<p>对于构造关系数据模型，遵循3各最基本的范式：</p>
+<p>|范式|说明|<br>|1NF|表中的列只能含有原子性（不可再分）的值;每个属性值唯一，不具有多义性|<br>|2NF|满足第一范式,没有部分依赖;每个非主属性必须完全依赖于整个主键，而非主键的一部分 |<br>|3NF|满足第二范式,没有传递依赖;每个非主属性不能依赖于其他关系中的属性，因为这样的话，这种属性应该归到其他关系中去|</p>
+<p>对于关系数据模型：<br>  从关系型数据库的角度出发，结合了业务系统的数据模型，能够比较方便的实现数据仓库的建模 ;<br>    但是建模方法限定在关系型数据库之上，在某些时候反而限制了整个数据仓库模型的灵活性，性能等，<br>  特别是考虑到数据仓库的底层数据向数据集市的数据进行汇总时，需要进行一定的变通才能满足相应的需求</p>
+<p> 3.2 维度建模法<br> 按照事实表，维表来构建数据仓库，数据集市。这种方法的最被人广泛知晓的名字就是星型模式（Star-schema）</p>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>事实表</td>
+<td style="text-align:left">事实表记录了特定事件的数字化的考量，一般由数字值和指向维度表的外键组成</td>
+</tr>
+<tr>
+<td>维度表</td>
+<td style="text-align:left">维度表的记录数通常比事实表少，但每条记录包含有大量用于描述事实数据的属性字段</td>
+</tr>
+<tr>
+<td>星型模式</td>
+<td style="text-align:left">一个星型模式中可以有一个或多个事实表，每个事实表引用任意数量的维度表</td>
+</tr>
+<tr>
+<td>雪花模式</td>
+<td style="text-align:left">与星型模式相同，雪花模式也是由事实表和维度表所组成。所谓的“雪花化”就是将星型模式中的维度表进行规范化处理</td>
+</tr>
+</tbody>
+</table>
+<p>优点：对于维度建模，针对各个维作了大量的预处理，如按照维进行预先的统计、分类、排序等。<br>通过这些预处理，能够极大的提升数据仓库的处理能力<br>维度建模非常直观，紧紧围绕着业务模型，可以直观的反映出业务模型中的业务问题。</p>
+<p>缺点： 由于在构建星型模式之前需要进行大量的数据预处理，因此会导致大量的数据处理工作。<br>而且，当业务发生变化，需要重新进行维度的定义时，往往需要重新进行维度数据的预处理。而在这些与处理过程中，往往会导致大量的数据冗余。</p>
+<p> 3.3 Data Vault 模型<br>Data Vault方法需要跟踪所有数据的来源，因此其中每个数据行都要包含数据来源和装载时间属性，用以审计和跟踪数据值所对应的源系统。<br>Data Vault不区分数据在业务层面的正确与错误，它保留操作型系统的所有时间的所有数据，装载数据时不做数据验证、清洗等工作，这点明显有别于其他数据仓库建模方法</p>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>中心表</td>
+<td style="text-align:left">中心表用来保存一个组织内的每个实体的业务主键，业务主键唯一标识某个业务实体，中心表和源系统表是相互独立的</td>
+</tr>
+<tr>
+<td>链接表</td>
+<td style="text-align:left">链接表是中心表之间的链接。一个链接表意味着两个或多个中心表之间有关联。一个链接表通常是一个外键，它代表着一种业务关系</td>
+</tr>
+<tr>
+<td>附属表</td>
+<td style="text-align:left">附属表用来保存中心表和链接表的属性，包括所有的历史变化数据。一个附属表总有一个且唯一一个外键引用到中心表或链接表</td>
+</tr>
+</tbody>
+</table>
+<p>具备的优点：</p>
+<ul>
+<li>所有数据都基于时间来存储，即使数据是低质量的，也不能在ETL过程中处理掉。</li>
+<li>依赖越少越好。</li>
+<li>和源系统越独立越好。</li>
+<li>设计上适合变化。</li>
+<li>源系统中数据的变化。</li>
+<li>在不改变模型的情况下可扩展。</li>
+<li>ETL作业可以重复执行。</li>
+<li>数据完全可追踪。</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>各种的数据模型中，映射现实实体及其关系，都使用了表及其表间的关系 ; Data Vault模式是较为适合大数据的数据模型,首先在Hive上建立Data Vault,然后再在Data Vault上<br>建立数据仓库或数据集市。<br>接下来要进行对NorthWind进行上述模型的实验尝试。<br>对于NorthWind的E-R关系图如下，相关的Github地址 <a href="https://github.com/Shadow-Hunter-X/hive_datawarehouse_mode_practice" target="_blank" rel="noopener">https://github.com/Shadow-Hunter-X/hive_datawarehouse_mode_practice</a></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
   </section>
 
   
@@ -1956,7 +2433,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">38</span>
+                    <span class="site-state-item-count">40</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
