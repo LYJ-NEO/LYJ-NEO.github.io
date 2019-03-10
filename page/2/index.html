@@ -1087,7 +1087,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-01-06 18:04:06" itemprop="dateModified" datetime="2019-01-06T18:04:06+08:00">2019-01-06</time>
+                <time title="修改时间：2019-02-23 13:45:18" itemprop="dateModified" datetime="2019-02-23T13:45:18+08:00">2019-02-23</time>
               
             
           </span>
@@ -1127,14 +1127,6 @@
 <p>HDP全称叫做Hortonworks Data Platform。<br>　　Hortonworks数据平台是一款基于Apache Hadoop的是开源数据平台，提供大数据云存储，大数据处理和分析等服务。该平台是专门用来应对多来源和多格式的数据，并使其处理起来能变成简单、更有成本效益。HDP还提供了一个开放，稳定和高度可扩展的平台，使得更容易地集成Apache Hadoop的数据流业务与现有的数据架构。该平台包括各种的Apache Hadoop项目以及Hadoop分布式文件系统（HDFS）、MapReduce、Pig、Hive、HBase、Zookeeper和其他各种组件，使Hadoop的平台更易于管理，更加具有开放性以及可扩展性</p>
 <p><a href="https://zh.hortonworks.com/" target="_blank" rel="noopener">网站地址</a></p>
 <p></p><h2>HDP SandBox</h2><br>Hortonworks Sandbox，可以使用它尝试一下最新的hdp特性和功能。它可以装在一个VM上，如此来说，给我们学习大数据相关内容提供了极大的便利。<br>成功导入虚拟机后的界面如下:<br><img src="/2018/10/14/Hortonworks-Data-Platform-大数据开发环境的使用/vm-startup-console.png" alt=""><p></p>
-<p></p><h2>使用HDP大数据开发环境</h2><p></p>
-<ul>
-<li><p>账号使用的初始化<br>从主页面中进入 Advanced HDP<br><img src="/2018/10/14/Hortonworks-Data-Platform-大数据开发环境的使用/mainwebui.png" alt=""></p>
-<p>进入到ADVANCED HDP QUICK LINKS界面，这样可以快速进入到各个管理界面，注意的是在每个管理入口中都显示了相应的登入方法或账号<br><img src="/2018/10/14/Hortonworks-Data-Platform-大数据开发环境的使用/quiltlink.png" alt=""></p>
-<p>首次使用root账号登录时，需要修改root密码，后续重置ambari admin账号后，才可以使用ambari管理界面<br><img src="/2018/10/14/Hortonworks-Data-Platform-大数据开发环境的使用/0-reset-ambari-admin.png" alt=""></p>
-</li>
-</ul>
-<p>使用命令: <strong>ambari-admin-password-reset</strong> 来重置admin账号,在成功的重置后，进入到ambari管理界面对Hadoop大数据体系各服务和组件进行使用,注意刚启动时，各个服务还未启动或还在启动，所以需要等待各个服务完全启动成功。<br><img src="/2018/10/14/Hortonworks-Data-Platform-大数据开发环境的使用/ambari.png" alt=""><br></p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2018/10/14/Hortonworks-Data-Platform-大数据开发环境的使用/#more" rel="contents">
@@ -1256,7 +1248,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-12-18 22:22:00" itemprop="dateModified" datetime="2018-12-18T22:22:00+08:00">2018-12-18</time>
+                <time title="修改时间：2019-02-23 13:44:57" itemprop="dateModified" datetime="2019-02-23T13:44:57+08:00">2019-02-23</time>
               
             
           </span>
@@ -1322,14 +1314,7 @@
 <li><p>PARTITION BY 子句 </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;PARTITION BY clause&gt; ::=  </span><br><span class="line">PARTITION BY value_expression , ... [ n ]  </span><br><span class="line"></span><br><span class="line">PARTITION BY</span><br><span class="line">将查询结果集分为多个分区。 开窗函数分别应用于每个分区，并为每个分区重新启动计算。</span><br><span class="line"></span><br><span class="line">value_expression</span><br><span class="line">指定行集按其分区的列。 value_expression 只能引用可供 FROM 子句使用的列。 value_expression 不能引用选择列表中的表达式或别名。 value_expression 可以是列表达式、标量子查询、标量函数或用户定义的变量。</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>ORDER BY 子句 </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;ORDER BY clause&gt; ::=  </span><br><span class="line">ORDER BY order_by_expression  </span><br><span class="line">    [ COLLATE collation_name ]   </span><br><span class="line">    [ ASC | DESC ]   </span><br><span class="line">    [ ,...n ] </span><br><span class="line">定义结果集的每个分区中行的逻辑顺序。 也就是说，它指定按其执行开窗函数计算的逻辑顺序</span><br><span class="line"></span><br><span class="line">order_by_expression</span><br><span class="line">指定用于进行排序的列或表达式。 order_by_expression 只能引用可供 FROM 子句使用的列。 不能将整数指定为表示列名或别名</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>ROWS | RANGE 子句 , 也叫做Window子句</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">通过指定分区中的起点和终点，进一步限制分区中的行数。 这是通过按照逻辑关联或物理关联对当前行指定某一范围的行实现的。 物理关联通过使用 ROWS 子句实现</span><br><span class="line">基于 ORDER BY 子句中的顺序对之前和之后的行进行定义。</span><br><span class="line"></span><br><span class="line">UNBOUNDED PRECEDING ： </span><br><span class="line">指定窗口在分区中的第一行开始。 UNBOUNDED PRECEDING 只能指定为窗口起点。</span><br><span class="line">&lt;无符号值指定&gt; PRECEDING</span><br><span class="line">使用 &lt;无符号值指定&gt; 指示要置于当前行之前的行或值的数目。</span><br><span class="line"></span><br><span class="line">CURRENT ROW ：</span><br><span class="line">在与 ROWS 一起使用时指定窗口在当前行开始或结束。</span><br><span class="line"></span><br><span class="line">UNBOUNDED FOLLOWING：</span><br><span class="line">指定窗口在分区的最后一行结束。 UNBOUNDED FOLLOWING 只能指定为窗口终点。如，RANGE BETWEEN CURRENT ROW AND UNBOUNDED FOLLOWING 定义以当前行开始、以分区的最后一行结束的窗口。</span><br><span class="line">&lt;无符号值指定&gt; FOLLOWING</span><br><span class="line">使用 &lt;无符号值指定&gt; 指示要置于当前行之后的行或值的数目</span><br><span class="line"></span><br><span class="line">PRECEDING：往前</span><br><span class="line">FOLLOWING：往后</span><br><span class="line">CURRENT ROW：当前行</span><br><span class="line">UNBOUNDED：起点，UNBOUNDED PRECEDING 表示从前面的起点， UNBOUNDED FOLLOWING：表示到后面的终点</span><br></pre></td></tr></table></figure>
-</li>
 </ul>
-<p></p><h2>使用窗口函数</h2><br>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2018/10/15/Sql-Window-Functions/#more" rel="contents">
@@ -2134,7 +2119,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -2181,7 +2166,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">40</span>
+                    <span class="site-state-item-count">44</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2229,7 +2214,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">8</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">10</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
