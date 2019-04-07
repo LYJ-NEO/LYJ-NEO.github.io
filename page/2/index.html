@@ -315,7 +315,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/14/使用python扩展Pig/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/06/7离散型随机变量/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -334,8 +334,8 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/09/14/使用python扩展Pig/" itemprop="url">
-                  使用python扩展Pig
+                <a class="post-title-link" href="/2019/02/06/7离散型随机变量/" itemprop="url">
+                  7离散型随机变量
                 </a>
               
             
@@ -361,174 +361,7 @@
                 
               
 
-              <time title="创建时间：2018-09-14 14:53:51 / 修改时间：14:55:01" itemprop="dateCreated datePublished" datetime="2018-09-14T14:53:51+08:00">2018-09-14</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Tec/" itemprop="url" rel="index"><span itemprop="name">Tec</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2>使用Python扩展Pig</h2>
-
-<p>pig通过用户定义的函数(UDFs)为自定义处理提供了广泛的支持。pig目前支持UDFs六种语言: Java, Jython, Python, JavaScript, Ruby 和 Groovy。<br>当pig执行时,它会自动检测UDF的用法。为了运行python UDFs, pig调用python命令行并对数据IO操作。</p>
-<p></p><h3>注册UDF</h3><br>在pig脚本中可以使用Python UDF之前, 必须对其进行注册, 以便pig知道在调用UDF时要查看的位置。要注册Python UDF文件, 使用pig的寄存器语句。<p></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">REGISTER &apos;udfs/myudf.py&apos; USING streaming_python AS my_udf;</span><br></pre></td></tr></table></figure>
-<p>一旦UDF函数注册成功，就可以在pig脚本中调用,在这个例子中引用my_udf:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">relation = FOREACH data GENERATE my_udf.function(field);</span><br></pre></td></tr></table></figure></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/09/14/使用python扩展Pig/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/01/我们都是中毒的人/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/fly.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LYJ-NEO">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/10/01/我们都是中毒的人/" itemprop="url">
-                  我们都是中毒的人
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-10-01 15:10:11" itemprop="dateCreated datePublished" datetime="2018-10-01T15:10:11+08:00">2018-10-01</time>
+              <time title="创建时间：2019-02-06 17:06:00" itemprop="dateCreated datePublished" datetime="2019-02-06T17:06:00+08:00">2019-02-06</time>
             
 
             
@@ -545,549 +378,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-01-06 17:12:01" itemprop="dateModified" datetime="2019-01-06T17:12:01+08:00">2019-01-06</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/feeling/" itemprop="url" rel="index"><span itemprop="name">feeling</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/10/使用Excel建立数据模型-MSBI/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/fly.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LYJ-NEO">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/10/10/使用Excel建立数据模型-MSBI/" itemprop="url">
-                  使用Excel建立数据模型-MSBI
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-10-10 16:25:19" itemprop="dateCreated datePublished" datetime="2018-10-10T16:25:19+08:00">2018-10-10</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-01-06 17:08:54" itemprop="dateModified" datetime="2019-01-06T17:08:54+08:00">2019-01-06</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Tec/" itemprop="url" rel="index"><span itemprop="name">Tec</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2>关于上下文</h2>
-
-<p>Power Pivot 中的公式可受到在数据透视表中应用的筛选器、表之间的关系以及公式中使用的筛选器的影响。可以通过“上下文”执行“动态分析”。</p>
-<ul>
-<li><p>行上下文<br>Row context可被视为“当前行”,如果创建了计算列，则行上下文由每个单独行中的值以及与当前行相关的列中的值组成。还有一些函数（EARLIER 函数和EARLIEST 函数）可从当前行获取值，然后在对整个表执行操作时使用该值。</p>
-<p>如果您在计算列中创建某一公式，则该公式的“行上下文”将包括来自当前行中所有列的值。如果该表与其他表相关，则上下文还包括来自该其他表中与当前行相关的所有值。此公式的行为类似于 Excel 表中自动引用同一行中的值的公式。请注意，表不同于范围：不能通过使用范围表示法引用来自当前行之前的行的值，并且不能引用表或单元中的任意单个值。</p>
-</li>
-<li><p>查询上下文<br>指为数据透视表中的每个单元隐式创建的数据子集，具体取决于行和列标题。<br>查询上下文引用的公式为隐式检索的数据子集。放到数据透视表中的单元格的度量值或其他值字段时， Power Pivot引擎会检查行和列标题、 切片器和报表筛选器来确定上下文</p>
-</li>
-<li><p>筛选上下文<br>根据筛选约束（已应用于行或由公式中的筛选表达式定义）而允许在每列中存在的值集。<br>通过在公式中使用参数，为列或表中允许存在的值集指定筛选约束时，将添加“筛选上下文”。基于其他上下文（如行上下文或查询上下文）应用筛选上下文。</p>
-</li>
-</ul>
-<p></p><h2>使用Excel Powerpivot构建数据模型</h2><br>PowerPivot作为Excel的一个插件，意在提供自助式商业智能，为用户提供了强大的数据分析功能。<br>PowerPivot 是一种数据建模技术，用于创建数据模型，建立关系，以及创建计算。 可使用 PowerPivot 处理大型数据集，构建广泛的关系，以及创建<br>复杂（或简单）的计算，这些操作全部在高性能环境中和所你熟悉的 Excel 内执行。在Excel中安装了PowerPivot后，数据处理中 <strong>PowerPivot数据库</strong> 中,其为内存中列式数据库,对数据压缩率高，且处理数据量和速度也更高。<p></p>
-<p></p><h3>构建前的准备</h3><br>在Excel中安装PowerPivot，对于高于2013版本，已默认安装，只要激活即可。<p></p>
-<p><img src="/2018/10/10/使用Excel建立数据模型-MSBI/1.png" alt=""></p>
-<p></p><h3>连接转载数据</h3><br>excel作为富客户端，拥有丰富且完备的功能，对于转载数据可以来自各种的数据源。<p></p>
-<ul>
-<li>进入 PowerPivot </li>
-</ul>
-<p>PowerPivot入口<br><img src="/2018/10/10/使用Excel建立数据模型-MSBI/2.png" alt="PowerPivot入口"></p>
-<p>PowerPivot设计界面<br><img src="/2018/10/10/使用Excel建立数据模型-MSBI/3.png" alt=""></p>
-<ul>
-<li><p>连接数据<br>对于目前主流的数据库，格式化的文本文件都可以从Excel进行加载，这里为了简单，连接到SQLserver数据中的AdventureWorks数据</p>
-<p><img src="/2018/10/10/使用Excel建立数据模型-MSBI/4.png" alt=""></p>
-<p>由于在AdventureWorks数据库中各表中已经具有关系了，所以在PowerPivot中也就继承了各表的关系。</p>
-<p><img src="/2018/10/10/使用Excel建立数据模型-MSBI/5.png" alt=""></p>
-</li>
-</ul>
-<p>所以这里可以看到，对于通过使用PowerPivot进行数据建模时包括： 表 和 各表间的关系，通过关系将表格转换为一个数据模型的关键。<br>实际中和关系数据库构建关系的原理是一样的。</p>
-<p>对于如果在数据源中并没有现成的表关系时，需要在PowerPivot中进行构建关系的方法，拖动表中的一列到对应的表的列上。</p>
-<p><img src="/2018/10/10/使用Excel建立数据模型-MSBI/6.png" alt=""></p>
-<p>实际的操作也就是这么的简单，但是构建数据模型前理解对应的业务模型是关键。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/11/秋天/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/fly.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LYJ-NEO">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/10/11/秋天/" itemprop="url">
-                  秋天
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-10-11 18:24:50" itemprop="dateCreated datePublished" datetime="2018-10-11T18:24:50+08:00">2018-10-11</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-01-06 22:38:13" itemprop="dateModified" datetime="2019-01-06T22:38:13+08:00">2019-01-06</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/feeling/" itemprop="url" rel="index"><span itemprop="name">feeling</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><strong>每个夏天的离去就是一次年轻的死亡，抓不住的夏蝉，悟不透夏禅 。</strong><br><img src="/2018/10/11/秋天/summer.jpg" alt=""></p>
-<p><strong>每个秋天的到来就是一次抑郁的滋长，挽不住的秋叶，勾不住秋思 。</strong><br><img src="/2018/10/11/秋天/autumn.jpg" alt=""></p>
-<p><strong>现在冬天来了，而我却没有一张照片来应景，真是萧条的季节啊,哈哈哈。</strong></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/14/Hortonworks-Data-Platform-大数据开发环境的使用/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/fly.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LYJ-NEO">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/10/14/Hortonworks-Data-Platform-大数据开发环境的使用/" itemprop="url">
-                  Hortonworks-Data-Platform-大数据开发环境的使用
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-10-14 14:40:49" itemprop="dateCreated datePublished" datetime="2018-10-14T14:40:49+08:00">2018-10-14</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-02-23 13:45:18" itemprop="dateModified" datetime="2019-02-23T13:45:18+08:00">2019-02-23</time>
+                <time title="修改时间：2019-04-04 08:56:50" itemprop="dateModified" datetime="2019-04-04T08:56:50+08:00">2019-04-04</time>
               
             
           </span>
@@ -1121,960 +412,1614 @@
 
       
         
-          <h2>Hortonworks</h2>
+          <h2>离散型随机变量</h2>
 
-<p>Hortonworks是国际领先的开发、推广和支持Apache Hadoop的商业供应商，它的Hadoop认证也是业界公认的Hadoop权威认证。<br>其有多款产品,其中HDP为数据平台，目前最新版本的 HDP 为企业提供了新的功能，支持敏捷的应用程序部署、机器学习/深度学习工作负载、实时数据仓储以及安全和治理。它是现代化数据架构的关键组件。</p>
-<p>HDP全称叫做Hortonworks Data Platform。<br>　　Hortonworks数据平台是一款基于Apache Hadoop的是开源数据平台，提供大数据云存储，大数据处理和分析等服务。该平台是专门用来应对多来源和多格式的数据，并使其处理起来能变成简单、更有成本效益。HDP还提供了一个开放，稳定和高度可扩展的平台，使得更容易地集成Apache Hadoop的数据流业务与现有的数据架构。该平台包括各种的Apache Hadoop项目以及Hadoop分布式文件系统（HDFS）、MapReduce、Pig、Hive、HBase、Zookeeper和其他各种组件，使Hadoop的平台更易于管理，更加具有开放性以及可扩展性</p>
-<p><a href="https://zh.hortonworks.com/" target="_blank" rel="noopener">网站地址</a></p>
-<p></p><h2>HDP SandBox</h2><br>Hortonworks Sandbox，可以使用它尝试一下最新的hdp特性和功能。它可以装在一个VM上，如此来说，给我们学习大数据相关内容提供了极大的便利。<br>成功导入虚拟机后的界面如下:<br><img src="/2018/10/14/Hortonworks-Data-Platform-大数据开发环境的使用/vm-startup-console.png" alt=""><p></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/10/14/Hortonworks-Data-Platform-大数据开发环境的使用/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/15/Sql-Window-Functions/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/fly.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LYJ-NEO">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/10/15/Sql-Window-Functions/" itemprop="url">
-                  Sql Window Functions
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-10-15 09:52:03" itemprop="dateCreated datePublished" datetime="2018-10-15T09:52:03+08:00">2018-10-15</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-02-23 13:44:57" itemprop="dateModified" datetime="2019-02-23T13:44:57+08:00">2019-02-23</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Tec/" itemprop="url" rel="index"><span itemprop="name">Tec</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2>何谓SQL窗口函数</h2>
-
-<p>窗口函数主要应用于由Over子句定义的行集的函数，在应用关联的开窗函数前确定行集的分区和排序,OVER 子句定义查询结果集内的窗口或用户指定的行<br>集。 然后，开窗函数将计算窗口中每一行的值。 可以将 OVER 子句与函数一起使用，以便计算各种聚合值，例如移动平均值、累积聚合、运行总计或每<br>组结果的前N个结果。</p>
-<p>窗口函数主要用于分析作用，对于窗口函数的主要依据标准SQL中的window概念，在这个概念下，允许针对集合，窗口，行集执行各种的计算并放回一个结果<br>通过窗口函数有助于解决各种查询任务通过更简单，直观，有效的数据集。</p>
-<p>对于窗口函数的使用，目前主流的关系数据库都有支持，针对Hive Sql也支持使用窗口函数。为简单期间，使用sqlserver进行对窗口函数的使用说明</p>
-<h2>数据的准备</h2><br>针对在Sqlserver上使用窗口函数，使用的测试数据为AdventureWorks，相关的表结构信息：<br><br><a href="http://jeremykdev.github.io/SqlServerDatabaseDocumentationGenerator/AdventureWorks-sample.html" target="_blank" rel="noopener">表结构信息</a><br><br><a href="https://github.com/Microsoft/sql-server-samples/releases/tag/adventureworks" target="_blank" rel="noopener">AdventureWorks数据库Github地址</a><br><br><a href="https://docs.microsoft.com/zh-cn/sql/t-sql/queries/select-over-clause-transact-sql?view=sql-server-2017" target="_blank" rel="noopener">MSDN文档参考</a><br><br><h2>窗口函数语法</h2>
+<p>相关定理内容摘录： 概率与数理统计（茆诗松 周纪芗）</p>
+<h3>相关概念</h3>
 
 <ul>
-<li><p>OVER 语法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">OVER (   </span><br><span class="line">       [ &lt;PARTITION BY clause&gt; ]  </span><br><span class="line">       [ &lt;ORDER BY clause&gt; ]   </span><br><span class="line">       [ &lt;ROW or RANGE clause&gt; ]  </span><br><span class="line">      )</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>PARTITION BY 子句 </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;PARTITION BY clause&gt; ::=  </span><br><span class="line">PARTITION BY value_expression , ... [ n ]  </span><br><span class="line"></span><br><span class="line">PARTITION BY</span><br><span class="line">将查询结果集分为多个分区。 开窗函数分别应用于每个分区，并为每个分区重新启动计算。</span><br><span class="line"></span><br><span class="line">value_expression</span><br><span class="line">指定行集按其分区的列。 value_expression 只能引用可供 FROM 子句使用的列。 value_expression 不能引用选择列表中的表达式或别名。 value_expression 可以是列表达式、标量子查询、标量函数或用户定义的变量。</span><br></pre></td></tr></table></figure>
-</li>
+<li>分布列：表示概率在所有的可能发生的情况中的分布。</li>
 </ul>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/10/15/Sql-Window-Functions/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/16/Sql-On-Big-Data/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/fly.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LYJ-NEO">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/10/16/Sql-On-Big-Data/" itemprop="url">
-                  Sql On Big Data
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-10-16 17:03:44" itemprop="dateCreated datePublished" datetime="2018-10-16T17:03:44+08:00">2018-10-16</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/28/懂否/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/fly.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LYJ-NEO">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/10/28/懂否/" itemprop="url">
-                  懂否
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-10-28 18:22:46" itemprop="dateCreated datePublished" datetime="2018-10-28T18:22:46+08:00">2018-10-28</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-01-06 17:23:03" itemprop="dateModified" datetime="2019-01-06T17:23:03+08:00">2019-01-06</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/feeling/" itemprop="url" rel="index"><span itemprop="name">feeling</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/01/咳/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/fly.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LYJ-NEO">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/01/咳/" itemprop="url">
-                  咳
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-11-01 08:56:04" itemprop="dateCreated datePublished" datetime="2018-11-01T08:56:04+08:00">2018-11-01</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-01-06 17:14:10" itemprop="dateModified" datetime="2019-01-06T17:14:10+08:00">2019-01-06</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/feeling/" itemprop="url" rel="index"><span itemprop="name">feeling</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/01/0-Hive命令/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/fly.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LYJ-NEO">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/01/0-Hive命令/" itemprop="url">
-                  0-Hive命令
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-11-01 11:19:47" itemprop="dateCreated datePublished" datetime="2018-11-01T11:19:47+08:00">2018-11-01</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-01-06 17:15:57" itemprop="dateModified" datetime="2019-01-06T17:15:57+08:00">2019-01-06</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Tec/" itemprop="url" rel="index"><span itemprop="name">Tec</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2>HDFS命令</h2>
-
-<ul>
-<li>HDFS命令大全</li>
-</ul>
-<p>Usage: hdfs [–config confdir] COMMAND where COMMAND is one of:</p>
 <table>
 <thead>
 <tr>
-<th>命令</th>
-<th style="text-align:left">说明</th>
+<th>事件</th>
+<th>A</th>
+<th>B</th>
+<th>C</th>
+<th>D</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>dfs</strong></td>
-<td style="text-align:left">执行hadoop支持的文件系统命令run a filesystem command on the file systems supported in Hadoop.</td>
-</tr>
-<tr>
-<td><strong>namenode -format</strong></td>
-<td style="text-align:left">格式化文件系统format the DFS filesystem</td>
-</tr>
-<tr>
-<td><strong>secondarynamenode</strong></td>
-<td style="text-align:left">启用secondary namenode服务 run the DFS secondary namenode</td>
-</tr>
-<tr>
-<td><strong>namenode</strong></td>
-<td style="text-align:left">启用namenode服务 run the DFS namenode</td>
-</tr>
-<tr>
-<td><strong>journalnode</strong></td>
-<td style="text-align:left">启用journalnode服务 run the DFS journalnode</td>
-</tr>
-<tr>
-<td><strong>zkfc</strong></td>
-<td style="text-align:left">启用 ZK 备援控制驻守服务 run the ZK Failover Controller daemon</td>
-</tr>
-<tr>
-<td><strong>datanode</strong></td>
-<td style="text-align:left">启用 datanode服务 run a DFS datanode</td>
-</tr>
-<tr>
-<td><strong>dfsadmin</strong></td>
-<td style="text-align:left">启用 DFS admin客户端 run a DFS admin client</td>
-</tr>
-<tr>
-<td><strong>haadmin</strong></td>
-<td style="text-align:left">启用 DFS HA admin 客户端 run a DFS HA admin client</td>
-</tr>
-<tr>
-<td><strong>fsck</strong></td>
-<td style="text-align:left">启用 DFS 文件系统检查组件 run a DFS filesystem checking utility</td>
-</tr>
-<tr>
-<td><strong>balancer</strong></td>
-<td style="text-align:left">启用 集群负载均衡工具 run a cluster balancing utility</td>
-</tr>
-<tr>
-<td><strong>jmxget</strong></td>
-<td style="text-align:left">get JMX exported values from NameNode or DataNode.</td>
-</tr>
-<tr>
-<td><strong>oiv</strong></td>
-<td style="text-align:left">应用脱机fsimage查看器 apply the offline fsimage viewer to an fsimage</td>
-</tr>
-<tr>
-<td><strong>oev</strong></td>
-<td style="text-align:left">应用脱机编辑查看器 apply the offline edits viewer to an edits file</td>
-</tr>
-<tr>
-<td><strong>fetchdt</strong></td>
-<td style="text-align:left">从NameNode分发一个代理token fetch a delegation token from the NameNode</td>
-</tr>
-<tr>
-<td><strong>getconf</strong></td>
-<td style="text-align:left">获取配置信息 get config values from configuration</td>
-</tr>
-<tr>
-<td><strong>groups</strong></td>
-<td style="text-align:left">获取用户所属的组 get the groups which users belong to</td>
-</tr>
-<tr>
-<td><strong>snapshotDiff</strong></td>
-<td style="text-align:left">比较一个目录的两个快照的不同 diff two snapshots of a directory or diff the current directory contents with a snapshot</td>
-</tr>
-<tr>
-<td><strong>lsSnapshottableDir</strong></td>
-<td style="text-align:left">列举属于本用户的所有表快照目录 list all snapshottable dirs owned by the current user</td>
-</tr>
-<tr>
-<td><strong>portmap</strong></td>
-<td style="text-align:left">启用portmap服务 run a portmap service</td>
-</tr>
-<tr>
-<td><strong>nfs3</strong></td>
-<td style="text-align:left">run an NFS version 3 gateway</td>
+<td>P</td>
+<td>0.15</td>
+<td>0.1</td>
+<td>0.5</td>
+<td>0.25</td>
 </tr>
 </tbody>
 </table>
-<ul>
-<li>常用命令 </li>
-</ul>
-<p>对于HDFS dfs命令，针对在shell命令在大部分可以使用，只要在相应的命令前加 <strong>-</strong>。使用时，在Hive Cli可以省略hadoop命令。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">展示hdfs文件中的根目录：</span><br><span class="line">hdfs dfs -ls /</span><br><span class="line"></span><br><span class="line">展示home目录下的信息:</span><br><span class="line">hdfs dfs -ls</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">创建home目录下创建目录product,当没有加目录时，就是在对应用户的home目录</span><br><span class="line">hdfs dfs -mkdir product</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">拷贝文件到HDFS,将product.csv文件拷贝到刚才创建的product文件夹下。</span><br><span class="line">hdfs dfs -put product.csv product</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">将文件从HDFS上拷贝到本地系统</span><br><span class="line">hdfs dfs -get product/prodcut.csv product_copy.csv</span><br><span class="line"></span><br><span class="line">在HDFS文件系统内进行文件拷贝</span><br><span class="line">hdfs dfs -cp product/product.csv  product_copy.csv</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">删除文件</span><br><span class="line">hdfs dfs -rm  product_copy.csv</span><br><span class="line"></span><br><span class="line">删除一个目录</span><br><span class="line">hdfs dfs -rm -r product</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">获取HDFS转态报告(限管理员)</span><br><span class="line">hdfs dfsadmin -report</span><br><span class="line">输出结果：</span><br><span class="line">[root@sandbox-hdp hive_data]# hdfs dfsadmin -report                                                                                                                   </span><br><span class="line">Configured Capacity: 113791799296 (105.98 GB)</span><br><span class="line">Present Capacity: 86075118592 (80.16 GB)</span><br><span class="line">DFS Remaining: 84059177984 (78.29 GB)</span><br><span class="line">DFS Used: 2015940608 (1.88 GB)</span><br><span class="line">DFS Used%: 2.34%</span><br><span class="line">Under replicated blocks: 0</span><br><span class="line">Blocks with corrupt replicas: 0</span><br><span class="line">Missing blocks: 0</span><br><span class="line">Missing blocks (with replication factor 1): 0</span><br><span class="line"></span><br><span class="line">-------------------------------------------------</span><br><span class="line">report: Access denied for user root. Superuser privilege is required</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">对HDFS文件系统的健康型检查</span><br><span class="line">hdfs fsck /</span><br><span class="line"></span><br><span class="line">输出结果如下:</span><br><span class="line">Connecting to namenode via http://sandbox-hdp.hortonworks.com:50070/fsck?ugi=root&amp;path=%2F</span><br><span class="line">FSCK started by root (auth:SIMPLE) from /172.18.0.2 for path / at Sun Dec 30 09:35:33 UTC 2018</span><br><span class="line">...................................................................................Status: HEALTHY</span><br><span class="line"> Total size:    1984726046 B</span><br><span class="line"> Total dirs:    232</span><br><span class="line"> Total files:   1083</span><br><span class="line"> Total symlinks:                0 (Files currently being written: 1)</span><br><span class="line"> Total blocks (validated):      1081 (avg. block size 1836009 B) (Total open file blocks (not validated): 1)</span><br><span class="line"> Minimally replicated blocks:   1081 (100.0 %)</span><br><span class="line"> Over-replicated blocks:        0 (0.0 %)</span><br><span class="line"> Under-replicated blocks:       0 (0.0 %)</span><br><span class="line"> Mis-replicated blocks:         0 (0.0 %)</span><br><span class="line"> Default replication factor:    1</span><br><span class="line"> Average block replication:     1.0</span><br><span class="line"> Corrupt blocks:                0</span><br><span class="line"> Missing replicas:              0 (0.0 %)</span><br><span class="line"> Number of data-nodes:          1</span><br><span class="line"> Number of racks:               1</span><br><span class="line">FSCK ended at Sun Dec 30 09:35:33 UTC 2018 in 329 milliseconds</span><br><span class="line"></span><br><span class="line">The filesystem under path &apos;/&apos; is HEALTHY</span><br></pre></td></tr></table></figure>
-<p></p><h2>Hive命令</h2><br>
+<p>A,B,C,D 分别表示四个不同的事件， P 为他们对应的概率，（0≤p≤1）对于任意一个分布列，所有概率之和为1，也可记为100%。</p>
+<h3>离散型随机变量及其分布列</h3><br>离散型（discrete）随机变量即在一定区间内变量取值为有限个或可数个。例如某地区某年人口的出生数、死亡数，某药治疗某病病人的有效数、无效数等。<br>离散型随机变量通常依据概率质量函数分类，主要分为：伯努利随机变量、二项随机变量、几何随机变量和泊松随机变量。<br><br><em> 定义1<br>如果随机变量X只可能取有限个或至多可列个值，则称X为离散型随机变量。<br></em>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/11/01/0-Hive命令/#more" rel="contents">
+            <a class="btn" href="/2019/02/06/7离散型随机变量/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/06/6随机变量和概率分布/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/fly.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LYJ-NEO">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/06/6随机变量和概率分布/" itemprop="url">
+                  6随机变量和概率分布
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-02-06 17:05:07" itemprop="dateCreated datePublished" datetime="2019-02-06T17:05:07+08:00">2019-02-06</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-04 08:56:50" itemprop="dateModified" datetime="2019-04-04T08:56:50+08:00">2019-04-04</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2>随机变量和概率分布</h2>
+
+<p>相关定理内容摘录： 概率与数理统计（茆诗松 周纪芗）</p>
+<h3>相关概念</h3>
+
+<ul>
+<li><p>随机变量<br>假设一个变量在数轴上的取值依赖于随机现象的基本结果，则此变量为随机变量，可以用大写字母X，Y，Z来表示。</p>
+</li>
+<li><p>离散性随机变量<br>如一个随机变量仅取值数轴上有限或可孤立点，则这个随机变量为<strong>离散随机变量</strong></p>
+</li>
+<li><p>连续随机变量<br>假如一个随机变量的可能取值充满数轴上的一个区间（a,b）,则此随机变量为<strong>连续随机变量</strong></p>
+</li>
+</ul>
+<p></p><h3>随机变量的概率分布</h3><br>对于概率分布这个概念，一个随机变量的值会对应一个概率。这所有的随机变量的值和其对一个的概率构建一个概率分布图，即得到了概率分布。<p></p>
+<ul>
+<li>数学期望<br>数学期望(mean)（或均值，亦简称期望）是试验中每次可能结果的概率乘以其结果的总和。 即 随机变量 乘以 对应的概率值的和。<br>数学期望 指用概率分布算得的一种加权平均，是概率论中的一个基本概念,期望指示预测结果。</li>
+</ul>
+<p><img src="/2019/02/06/6随机变量和概率分布/6_1_expert.png" alt=""><br></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/02/06/6随机变量和概率分布/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/06/5条件概率和贝叶斯公式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/fly.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LYJ-NEO">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/06/5条件概率和贝叶斯公式/" itemprop="url">
+                  5条件概率和贝叶斯公式
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-02-06 17:04:00" itemprop="dateCreated datePublished" datetime="2019-02-06T17:04:00+08:00">2019-02-06</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-04 08:56:50" itemprop="dateModified" datetime="2019-04-04T08:56:50+08:00">2019-04-04</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2>5条件概率和贝叶斯公式</h2>
+
+<p>通过对事件的独立性的判断，可以计算条件概率；条件概率是贝叶斯公式推导的重要部分。所以对于事件的独立性判断和条件性的判断很重要的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Tip</span><br><span class="line">1 P(AB) 即为 P(A∩B) 表示的是两个事件的交集，针对条件概率。</span><br><span class="line">2 事件A的概率 P(A) 和 事件A的条件概率 P(A|B) 都是表示A的概率，这点需要明确。</span><br><span class="line">3 对立事件和互斥事件: 事件A和事件B为对立事件，只有一个事件能发生P(A)+P(B)=1；对立事件，不同时发生,P(A) + P(B) &lt; 1</span><br></pre></td></tr></table></figure>
+<p>相关内定理容摘录： 概率与数理统计（茆诗松 周纪芗）</p>
+<h3>相关概念</h3>
+
+<ul>
+<li><p>事件独立性<br>两个事件间的独立性是指一个事件的发生不影响另一个事件的发生。事件A和事件B中 P(AB) 表示的是事件A和事件B同时发生时的概率计算。<br>如果P(AB) = P(A)P(B)则表示 事件A和事件B是独立的,所以对于事件将的独立性的判断依据可以根据这个来。</p>
+<p><img src="/2019/02/06/5条件概率和贝叶斯公式/5_formula_1.png" alt=""></p>
+</li>
+<li><p>贝努里实验<br>只有两个结果的试验。</p></li></ul>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/02/06/5条件概率和贝叶斯公式/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/06/4概率计算/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/fly.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LYJ-NEO">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/06/4概率计算/" itemprop="url">
+                  4概率计算
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-02-06 17:02:20" itemprop="dateCreated datePublished" datetime="2019-02-06T17:02:20+08:00">2019-02-06</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-04 08:56:50" itemprop="dateModified" datetime="2019-04-04T08:56:50+08:00">2019-04-04</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2>概率计算</h2>
+
+<h3>相关概念</h3>
+
+<ul>
+<li>随机现象：在一定条件下，并不总是出现相同结果的现象。</li>
+<li>随机试验：可以重复的随机现象。</li>
+<li>基本结果：随机现象最简单的结果，是统计中的抽样的基本单元，故也称为样本点。</li>
+<li>基本空间：随机现象所有基本结果的全体。</li>
+<li>随机事件：某些基本结果组成的集合称为随机事件。</li>
+<li>必然事件和不可能事件：一定会发生的时间和不可能发生的事件。</li>
+<li><p>维恩图：可以用来表示在基本空间中的事件关系的椭圆形图，较直观。</p>
+</li>
+<li><p>事件的包含关系：<br>  事件A的任意结果都在事件B中，B包含A，使用符号 A⊂B，注意开口方向。<br><img src="/2019/02/06/4概率计算/4_1_include.png" alt=""><br>$$<br>  A \subset B<br>$$</p>
+</li>
+<li><p>事件相等 : 事件A中的任意结果都在B中，而B中的任意结果也都在A中 A = B</p>
+</li>
+<li>事件互斥 : 事件A和B没有相同的结果</li>
+</ul>
+<p><strong>事件的计算</strong></p>
+<ul>
+<li><p>对立事件 : 不在A中的一切基本结果称为事件A的对立事件，在事件A上加一条横线。 二者相加为1<br><img src="/2019/02/06/4概率计算/4_2_overline.png" alt=""><br>$$<br>\overline{x}<br>$$</p>
+</li>
+<li><p>事件A与B的并： A ∪ B</p>
+</li>
+<li>事件A与B的交： A ∩ B</li>
+<li>事件A与B的差：在事件A中而不在事件B中的基本结果 B – A</li>
+</ul>
+<h3>事件的概率计算</h3>
+
+<ul>
+<li>P(A) = 事件A发生中的基本结果个数 / 基本空间中的所有基本结果的个数 。</li>
+<li>在进行求解概率的过程中 使用维恩图能够更高的进行理解。</li>
+<li>在计算概率中多使用到排列组合进行计算基本事件的个数，所以对于排列中应该进行</li>
+</ul>
+<h3>概率计算中的相关的公式</h3>
+
+<p>相关定理内容摘录： 概率与数理统计（茆诗松 周纪芗）<br></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/02/06/4概率计算/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/06/3方差和数据的分散性/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/fly.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LYJ-NEO">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/06/3方差和数据的分散性/" itemprop="url">
+                  3方差和数据的分散性
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-02-06 17:01:27" itemprop="dateCreated datePublished" datetime="2019-02-06T17:01:27+08:00">2019-02-06</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-04 08:56:50" itemprop="dateModified" datetime="2019-04-04T08:56:50+08:00">2019-04-04</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2>方差使用和数据分散性</h2>
+
+<p>数据间的各种距离，可达到计算数据的分散性和变异性。变异性提供了对一个分布中的数据分散开或聚集在一起的程度的数量测量。<br>对于均值，中位数，众数单纯的指出数据的中心，但是这样还是不够，并没有的整体的指出的数据频率的情况及稳定性。</p>
+<h3>数据分散性</h3>
+
+<h4>全距</h4>
+
+<p>通过计算全局，可以获取数据的分散情况。全局值数据的分散范围，是数据的跨度。</p>
+<font color="Hotpink">计算的方法为：数据集中的最大值减去数据集中的最小值。</font>
+
+<h4>上界和下界</h4><br><font color="Hotpink"> 计最大值称为上界;最小值称为下界 </font><br><br><h4>异常值对全距的影响</h4>
+
+<p>对于将数据进行排序，在数据的两端的值中可能包含异常时，于是全距的值将会受到影响。由于全距的计算中及其的简单，所以无法很好的进行对数据的分散性进行分析（主要受异常值的影响）。</p>
+<h4>四分位距</h4>
+
+<p>为了消除异常值中对全距的影响，可以使用四分位距剔除异常值。四分位距的计算方法</p>
+<pre><code>* 1 对整份数据进行排序，从小到大进行排序  
+* 2 数据进行4等分，即每一份的数据为包含4分之一的数据
+* 3    求取上下四分位距的值和四分位距，求取中位数
+</code></pre>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/02/06/3方差和数据的分散性/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/06/2各种平均值/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/fly.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LYJ-NEO">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/06/2各种平均值/" itemprop="url">
+                  2各种平均值
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-02-06 16:59:59" itemprop="dateCreated datePublished" datetime="2019-02-06T16:59:59+08:00">2019-02-06</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-04 08:56:50" itemprop="dateModified" datetime="2019-04-04T08:56:50+08:00">2019-04-04</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2>各种平均值</h2>
+
+<p>在概率统计中有各种的平均值，这些平均值在不同的情形下使用，体现数据的平均。对于均值，用来表示数据的集中趋势。均值和标准差是描述数据资料集中<br>趋势和离散程度的两个最重要的测度值。所以这里进行介绍3种平均值：均值-μ ， 中位数 ， 众数。</p>
+<h3>均值 μ</h3>
+
+<ul>
+<li>计算公式： x 为一个统计值 ， n为样本数据。</li>
+</ul>
+<p><img src="/2019/02/06/2各种平均值/2_avg.png" alt=""></p>
+<p>$$<br>\mu = \frac{\sum_{i=1}^{n}{x}}{n}<br>$$</p>
+<ul>
+<li>使用： 在数据非常对称，且仅显示出一种趋势时使用。</li>
+</ul>
+<h3>中位数</h3>
+
+<ul>
+<li><p>计算方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">将所有数据按照升序排序,如果时奇数个数，则中位数为中间数据；</span><br><span class="line">如果时偶数个数，则中位数为两个中间数值相加除以2得到的结果。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用 ：用于进行研究的对象数据中，存在异常值，导致数据不对称是，使用中位数来进行衡量数据的整体趋势。</p>
+</li>
+</ul>
+<h3>众数</h3>
+
+<ul>
+<li>计算方法:</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">选出具有最大频数的一个或几个数值，如果数据可以分为两组，则为每组找出一个众数。</span><br></pre></td></tr></table></figure>
+<ul>
+<li>使用：针对数据可以分为多个类型时，使用众数针对每组分出不同数组。对于众数时唯一能用于类别数据的平均数类型。</li>
+</ul>
+<ul>
+<li>对于 markdown math <ul>
+<li>\frac{}{}  -            用来表述除法</li>
+<li>\sum_{i=1}^{n}{expr}    用来表示汇总值</li>
+<li>\mu                     表示希腊字母μ</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/06/1数据图表的使用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/fly.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LYJ-NEO">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/06/1数据图表的使用/" itemprop="url">
+                  1数据图表的使用
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-02-06 16:50:19" itemprop="dateCreated datePublished" datetime="2019-02-06T16:50:19+08:00">2019-02-06</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-04 08:56:50" itemprop="dateModified" datetime="2019-04-04T08:56:50+08:00">2019-04-04</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2>数据图表的使用</h2>
+
+<h3>1 总体</h3><br>不同的图表形式，揭示出不同的数据信息。但也同时也可能误导读者，或隐藏重要的信息，通过对不同的图表进行说明，能够更好的进行展示数据。能够搞好的理解数据意义，揭示深层次的问题<br><br><h3>2 概念及注意事项<h3><br><br><em> 数据<br>  没有意义的数字。如 1 ， 2 ，100。
+
+</em> 信息<br>  赋予意义的数字，可以表示对象的某种属性特征，1米长的桌子。<br><br> <em> 频数<br>  表示一个特定组，或者说一个特定区间内的统计对象的数目，类似于数数。一种统计方法，用于描述一个类别中有多少个项。
+
+</em> 类别数据（定性数据）<br>  数据被划分为各种类别，用以描述某类的性质户特征，因此也称为定性数据。对于类别数据不要将其理解为数字。（如甜品的种类）。<br><br>* 数值数据（定量数据）<br>  数值型数据具有数字的意义，还涉及计量或计数（如长度和时间）。<br><br><h3>3 图标类别</h3>
+
+<ul>
+<li><p>饼图</p>
+<ul>
+<li><p>表述意义<br>基本比例进行比较，每个扇形大小展示的每组数据的相对频数，通过比较能交容易的看出哪个组具有较高的频数.</p>
+<p><img src="/2019/02/06/1数据图表的使用/pie.png" alt=""></p>
+</li>
+<li><p>使用场景<br>整体和部分的关系，各分组间的比例有较大的差异性，能够较容易的识别出。但扇形大小相似时不适用；当扇形块所占整体比例无关的百分数时，则意义不大。</p></li></ul></li></ul></h3></h3>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/02/06/1数据图表的使用/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/15/冷/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/fly.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LYJ-NEO">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/15/冷/" itemprop="url">
+                  冷~
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-12-15 20:25:47" itemprop="dateCreated datePublished" datetime="2018-12-15T20:25:47+08:00">2018-12-15</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-04 08:56:50" itemprop="dateModified" datetime="2019-04-04T08:56:50+08:00">2019-04-04</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/12/8-Hive调优/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/fly.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LYJ-NEO">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/12/8-Hive调优/" itemprop="url">
+                  8-Hive调优
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-12-12 11:25:41" itemprop="dateCreated datePublished" datetime="2018-12-12T11:25:41+08:00">2018-12-12</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-04 08:56:50" itemprop="dateModified" datetime="2019-04-04T08:56:50+08:00">2019-04-04</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/12/7-Hive设计模式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/fly.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LYJ-NEO">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/12/7-Hive设计模式/" itemprop="url">
+                  7-Hive设计模式
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-12-12 11:25:17" itemprop="dateCreated datePublished" datetime="2018-12-12T11:25:17+08:00">2018-12-12</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-04 08:56:50" itemprop="dateModified" datetime="2019-04-04T08:56:50+08:00">2019-04-04</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Tec/" itemprop="url" rel="index"><span itemprop="name">Tec</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2>Hive设计模式</h2>
+
+<p>hive是基于Hadoop的一个数据仓库工具，可以将结构化的数据文件映射为一张数据库表，并提供简单的sql查询功能，可以将sql语句转换为MapReduce任务进行运行。<br>对于传统关系数据构建数据仓库的建模方法，对于Hive是否适用 ； 针对Hive自身特点，需要如何合理构建 ，本文将记将进行探讨。</p>
+<p>Hive看上去及实际行为都像一个关系型数据库，但Hive实现和使用和传统的关系型数据库是非常不同的，事实上Hive是反模式的。</p>
+<h2>数据仓库数据模型</h2>
+
+<p><strong>数据模型是抽象描述现实世界的一种工具和方法，是通过抽象的实体及实体之间联系的形式，来表示现实世界中事务的相互关系的一种映射</strong></p>
+<p>数据仓库的数据模型的架构和数据仓库的整体架构是紧密关联在一起的，我们首先来了解一下整个数据仓库的数据模型应该包含的几个部分。<br>从下图我们可以很清楚地看到，整个数据模型的架构分成 5 大部分，每个部分其实都有其独特的功能。<br><img src="/2018/12/12/7-Hive设计模式/dw_model.jpg" alt=""></p>
+<ul>
+<li>系统记录域（System of Record）：这部分是主要的数据仓库业务数据存储区，数据模型在这里保证了数据的一致性。</li>
+<li>内部管理域（Housekeeping）：这部分主要存储数据仓库用于内部管理的元数据，数据模型在这里能够帮助进行统一的元数据的管理。</li>
+<li>汇总域（Summary of Area）：这部分数据来自于系统记录域的汇总，数据模型在这里保证了分析域的主题分析的性能，满足了部分的报表查询。</li>
+<li>分析域（Analysis Area）：这部分数据模型主要用于各个业务部分的具体的主题业务分析。这部分数据模型可以单独存储在相应的数据集市中。</li>
+<li>反馈域（Feedback Area）：可选项，这部分数据模型主要用于相应前端的反馈数据，数据仓库可以视业务的需要设置这一区域。</li>
+</ul>
+<p>常见数据仓库模型有3种方法：</p>
+<ul>
+<li><p>范式建模法（Third Normal Form，3NF）* 范式建模法（Third Normal Form，3NF）</p>
+<p>范式建模法其实是我们在构建数据模型常用的一个方法，该方法的主要由 Inmon 所提倡，主要解决关系型数据库得数据存储，利用的一种技术层面上的方法。<br>目前，在关系型数据库中的建模方法，大部分采用的是三范式建模法。</p>
+<p>从其表达的含义来看，一个符合第三范式的关系必须具有以下三个条件 :</p>
+<ul>
+<li>每个属性值唯一，不具有多义性 ;</li>
+<li>每个非主属性必须完全依赖于整个主键，而非主键的一部分 ;</li>
+<li>每个非主属性不能依赖于其他关系中的属性，因为这样的话，这种属性应该归到其他关系中去。</li>
+</ul>
+<p>使用这种方法：数据仓库模型得建设方法和业务系统的企业数据模型类似。在业务系统中，企业数据模型决定了数据的来源，而企业数据模型也分为两个层次，即主题域模型和逻辑模型。<br>同样，主题域模型可以看成是业务模型的概念模型，而逻辑模型则是域模型在关系型数据库上的实例话。</p>
+<ul>
+<li>数据仓库的域模型应该包含企业数据模型得域模型之间的关系，以及各主题域定义。数据仓库的域模型的概念应该比业务系统的主题域模型范围更加广。</li>
+<li>在数据仓库的逻辑模型需要从业务系统的数据模型中的逻辑模型中抽象实体，实体的属性，实体的子类，以及实体的关系等。<br><img src="/2018/12/12/7-Hive设计模式/3NF_dw_model.jpg" alt=""></li>
+</ul>
+</li>
+</ul>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/12/12/7-Hive设计模式/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -2166,7 +2111,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">44</span>
+                    <span class="site-state-item-count">45</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2216,9 +2161,7 @@
                     
                       
                     
-                      
-                    
-                    <span class="site-state-item-count">10</span>
+                    <span class="site-state-item-count">9</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -2272,20 +2215,32 @@
 
 
 
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动 v3.7.1</div>
 
 
 
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 – <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Pisces</a> v6.4.1</div>
 
 
 
 
         
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv" title="总访客量">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="site-pv" title="总访问量">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
 
 
 
@@ -2398,6 +2353,24 @@
 
 
 
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+      <style>
+        a.gitment-editor-footer-tip { display: none; }
+        .gitment-container.gitment-footer-container { display: none; }
+      </style>
+    
+
+    
 
 
 
