@@ -315,7 +315,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/06/7离散型随机变量/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/11/PySpark-ml-随机森林/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -334,8 +334,8 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/02/06/7离散型随机变量/" itemprop="url">
-                  7离散型随机变量
+                <a class="post-title-link" href="/2020/01/11/PySpark-ml-随机森林/" itemprop="url">
+                  PySpark-ml-随机森林
                 </a>
               
             
@@ -361,7 +361,7 @@
                 
               
 
-              <time title="创建时间：2019-02-06 17:06:00" itemprop="dateCreated datePublished" datetime="2019-02-06T17:06:00+08:00">2019-02-06</time>
+              <time title="创建时间：2020-01-11 14:55:01" itemprop="dateCreated datePublished" datetime="2020-01-11T14:55:01+08:00">2020-01-11</time>
             
 
             
@@ -378,11 +378,29 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-04-04 08:56:50" itemprop="dateModified" datetime="2019-04-04T08:56:50+08:00">2019-04-04</time>
+                <time title="修改时间：2020-02-04 14:48:27" itemprop="dateModified" datetime="2020-02-04T14:48:27+08:00">2020-02-04</time>
               
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Tec/" itemprop="url" rel="index"><span itemprop="name">Tec</span></a></span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -412,39 +430,150 @@
 
       
         
-          <h2>离散型随机变量</h2>
-
-<p>相关定理内容摘录： 概率与数理统计（茆诗松 周纪芗）</p>
-<h3>相关概念</h3>
-
+          <p>书籍&lt;&lt;Python在大数据平台的应用&gt;&gt;<br>更多信息请关注本书附书代码:<a href="https://github.com/Shadow-Hunter-X/python_practice_stepbystep" target="_blank" rel="noopener">附书代码Github工程:https://github.com/Shadow-Hunter-X</a></p>
+<h2 id="信息熵-熵的计算"><a href="#信息熵-熵的计算" class="headerlink" title="信息熵-熵的计算"></a>信息熵-熵的计算</h2><ul>
+<li>信息熵：常被用来作为一个系统的信息含量的量化指标，从而可以进一步用来作为系统方程优化的目标或者参数选择的判据,<pre><code>可以作为一个系统复杂程度的度量，如果系统越复杂，出现不同情况的种类越多，那么他的信息熵是比较大的。
+</code></pre></li>
+</ul>
+<p><img src="/2020/01/11/PySpark-ml-随机森林/entropy.png" alt="entropy.png"></p>
 <ul>
-<li>分布列：表示概率在所有的可能发生的情况中的分布。</li>
+<li>信息熵的三个性质<ul>
+<li>单调性，即发生概率越高的事件，其所携带的信息熵越低</li>
+<li>非负性，即信息熵不能为负</li>
+<li>累加性，即多随机事件同时发生存在的总不确定性的量度是可以表示为各事件不确定性的量度的和</li>
+</ul>
+</li>
+</ul>
+<p>可以发现,上述的公式中计算是相当与 将所有的期望值相加了。</p>
+<p>设想：在一个封闭系统的盒子中，其中有各种的信息源，这些信息源间，可能相互关联，或彼此独立。现在从这个盒子外部看接受信息。</p>
+<pre><code>对于单调性 ： 如果 盒子中只有一个数据源，每次都可以确定信息，这样对应的必然事件，对应的概率是1，对于熵值为0 。
+
+累加性：如果盒子中有很多数据源，两个独立数据源发生时的概率：P(A)*P(B) ；两个关联事件发生的条件概率为 P(A|B) = P(A∩B)/P(B)
+       可以发现需要间概率计算中的乘除转为为可以进行累加，所以使用对数进行处理，这样可以将概率计算中的乘除化解为加减。
+</code></pre><p>结合概率统计中概率计算<br><a href="https://blue-shadow.top/2019/02/06/4%E6%A6%82%E7%8E%87%E8%AE%A1%E7%AE%97/" target="_blank" rel="noopener">概率计算及相关</a></p>
+<h2 id="决策树-Decision-Tree"><a href="#决策树-Decision-Tree" class="headerlink" title="决策树-Decision Tree"></a>决策树-Decision Tree</h2><p><strong>由于随机森林是由很多的决策树构成的，所以在使用随机森林模型前，先了解决策树中的构建过程，有助于对随机森林的学习</strong></p>
+<ul>
+<li>使用如下测试表中的数据来说明：</li>
 </ul>
 <table>
 <thead>
 <tr>
-<th>事件</th>
-<th>A</th>
-<th>B</th>
-<th>C</th>
-<th>D</th>
+<th>年龄段</th>
+<th>是否购车</th>
+<th>是否购房</th>
+<th>薪资水平</th>
+<th>贷款额度</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>P</td>
-<td>0.15</td>
-<td>0.1</td>
-<td>0.5</td>
-<td>0.25</td>
+<td>中年</td>
+<td>是</td>
+<td>是</td>
+<td>高</td>
+<td>高</td>
+</tr>
+<tr>
+<td>少年</td>
+<td>是</td>
+<td>是</td>
+<td>中等</td>
+<td>高</td>
+</tr>
+<tr>
+<td>青年</td>
+<td>是</td>
+<td>是</td>
+<td>中等</td>
+<td>低</td>
+</tr>
+<tr>
+<td>中年</td>
+<td>否</td>
+<td>是</td>
+<td>高</td>
+<td>高</td>
+</tr>
+<tr>
+<td>青年</td>
+<td>是</td>
+<td>是</td>
+<td>高</td>
+<td>低</td>
+</tr>
+<tr>
+<td>少年</td>
+<td>否</td>
+<td>是</td>
+<td>低</td>
+<td>高</td>
+</tr>
+<tr>
+<td>少年</td>
+<td>否</td>
+<td>否</td>
+<td>低</td>
+<td>低</td>
+</tr>
+<tr>
+<td>中年</td>
+<td>否</td>
+<td>否</td>
+<td>低</td>
+<td>高</td>
+</tr>
+<tr>
+<td>少年</td>
+<td>否</td>
+<td>是</td>
+<td>中等</td>
+<td>高</td>
+</tr>
+<tr>
+<td>青年</td>
+<td>否</td>
+<td>是</td>
+<td>低</td>
+<td>高</td>
+</tr>
+<tr>
+<td>青年</td>
+<td>是</td>
+<td>否</td>
+<td>高</td>
+<td>低</td>
+</tr>
+<tr>
+<td>少年</td>
+<td>是</td>
+<td>否</td>
+<td>中等</td>
+<td>低</td>
+</tr>
+<tr>
+<td>青年</td>
+<td>否</td>
+<td>否</td>
+<td>中等</td>
+<td>高</td>
+</tr>
+<tr>
+<td>中年</td>
+<td>是</td>
+<td>否</td>
+<td>中等</td>
+<td>高</td>
 </tr>
 </tbody>
 </table>
-<p>A,B,C,D 分别表示四个不同的事件， P 为他们对应的概率，（0≤p≤1）对于任意一个分布列，所有概率之和为1，也可记为100%。</p>
-<h3>离散型随机变量及其分布列</h3><br>离散型（discrete）随机变量即在一定区间内变量取值为有限个或可数个。例如某地区某年人口的出生数、死亡数，某药治疗某病病人的有效数、无效数等。<br>离散型随机变量通常依据概率质量函数分类，主要分为：伯努利随机变量、二项随机变量、几何随机变量和泊松随机变量。<br><br><em> 定义1<br>如果随机变量X只可能取有限个或至多可列个值，则称X为离散型随机变量。<br></em>
+<ul>
+<li>对于决策树的计算中，需要使用到熵</li>
+</ul>
+<p>为了能够计算目标变量-贷款额度，需要计算每类的概率，然后使用熵公式进行计算。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">高贷款额度概率 : 9/14 = 0.64</span><br><span class="line">低贷款额度概率 ：5/14 = 0.36</span><br><span class="line"></span><br><span class="line">所以 熵值为 ： E(贷款额度) = - P(高贷款额度) * log(2)(P(高贷款额度))  - P(低贷款额度) * log(2)(P(低贷款额度))  </span><br><span class="line">                = -( 0.64 * log(2)(0.64)) - (0.36 * log(2)(0.36))</span><br><span class="line">                = -( 0.64 * -0.643856 ) - (0.36 * -1.473931)</span><br><span class="line">                = 0.41206784 + 0.53061516</span><br><span class="line">                = 0.94</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/02/06/7离散型随机变量/#more" rel="contents">
+            <a class="btn" href="/2020/01/11/PySpark-ml-随机森林/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -500,7 +629,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/06/6随机变量和概率分布/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/03/PySpark-推荐系统-RecommenderSystem/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -519,8 +648,8 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/02/06/6随机变量和概率分布/" itemprop="url">
-                  6随机变量和概率分布
+                <a class="post-title-link" href="/2020/01/03/PySpark-推荐系统-RecommenderSystem/" itemprop="url">
+                  PySpark-推荐系统-RecommenderSystem
                 </a>
               
             
@@ -546,7 +675,7 @@
                 
               
 
-              <time title="创建时间：2019-02-06 17:05:07" itemprop="dateCreated datePublished" datetime="2019-02-06T17:05:07+08:00">2019-02-06</time>
+              <time title="创建时间：2020-01-03 14:59:37" itemprop="dateCreated datePublished" datetime="2020-01-03T14:59:37+08:00">2020-01-03</time>
             
 
             
@@ -563,11 +692,29 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-04-04 08:56:50" itemprop="dateModified" datetime="2019-04-04T08:56:50+08:00">2019-04-04</time>
+                <time title="修改时间：2020-02-04 14:49:00" itemprop="dateModified" datetime="2020-02-04T14:49:00+08:00">2020-02-04</time>
               
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Tec/" itemprop="url" rel="index"><span itemprop="name">Tec</span></a></span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -597,27 +744,38 @@
 
       
         
-          <h2>随机变量和概率分布</h2>
-
-<p>相关定理内容摘录： 概率与数理统计（茆诗松 周纪芗）</p>
-<h3>相关概念</h3>
-
+          <p>书籍&lt;&lt;Python在大数据平台的应用&gt;&gt;<br>更多信息请关注本书附书代码:<a href="https://github.com/Shadow-Hunter-X/python_practice_stepbystep" target="_blank" rel="noopener">附书代码Github工程:https://github.com/Shadow-Hunter-X</a></p>
+<h2 id="推荐系统"><a href="#推荐系统" class="headerlink" title="推荐系统"></a>推荐系统</h2><p>自动推荐内容或产品以个性化的方式向适当的用户提供,以增强整体体验。推荐系统在术语上非常强大使用海量的数据,学会理解偏好。</p>
+<p>对于PySpark中的“推荐系统”模块 <strong>pyspark.ml.recommendation module</strong><br><a href="http://spark.apache.org/docs/latest/api/python/pyspark.ml.html#module-pyspark.ml.recommendation" target="_blank" rel="noopener">官方文档链接：api/python/pyspark.ml.html#module-pyspark.ml.recommendation</a></p>
+<h2 id="spark-推荐系统的ALS-算法"><a href="#spark-推荐系统的ALS-算法" class="headerlink" title="spark 推荐系统的ALS 算法"></a>spark 推荐系统的ALS 算法</h2><ul>
+<li>交替最小平方 (ALS) 矩阵分解:<br>ALS 尝试将评级矩阵 R 估计为两个较低级别矩阵(X 和 Y,即 X = Yt = R)的乘积。一般方法是迭代。在每次迭代期间,一个因子矩阵保持不变,而另一个因子矩阵使用最小二乘求解。然后,在求解另一个因子矩阵时,新求解的因子矩阵保持不变。</li>
+</ul>
 <ul>
-<li><p>随机变量<br>假设一个变量在数轴上的取值依赖于随机现象的基本结果，则此变量为随机变量，可以用大写字母X，Y，Z来表示。</p>
+<li><p>现实场景到推荐系统模型的转换 ; 构建模型 中的转换关系</p>
+<ul>
+<li>划分出推荐系统中参与的对象,如在线购物网站中，参与的主要对象是购物者和相关的商品。</li>
+<li>将这些对象的按维度属性进行划分，通过这些维度属性可以有效的表示这个对象。如购物者可以通过 年龄，性别，所住城市等这些属性进行表示。</li>
+<li>将对象通过对应的属性维度构建好后。假设每个对象可以通过一个函数表示,如: ax1 + bx2 + cx3 + dx4 = y 。为每个对象，依据分配的属性维度个数，构建有相同元的函数。</li>
+<li>通过不同对象个体的属性维度值构建矩阵,构建好不同对象的矩阵后，进行矩阵相乘。得到的新矩阵可以认为是每个购物者对相关物品的关联程度。</li>
+<li>由于对象的函数表示，是通过假设的，所以需要获取最优函数的办法，即通过使用最小二乘法来获取最佳函数。</li>
+</ul>
 </li>
-<li><p>离散性随机变量<br>如一个随机变量仅取值数轴上有限或可孤立点，则这个随机变量为<strong>离散随机变量</strong></p>
-</li>
-<li><p>连续随机变量<br>假如一个随机变量的可能取值充满数轴上的一个区间（a,b）,则此随机变量为<strong>连续随机变量</strong></p>
+<li><p>关于最小二乘法：<br>  它通过最小化误差的平方和寻找数据的最佳函数匹配。利用最小二乘法可以简便地求得未知的数据，并使得这些求得的数据与实际数据之间误差的平方和为最小。<br>最小二乘法还可用于曲线拟合。其他一些优化问题也可通过最小化能量或最大化熵用最小二乘法来表达。</p>
+<p>  通俗的说：在平面(也可再高维度空间种)上有若干点，需要使用一个函数来表示这些点；如何确定这个函数是最优的；通过在坐标系上，每个点到这个函数对应的图形的距离的和最小，<br>由于拟合函数可以有很多种，但是求两点的具体方法：坐标值差的平方的和，后再开方。 把这些值都加起来后求最小情况，就是最小二乘法。</p>
 </li>
 </ul>
-<p></p><h3>随机变量的概率分布</h3><br>对于概率分布这个概念，一个随机变量的值会对应一个概率。这所有的随机变量的值和其对一个的概率构建一个概率分布图，即得到了概率分布。<p></p>
-<ul>
-<li>数学期望<br>数学期望(mean)（或均值，亦简称期望）是试验中每次可能结果的概率乘以其结果的总和。 即 随机变量 乘以 对应的概率值的和。<br>数学期望 指用概率分布算得的一种加权平均，是概率论中的一个基本概念,期望指示预测结果。</li>
-</ul>
-<p><img src="/2019/02/06/6随机变量和概率分布/6_1_expert.png" alt=""><br></p>
+<p>使用最小二乘法的，不同拟合曲线：</p>
+<p><img src="/2020/01/03/PySpark-推荐系统-RecommenderSystem/fitted.png" alt="不同函数的拟合曲线"></p>
+<h2 id="推荐系统的分类"><a href="#推荐系统的分类" class="headerlink" title="推荐系统的分类"></a>推荐系统的分类</h2><p><strong>基于内容推荐</strong><br>    基于内容的推荐（Content-based Recommendation）是信息过滤技术的延续与发展，它是建立在项目的内容信息上作出推荐的，而不需要依据用户对项目的评价意见，更多地需要用机 器学习的方法从关于内容的特征描述的事例中得到用户的兴趣资料</p>
+<p><strong>协同过滤推荐</strong><br>    协同过滤推荐（Collaborative Filtering Recommendation）技术是推荐系统中应用最早和最为成功的技术之一。它一般采用最近邻技术，利用用户的历史喜好信息计算用户之间的距离，然后 利用目标用户的最近邻居用户对商品评价的加权评价值来预测目标用户对特定商品的喜好程度，系统从而根据这一喜好程度来对目标用户进行推荐</p>
+<p><strong>基于关联规则推荐</strong><br>    基于关联规则的推荐（Association Rule-based Recommendation）是以关联规则为基础，把已购商品作为规则头，规则体为推荐对象。关联规则挖掘可以发现不同商品在销售过程中的相关性，在零 售业中已经得到了成功的应用</p>
+<p><strong>基于知识推荐</strong><br>    基于知识的推荐（Knowledge-based Recommendation）在某种程度是可以看成是一种推理（Inference）技术，它不是建立在用户需要和偏好基础上推荐的。基于知识的方法因 它们所用的功能知识不同而有明显区别</p>
+<p><strong>组合推荐</strong><br>    由于各种推荐方法都有优缺点，所以在实际中，组合推荐（Hybrid Recommendation）经常被采用。研究和应用最多的是内容推荐和协同过滤推荐的组合。最简单的做法就是分别用基于内容的方法和协同过滤推荐方法 去产生一个推荐预测结果，然后用某方法组合其结果</p>
+<p><strong>基于效用推荐</strong><br>    基于效用的推荐（Utility-based Recommendation）是建立在对用户使用项目的效用情况上计算的，其核心问题是怎么样为每一个用户去创建一个效用函数，因此，用户资料模型很大 程度上是由系统所采用的效用函数决定的。基于效用推荐的好处是它能把非产品的属性，如提供商的可靠性（Vendor Reliability）和产品的可得性（Product Availability）等考虑到效用计算中</p>
+<p><img src="/2020/01/03/PySpark-推荐系统-RecommenderSystem/Collaborative_filtering.gif" alt="wiki上关于推荐系统"><br></p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/02/06/6随机变量和概率分布/#more" rel="contents">
+            <a class="btn" href="/2020/01/03/PySpark-推荐系统-RecommenderSystem/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -673,7 +831,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/06/5条件概率和贝叶斯公式/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/01/PySpark-ml-逻辑回归/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -692,8 +850,8 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/02/06/5条件概率和贝叶斯公式/" itemprop="url">
-                  5条件概率和贝叶斯公式
+                <a class="post-title-link" href="/2020/01/01/PySpark-ml-逻辑回归/" itemprop="url">
+                  PySpark-ml-逻辑回归
                 </a>
               
             
@@ -719,7 +877,7 @@
                 
               
 
-              <time title="创建时间：2019-02-06 17:04:00" itemprop="dateCreated datePublished" datetime="2019-02-06T17:04:00+08:00">2019-02-06</time>
+              <time title="创建时间：2020-01-01 14:52:44" itemprop="dateCreated datePublished" datetime="2020-01-01T14:52:44+08:00">2020-01-01</time>
             
 
             
@@ -736,11 +894,29 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-04-04 08:56:50" itemprop="dateModified" datetime="2019-04-04T08:56:50+08:00">2019-04-04</time>
+                <time title="修改时间：2020-02-04 14:49:07" itemprop="dateModified" datetime="2020-02-04T14:49:07+08:00">2020-02-04</time>
               
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Tec/" itemprop="url" rel="index"><span itemprop="name">Tec</span></a></span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -770,21 +946,18 @@
 
       
         
-          <h2>5条件概率和贝叶斯公式</h2>
-
-<p>通过对事件的独立性的判断，可以计算条件概率；条件概率是贝叶斯公式推导的重要部分。所以对于事件的独立性判断和条件性的判断很重要的。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Tip</span><br><span class="line">1 P(AB) 即为 P(A∩B) 表示的是两个事件的交集，针对条件概率。</span><br><span class="line">2 事件A的概率 P(A) 和 事件A的条件概率 P(A|B) 都是表示A的概率，这点需要明确。</span><br><span class="line">3 对立事件和互斥事件: 事件A和事件B为对立事件，只有一个事件能发生P(A)+P(B)=1；对立事件，不同时发生,P(A) + P(B) &lt; 1</span><br></pre></td></tr></table></figure>
-<p>相关内定理容摘录： 概率与数理统计（茆诗松 周纪芗）</p>
-<h3>相关概念</h3>
-
-<ul>
-<li><p>事件独立性<br>两个事件间的独立性是指一个事件的发生不影响另一个事件的发生。事件A和事件B中 P(AB) 表示的是事件A和事件B同时发生时的概率计算。<br>如果P(AB) = P(A)P(B)则表示 事件A和事件B是独立的,所以对于事件将的独立性的判断依据可以根据这个来。</p>
-<p><img src="/2019/02/06/5条件概率和贝叶斯公式/5_formula_1.png" alt=""></p>
-</li>
-<li><p>贝努里实验<br>只有两个结果的试验。</p></li></ul>
+          <p>书籍&lt;&lt;Python在大数据平台的应用&gt;&gt;<br>更多信息请关注本书附书代码:<a href="https://github.com/Shadow-Hunter-X/python_practice_stepbystep" target="_blank" rel="noopener">附书代码Github工程:https://github.com/Shadow-Hunter-X</a></p>
+<h2 id="Logit模型"><a href="#Logit模型" class="headerlink" title="Logit模型"></a>Logit模型</h2><p>Logit模型（Logit model，也译作“评定模型”，“分类评定模型”，又作Logistic regression，“逻辑回归”）是离散选择法模型之一，Logit模型是最早的离散选择模型，也是目前应用最广的模型</p>
+<p>逻辑回归属于分类算法。逻辑回归可以进行多分类操作，但由逻辑回归算法本身性质决定其更常用于二分类,即: 对-错,好-坏等</p>
+<h3 id="逻辑回归的公式："><a href="#逻辑回归的公式：" class="headerlink" title="逻辑回归的公式："></a>逻辑回归的公式：</h3><p><img src="/2020/01/01/PySpark-ml-逻辑回归/fromula.jpg" alt="fromula.jpg"></p>
+<p>其中，Y为决策值，x为特征值，e为自然对数。</p>
+<p><img src="/2020/01/01/PySpark-ml-逻辑回归/pic.jpg" alt="pic.jpg"></p>
+<p>该函数是一条S形的曲线，并且曲线在中心点附近的增长速度较快，在两段的增长速度较慢。w值越大，曲线中心的增长速度越快。从图上可知，Y的值域为(0,1)，<br>那么就可以将决策函数值大于等于0.5的具有对应x属性的对象归为正样本，决策函数值小于0.5的具有对应x属性的对象归为负样本。这样就可以对样本 数据进行二分类。</p>
+<p>使用的测试数据为-不同国家的人通过不同的搜索引擎查找访问网站的数据,数据的表头如下:</p>
+<p><img src="/2020/01/01/PySpark-ml-逻辑回归/data_demo.png" alt="data_demo.png"></p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/02/06/5条件概率和贝叶斯公式/#more" rel="contents">
+            <a class="btn" href="/2020/01/01/PySpark-ml-逻辑回归/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -840,7 +1013,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/06/4概率计算/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/23/Data-Vault-数据仓库模型构建-3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -859,8 +1032,8 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/02/06/4概率计算/" itemprop="url">
-                  4概率计算
+                <a class="post-title-link" href="/2019/02/23/Data-Vault-数据仓库模型构建-3/" itemprop="url">
+                  Data Vault 数据仓库模型构建-3
                 </a>
               
             
@@ -886,7 +1059,7 @@
                 
               
 
-              <time title="创建时间：2019-02-06 17:02:20" itemprop="dateCreated datePublished" datetime="2019-02-06T17:02:20+08:00">2019-02-06</time>
+              <time title="创建时间：2019-02-23 14:39:31" itemprop="dateCreated datePublished" datetime="2019-02-23T14:39:31+08:00">2019-02-23</time>
             
 
             
@@ -903,11 +1076,29 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-04-04 08:56:50" itemprop="dateModified" datetime="2019-04-04T08:56:50+08:00">2019-04-04</time>
+                <time title="修改时间：2020-02-03 14:39:11" itemprop="dateModified" datetime="2020-02-03T14:39:11+08:00">2020-02-03</time>
               
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Tec/" itemprop="url" rel="index"><span itemprop="name">Tec</span></a></span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -937,47 +1128,221 @@
 
       
         
-          <h2>概率计算</h2>
-
-<h3>相关概念</h3>
-
-<ul>
-<li>随机现象：在一定条件下，并不总是出现相同结果的现象。</li>
-<li>随机试验：可以重复的随机现象。</li>
-<li>基本结果：随机现象最简单的结果，是统计中的抽样的基本单元，故也称为样本点。</li>
-<li>基本空间：随机现象所有基本结果的全体。</li>
-<li>随机事件：某些基本结果组成的集合称为随机事件。</li>
-<li>必然事件和不可能事件：一定会发生的时间和不可能发生的事件。</li>
-<li><p>维恩图：可以用来表示在基本空间中的事件关系的椭圆形图，较直观。</p>
-</li>
-<li><p>事件的包含关系：<br>  事件A的任意结果都在事件B中，B包含A，使用符号 A⊂B，注意开口方向。<br><img src="/2019/02/06/4概率计算/4_1_include.png" alt=""><br>$$<br>  A \subset B<br>$$</p>
-</li>
-<li><p>事件相等 : 事件A中的任意结果都在B中，而B中的任意结果也都在A中 A = B</p>
-</li>
-<li>事件互斥 : 事件A和B没有相同的结果</li>
+          
+            <h2 id="在Data-Vault模型基础上构建数据集市"><a href="#在Data-Vault模型基础上构建数据集市" class="headerlink" title="在Data Vault模型基础上构建数据集市"></a>在Data Vault模型基础上构建数据集市</h2><p>数据仓库抽取数据的过程中，特别是第一次导入之后的每一次增量抽取往往会遇到这样的问题：业务数据库中的一些数据发生了更改，到底要不要将这些变化也反映到数据仓库中？<br>在数据仓库中，哪些数据应该随之变化，哪些可以不用变化？考虑到这些变化，在数据仓库中的维度表又应该如何设计以满足这些需要</p>
+<p>但是在数据仓库中，其数据主要的特征一是静态历史数据，二是少改变不删除，三是定期增长，其作用主要用来数据分析。因此分析的过程中对历史数据就提出了要求，<br>有一些数据是需要能够反映出在周期内的变化历史，有一些数据缺不需要，那么这些数据应该如何来控制。</p>
+<h4 id="渐变维度1类-Type-1-SCD"><a href="#渐变维度1类-Type-1-SCD" class="headerlink" title="渐变维度1类 - Type 1 SCD"></a>渐变维度1类 - Type 1 SCD</h4><ul>
+<li>保持业务数据和数据仓库中的数据始终处于一致。</li>
+<li>不记录历史数据。一切不需要维护的历史数据都可以选择这种类型。</li>
 </ul>
-<p><strong>事件的计算</strong></p>
-<ul>
-<li><p>对立事件 : 不在A中的一切基本结果称为事件A的对立事件，在事件A上加一条横线。 二者相加为1<br><img src="/2019/02/06/4概率计算/4_2_overline.png" alt=""><br>$$<br>\overline{x}<br>$$</p>
-</li>
-<li><p>事件A与B的并： A ∪ B</p>
-</li>
-<li>事件A与B的交： A ∩ B</li>
-<li>事件A与B的差：在事件A中而不在事件B中的基本结果 B – A</li>
+<h4 id="渐变维度2类-Type-2-SCD"><a href="#渐变维度2类-Type-2-SCD" class="headerlink" title="渐变维度2类 - Type 2 SCD"></a>渐变维度2类 - Type 2 SCD</h4><ul>
+<li>尽可能的维护来自业务系统中的历史数据，能够真正捕获到这种历史数据的变化</li>
+<li>添加新的数据。使用的比较常见，基本上除了Type 1之外的情形都会优先考虑这种类型。</li>
 </ul>
-<h3>事件的概率计算</h3>
-
-<ul>
-<li>P(A) = 事件A发生中的基本结果个数 / 基本空间中的所有基本结果的个数 。</li>
-<li>在进行求解概率的过程中 使用维恩图能够更高的进行理解。</li>
-<li>在计算概率中多使用到排列组合进行计算基本事件的个数，所以对于排列中应该进行</li>
+<h4 id="渐变维度3类-Type-3-SCD"><a href="#渐变维度3类-Type-3-SCD" class="headerlink" title="渐变维度3类 - Type 3 SCD"></a>渐变维度3类 - Type 3 SCD</h4><ul>
+<li>添加历史列。不会追踪所有的历史记录，只会追踪上一次的历史信息。需要记录历史数据，但是又不需要记录那么多。</li>
 </ul>
-<h3>概率计算中的相关的公式</h3>
+<p>在不同的工具中对 SCD 的实现是不一样的,要关注的重点应该是具体的实现方式和解决思路的原型。</p>
+<h2 id="构建过程"><a href="#构建过程" class="headerlink" title="构建过程"></a>构建过程</h2><p>最好先构建需要的PIT表和Bridge表，这样呢能够方便进行处理.</p>
+<h4 id="构建渐变维度1类的数据集市"><a href="#构建渐变维度1类的数据集市" class="headerlink" title="构建渐变维度1类的数据集市"></a>构建渐变维度1类的数据集市</h4><p>它显示所有属性的最新值, 我们可以使用hub表(中心表)的键作为维度的代理主键 (PK)。建议使用现有的hub表中的代理键(MD5哈希列), 因为它已经是唯一的,<br>并将节省为维度生成典型整数代理项的过程。这将节省处理时间, 并允许在维度之前或与维度并行加载事实数据表。维度中的所有其他列都将来自贡献hub和Satellite表。</p>
+<p>以已经构建好的 NorthWind DV模型为基础，构建 渐变1类维度表：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1</span><br></pre></td></tr></table></figure>
+<h4 id="构建渐变维度2类的数据集市"><a href="#构建渐变维度2类的数据集市" class="headerlink" title="构建渐变维度2类的数据集市"></a>构建渐变维度2类的数据集市</h4><p>渐变维度2类只是稍微困难一些。由于类型2跟踪值随时间变化, 这意味着每个业务主键的维度中可能有多行。因此,不能将hub表的业务主键用作维度表上的主键。<br>如果使用的是DV2.0, 那么建议使用与原始DV模型中相同的MD5哈希方法来创建代理主键。因此, 要在这种情况下获得唯一键,需要创建一个基于业务主键加上SAT_LOAD_DTS的哈希键。</p>
+<p>以已经构建好的 NorthWind DV模型为基础，构建 渐变2类维度表：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1</span><br></pre></td></tr></table></figure>
+<h4 id="构建事实表"><a href="#构建事实表" class="headerlink" title="构建事实表"></a>构建事实表</h4>
+          
+        
+      
+    </div>
 
-<p>相关定理内容摘录： 概率与数理统计（茆诗松 周纪芗）<br></p>
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/23/Data-Vault-数据仓库模型构建-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/fly.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LYJ-NEO">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/23/Data-Vault-数据仓库模型构建-2/" itemprop="url">
+                  Data Vault 数据仓库模型构建-2
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-02-23 14:39:23" itemprop="dateCreated datePublished" datetime="2019-02-23T14:39:23+08:00">2019-02-23</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-02-03 14:49:16" itemprop="dateModified" datetime="2020-02-03T14:49:16+08:00">2020-02-03</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Tec/" itemprop="url" rel="index"><span itemprop="name">Tec</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h3 id="相关概念"><a href="#相关概念" class="headerlink" title="相关概念"></a>相关概念</h3><ul>
+<li><p>Data Vault 原始数据模型：<br>  当大多数人说 “数据库” 时, 他们指的是我们现在可能称之为原始保管库的东西。在添加业务保管库之前,<br>原始保险库被普遍称为 “数据库”, 添加了 “原始” 一词, 以便我们可以清楚地知道我们正在讨论的架构的哪一部分。</p>
+</li>
+<li><p>Raw Vault 原始数据：<br>  它是来自源的未经过滤的原始数据, 即加载到基于业务密钥的集线器、链接和卫星中的数据格式。</p>
+</li>
+<li><p>Business Vault 业务数据模型<br>  它是原始保管库的扩展, 它应用选定的业务规则、非规范化、计算和其他查询帮助功能, 以方便用户访问和报告。<br>一旦刷新了业务保管库表的依赖项, 就应该刷新它们。</p>
+</li>
+</ul>
+<p>对于 Business Vault模型 ： </p>
+<pre><code>它首先在 dv 样式表 (即集线器、链接表和 sats) 中进行建模, 但它不是原始保管库中所有对象的完整副本。
+</code></pre><p>它是有选择性的, 因为我们只创建具有一些重要商业价值的结构。在这种情况下, 我们将以某种方式转换数据, 以应用大多数业务用户会</p>
+<p>发现有用的规则或函数 (而不是反复将这些操作转换为多个集市)。这包括数据清理、数据质量、会计规则或定义良好的可重复计算等内容。</p>
+<p>使用或访问 bv 的主要组是您的高级用户。这些人很好地理解 sql 和关系模型, 并且不怕有许多表联接 。</p>
+<ul>
+<li>PIT表<br>  PIT表是一种经过修改的卫星, 当我们需要从具有多个卫星查询数据时, 它将有所帮助。具体的操作是将一个卫星表，进行拆分层若干表，拆分的依据是一下几点<br>  <strong>将一张卫星表拆解成若干表，对于拆解后的若干表的主键不变，还是原来的卫星表的主键，只是根据不同的属性特点，进行不同的分解</strong><ul>
+<li>有多个源系统具有来自每个源的不同属性</li>
+<li>要拆分特定的数据分类</li>
+<li>某些属性的变化率 (如果比其他属性慢)<br>拆分的各表，统一在一张表中进行记录，如下图。</li>
+</ul>
+</li>
+</ul>
+<p><img src="/2019/02/23/Data-Vault-数据仓库模型构建-2/pit_added.png" alt="pit-added.png"><br></p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/02/06/4概率计算/#more" rel="contents">
+            <a class="btn" href="/2019/02/23/Data-Vault-数据仓库模型构建-2/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1033,7 +1398,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/06/3方差和数据的分散性/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/23/Data-Vault-数据仓库模型构建-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -1052,8 +1417,8 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/02/06/3方差和数据的分散性/" itemprop="url">
-                  3方差和数据的分散性
+                <a class="post-title-link" href="/2019/02/23/Data-Vault-数据仓库模型构建-1/" itemprop="url">
+                  Data Vault 数据仓库模型构建-1
                 </a>
               
             
@@ -1079,7 +1444,7 @@
                 
               
 
-              <time title="创建时间：2019-02-06 17:01:27" itemprop="dateCreated datePublished" datetime="2019-02-06T17:01:27+08:00">2019-02-06</time>
+              <time title="创建时间：2019-02-23 14:39:15" itemprop="dateCreated datePublished" datetime="2019-02-23T14:39:15+08:00">2019-02-23</time>
             
 
             
@@ -1096,186 +1461,29 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-04-04 08:56:50" itemprop="dateModified" datetime="2019-04-04T08:56:50+08:00">2019-04-04</time>
+                <time title="修改时间：2020-02-03 14:39:19" itemprop="dateModified" datetime="2020-02-03T14:39:19+08:00">2020-02-03</time>
               
             
           </span>
 
           
-
-          
+            <span class="post-category" >
             
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2>方差使用和数据分散性</h2>
-
-<p>数据间的各种距离，可达到计算数据的分散性和变异性。变异性提供了对一个分布中的数据分散开或聚集在一起的程度的数量测量。<br>对于均值，中位数，众数单纯的指出数据的中心，但是这样还是不够，并没有的整体的指出的数据频率的情况及稳定性。</p>
-<h3>数据分散性</h3>
-
-<h4>全距</h4>
-
-<p>通过计算全局，可以获取数据的分散情况。全局值数据的分散范围，是数据的跨度。</p>
-<font color="Hotpink">计算的方法为：数据集中的最大值减去数据集中的最小值。</font>
-
-<h4>上界和下界</h4><br><font color="Hotpink"> 计最大值称为上界;最小值称为下界 </font><br><br><h4>异常值对全距的影响</h4>
-
-<p>对于将数据进行排序，在数据的两端的值中可能包含异常时，于是全距的值将会受到影响。由于全距的计算中及其的简单，所以无法很好的进行对数据的分散性进行分析（主要受异常值的影响）。</p>
-<h4>四分位距</h4>
-
-<p>为了消除异常值中对全距的影响，可以使用四分位距剔除异常值。四分位距的计算方法</p>
-<pre><code>* 1 对整份数据进行排序，从小到大进行排序  
-* 2 数据进行4等分，即每一份的数据为包含4分之一的数据
-* 3    求取上下四分位距的值和四分位距，求取中位数
-</code></pre>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/02/06/3方差和数据的分散性/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/06/2各种平均值/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/fly.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LYJ-NEO">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/06/2各种平均值/" itemprop="url">
-                  2各种平均值
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
+              <span class="post-meta-divider">|</span>
             
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">发表于</span>
+                <span class="post-meta-item-text">分类于</span>
               
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Tec/" itemprop="url" rel="index"><span itemprop="name">Tec</span></a></span>
 
-              
+                
                 
               
-
-              <time title="创建时间：2019-02-06 16:59:59" itemprop="dateCreated datePublished" datetime="2019-02-06T16:59:59+08:00">2019-02-06</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-04-04 08:56:50" itemprop="dateModified" datetime="2019-04-04T08:56:50+08:00">2019-04-04</time>
-              
-            
-          </span>
-
+            </span>
           
 
           
@@ -1306,367 +1514,95 @@
       
         
           
-            <h2>各种平均值</h2>
-
-<p>在概率统计中有各种的平均值，这些平均值在不同的情形下使用，体现数据的平均。对于均值，用来表示数据的集中趋势。均值和标准差是描述数据资料集中<br>趋势和离散程度的两个最重要的测度值。所以这里进行介绍3种平均值：均值-μ ， 中位数 ， 众数。</p>
-<h3>均值 μ</h3>
-
-<ul>
-<li>计算公式： x 为一个统计值 ， n为样本数据。</li>
-</ul>
-<p><img src="/2019/02/06/2各种平均值/2_avg.png" alt=""></p>
-<p>$$<br>\mu = \frac{\sum_{i=1}^{n}{x}}{n}<br>$$</p>
-<ul>
-<li>使用： 在数据非常对称，且仅显示出一种趋势时使用。</li>
-</ul>
-<h3>中位数</h3>
-
-<ul>
-<li><p>计算方法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">将所有数据按照升序排序,如果时奇数个数，则中位数为中间数据；</span><br><span class="line">如果时偶数个数，则中位数为两个中间数值相加除以2得到的结果。</span><br></pre></td></tr></table></figure>
+            <h3 id="关于Data-Vault数据模型"><a href="#关于Data-Vault数据模型" class="headerlink" title="关于Data Vault数据模型"></a>关于Data Vault数据模型</h3><ul>
+<li><p>Data Vault是一种数据仓库建模方法，用来存储来自多个操作型系统的完整的历史数据。 </p>
 </li>
-<li><p>使用 ：用于进行研究的对象数据中，存在异常值，导致数据不对称是，使用中位数来进行衡量数据的整体趋势。</p>
+<li><p>Data Vault方法需要跟踪所有数据的来源，因此其中每个数据行都要包含数据来源和装载时间属性， 用以审计和跟踪数据值所对应的源系统。 </p>
+</li>
+<li><p>Data Vault不区分数据在业务层面的正确与错误， 它保留操作型系统的所有时间的所有数据， 装载数据时不做数据验证、清洗等工作， 这点明显有别于其他数据仓库建模方法。 </p>
+</li>
+<li><p>Data Vault建模方法显式地将结构信息和属性信息分离， 能够还原业务环境的变化。 Data Vault允许并行数据装载，不需要重新设计就可以实现扩展。</p>
 </li>
 </ul>
-<h3>众数</h3>
+<p>Data Vault是面向细节的，可追踪历史的，一组有连接关系的规范化的表的集合。 这些表可以支持一个或多个业务功能。<br>它是一种综合了第三范式（3NF）和星型模型优点的建模方法。<br>其设计理念是要满足企业对灵活性、 可扩展性、 一致性和对需求的适应性要求， 是一种专为企业级数据仓库量身定制的建模方式</p>
+<h3 id="Data-Vault-模型各类表说明"><a href="#Data-Vault-模型各类表说明" class="headerlink" title="Data Vault 模型各类表说明"></a>Data Vault 模型各类表说明</h3><p>对于Data Vault主要分为3种类型的表：中心表，链接表，卫星表（附属表）。</p>
+<h4 id="中心表"><a href="#中心表" class="headerlink" title="中心表"></a>中心表</h4><p>对于构建Data Vault模型的，第一件事就是构建中心表，中心表示DV模型中的核心。如果设计得当，将可以兼容整合各种数据源。<br>为了达到这点，就应该假设系统源是不可知的，所以中心表应该依赖于实际的业务逻辑标识，而不是使用代理键。</p>
+<p>中心表的表结构：</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>hub_key</td>
+<td style="text-align:left">代理主键，通过对业务主键进行MD5计算所得</td>
+</tr>
+<tr>
+<td>business_key</td>
+<td style="text-align:left">业务主键,唯一标识业务主键，来之源系统</td>
+</tr>
+<tr>
+<td>load_dts</td>
+<td style="text-align:left">数据第一次转载的时间,只记录第一次转载时间</td>
+</tr>
+<tr>
+<td>rec_src</td>
+<td style="text-align:left">数据源系统</td>
+</tr>
+</tbody>
+</table>
+<h4 id="链接表"><a href="#链接表" class="headerlink" title="链接表"></a>链接表</h4><p>链接表的目的是为了灵活性和易扩展，通过链接表可以在不改变原有的构架和转载条件下进行扩展。在Data Vault模型中所有的<br>关系和事件都是通过链接表来表示。在DV模型中，中心表没有外键，对于中心表间的连接是通过链接表。所以连接表至少要有两个<br>父中心表。</p>
+<p>链接表表结构：</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>link_key</td>
+<td style="text-align:left">代理主键，使用相关的父Hub表的业务主键拼接后计算MD5值</td>
+</tr>
+<tr>
+<td>hub_keys</td>
+<td style="text-align:left">hubs的代理键</td>
+</tr>
+<tr>
+<td>hub_business_keys</td>
+<td style="text-align:left">hubs的业务主键</td>
+</tr>
+<tr>
+<td>load_dts</td>
+<td style="text-align:left">第一次装载数据的时间</td>
+</tr>
+<tr>
+<td>rec_src</td>
+<td style="text-align:left">源系统信息</td>
+</tr>
+</tbody>
+</table>
+<h4 id="卫星表（附属表）"><a href="#卫星表（附属表）" class="headerlink" title="卫星表（附属表）"></a>卫星表（附属表）</h4><p>卫星表示所有的原始数据系统，在这个表中也捕获数据的变化，所以这种表有点像维度模型中的渐变维度表。<br>一个附属表总有一个且唯一一个外键引用到中心表或链接表。</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sta_key</td>
+<td style="text-align:left">代理主键，相关的hub或link表的主键和数据载入时间的MD5值</td>
+</tr>
+</tbody>
+</table>
+<p>HASHBYTES(‘MD5’,[CustomerID]+[CompanyName])</p>
 
-<ul>
-<li>计算方法:</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">选出具有最大频数的一个或几个数值，如果数据可以分为两组，则为每组找出一个众数。</span><br></pre></td></tr></table></figure>
-<ul>
-<li>使用：针对数据可以分为多个类型时，使用众数针对每组分出不同数组。对于众数时唯一能用于类别数据的平均数类型。</li>
-</ul>
-<ul>
-<li>对于 markdown math <ul>
-<li>\frac{}{}  -            用来表述除法</li>
-<li>\sum_{i=1}^{n}{expr}    用来表示汇总值</li>
-<li>\mu                     表示希腊字母μ</li>
-</ul>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/06/1数据图表的使用/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/fly.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LYJ-NEO">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/06/1数据图表的使用/" itemprop="url">
-                  1数据图表的使用
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-02-06 16:50:19" itemprop="dateCreated datePublished" datetime="2019-02-06T16:50:19+08:00">2019-02-06</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-04-04 08:56:50" itemprop="dateModified" datetime="2019-04-04T08:56:50+08:00">2019-04-04</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2>数据图表的使用</h2>
-
-<h3>1 总体</h3><br>不同的图表形式，揭示出不同的数据信息。但也同时也可能误导读者，或隐藏重要的信息，通过对不同的图表进行说明，能够更好的进行展示数据。能够搞好的理解数据意义，揭示深层次的问题<br><br><h3>2 概念及注意事项<h3><br><br><em> 数据<br>  没有意义的数字。如 1 ， 2 ，100。
-
-</em> 信息<br>  赋予意义的数字，可以表示对象的某种属性特征，1米长的桌子。<br><br> <em> 频数<br>  表示一个特定组，或者说一个特定区间内的统计对象的数目，类似于数数。一种统计方法，用于描述一个类别中有多少个项。
-
-</em> 类别数据（定性数据）<br>  数据被划分为各种类别，用以描述某类的性质户特征，因此也称为定性数据。对于类别数据不要将其理解为数字。（如甜品的种类）。<br><br>* 数值数据（定量数据）<br>  数值型数据具有数字的意义，还涉及计量或计数（如长度和时间）。<br><br><h3>3 图标类别</h3>
-
-<ul>
-<li><p>饼图</p>
-<ul>
-<li><p>表述意义<br>基本比例进行比较，每个扇形大小展示的每组数据的相对频数，通过比较能交容易的看出哪个组具有较高的频数.</p>
-<p><img src="/2019/02/06/1数据图表的使用/pie.png" alt=""></p>
-</li>
-<li><p>使用场景<br>整体和部分的关系，各分组间的比例有较大的差异性，能够较容易的识别出。但扇形大小相似时不适用；当扇形块所占整体比例无关的百分数时，则意义不大。</p></li></ul></li></ul></h3></h3>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/02/06/1数据图表的使用/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/15/冷/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/fly.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LYJ-NEO">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/15/冷/" itemprop="url">
-                  冷~
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-12-15 20:25:47" itemprop="dateCreated datePublished" datetime="2018-12-15T20:25:47+08:00">2018-12-15</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-04-04 08:56:50" itemprop="dateModified" datetime="2019-04-04T08:56:50+08:00">2019-04-04</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            
           
         
       
@@ -1782,11 +1718,29 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-04-04 08:56:50" itemprop="dateModified" datetime="2019-04-04T08:56:50+08:00">2019-04-04</time>
+                <time title="修改时间：2020-02-03 14:00:39" itemprop="dateModified" datetime="2020-02-03T14:00:39+08:00">2020-02-03</time>
               
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Tec/" itemprop="url" rel="index"><span itemprop="name">Tec</span></a></span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -1816,9 +1770,17 @@
 
       
         
-          
-            
-          
+          <h2 id="技术-1：使用TEZ"><a href="#技术-1：使用TEZ" class="headerlink" title="技术#1：使用TEZ"></a>技术#1：使用TEZ</h2><p>Hive可以使用Apache Tez执行引擎而不是Map-reduce引擎。不会详细介绍这里提到的使用Tez的许多好处; 相反，提出一个简单的建议：如果在您的环境中默认情况下没有打开它，请在Hive查询的开头使用Tez设置为“true”</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set hive.execution.engine=tez;</span><br></pre></td></tr></table></figure>
+<h2 id="技术-2：使用ORCFILE"><a href="#技术-2：使用ORCFILE" class="headerlink" title="技术#2：使用ORCFILE"></a>技术#2：使用ORCFILE</h2><p>Hive支持ORCfile，这是一种新的表存储格式，通过谓词下推，压缩等技术实现极佳的速度提升。<br>对每个HIVE表使用ORCFile应该是一个明智的选择，对于获得HIVE查询的快速响应时间非常有益。<br>作为一个例子，考虑两个大表A和B（存储为文本文件，这里没有指定一些列），以及一个简单的查询 :</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SELECT A.customerID, A.name, A.age, A.address join</span><br><span class="line">B.role, B.department, B.salary</span><br><span class="line">ON A.customerID=B.customerID;</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/12/12/8-Hive调优/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1933,7 +1895,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-04-04 08:56:50" itemprop="dateModified" datetime="2019-04-04T08:56:50+08:00">2019-04-04</time>
+                <time title="修改时间：2020-02-03 14:01:26" itemprop="dateModified" datetime="2020-02-03T14:01:26+08:00">2020-02-03</time>
               
             
           </span>
@@ -2000,26 +1962,367 @@
 <li>分析域（Analysis Area）：这部分数据模型主要用于各个业务部分的具体的主题业务分析。这部分数据模型可以单独存储在相应的数据集市中。</li>
 <li>反馈域（Feedback Area）：可选项，这部分数据模型主要用于相应前端的反馈数据，数据仓库可以视业务的需要设置这一区域。</li>
 </ul>
-<p>常见数据仓库模型有3种方法：</p>
-<ul>
-<li><p>范式建模法（Third Normal Form，3NF）* 范式建模法（Third Normal Form，3NF）</p>
-<p>范式建模法其实是我们在构建数据模型常用的一个方法，该方法的主要由 Inmon 所提倡，主要解决关系型数据库得数据存储，利用的一种技术层面上的方法。<br>目前，在关系型数据库中的建模方法，大部分采用的是三范式建模法。</p>
-<p>从其表达的含义来看，一个符合第三范式的关系必须具有以下三个条件 :</p>
-<ul>
-<li>每个属性值唯一，不具有多义性 ;</li>
-<li>每个非主属性必须完全依赖于整个主键，而非主键的一部分 ;</li>
-<li>每个非主属性不能依赖于其他关系中的属性，因为这样的话，这种属性应该归到其他关系中去。</li>
-</ul>
-<p>使用这种方法：数据仓库模型得建设方法和业务系统的企业数据模型类似。在业务系统中，企业数据模型决定了数据的来源，而企业数据模型也分为两个层次，即主题域模型和逻辑模型。<br>同样，主题域模型可以看成是业务模型的概念模型，而逻辑模型则是域模型在关系型数据库上的实例话。</p>
-<ul>
-<li>数据仓库的域模型应该包含企业数据模型得域模型之间的关系，以及各主题域定义。数据仓库的域模型的概念应该比业务系统的主题域模型范围更加广。</li>
-<li>在数据仓库的逻辑模型需要从业务系统的数据模型中的逻辑模型中抽象实体，实体的属性，实体的子类，以及实体的关系等。<br><img src="/2018/12/12/7-Hive设计模式/3NF_dw_model.jpg" alt=""></li>
-</ul>
-</li>
-</ul>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2018/12/12/7-Hive设计模式/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/12/6-Hive视图和索引/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/fly.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LYJ-NEO">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/12/6-Hive视图和索引/" itemprop="url">
+                  6-Hive视图和索引
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-12-12 11:24:32" itemprop="dateCreated datePublished" datetime="2018-12-12T11:24:32+08:00">2018-12-12</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-02-03 13:55:01" itemprop="dateModified" datetime="2020-02-03T13:55:01+08:00">2020-02-03</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Tec/" itemprop="url" rel="index"><span itemprop="name">Tec</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2>视图</h2><br>视图可以允许保存一个查询并像对待表一样对这个查询j进行操作，这是要给逻辑结构，因为它不会像一个表会存储数据，<br>当一个查询引用一个视图时，这个视图说定义的查询语句和用户查询语句结合在一起，然后Hive指定查询计划，从逻辑上讲<br>Hive先执行这个视图，然后使用这个结果进行后续的查询。<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">创建视图： </span><br><span class="line"></span><br><span class="line">CREATE VIEW [IF NOT EXISTS] view_name [(column_name [COMMENT column_comment], ...) ]</span><br><span class="line">[COMMENT table_comment]</span><br><span class="line">AS SELECT ...</span><br></pre></td></tr></table></figure><br><br><img src="/2018/12/12/6-Hive视图和索引/1_create_view.png" alt=""><br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">删除视图：</span><br><span class="line"></span><br><span class="line">DROP VIEW view_name ;</span><br></pre></td></tr></table></figure><br><br><img src="/2018/12/12/6-Hive视图和索引/2_drop_view.png" alt=""><br><br><em> 使用视图来降低查询复杂度<br>  查询长或复杂的时候，使用视图将这个查询语句分割成多个小的，更可控的片段可以降低这种复杂度。
+
+</em> 使用视图来限制基于条件过滤的数据<br>  对于视图来说，一个常见的使用场景是基于一个或多个列值来限制输出结果。有些数据库运行将视图作为一种安全机制，不给用户直接访问敏感数据的原始表，<br>  而提供给用户提供一个通过WHERE子句限制了的视图。<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/12/12/6-Hive视图和索引/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/01/5-Hive数据查询/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/fly.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LYJ-NEO">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/01/5-Hive数据查询/" itemprop="url">
+                  5-Hive数据查询
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-12-01 11:24:02" itemprop="dateCreated datePublished" datetime="2018-12-01T11:24:02+08:00">2018-12-01</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-02-03 14:03:38" itemprop="dateModified" datetime="2020-02-03T14:03:38+08:00">2020-02-03</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Tec/" itemprop="url" rel="index"><span itemprop="name">Tec</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2>SELECT子句</h2>
+
+<ul>
+<li>针对复合类型列的查询(数组，字典，结构)</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">含有复合类型列的样表：</span><br><span class="line">CREATE TABLE IF NOT EXISTS employees_t</span><br><span class="line">(</span><br><span class="line">    name STRING  COMMENT &apos;Employee name&apos;,</span><br><span class="line">    salary FLOAT COMMENT &apos;Employee salary&apos;,</span><br><span class="line">    subordinates ARRAY&lt;STRING&gt; COMMENT &apos; Names of subordinates&apos;,</span><br><span class="line">    deducations  MAP&lt;STRING,FLOAT&gt; COMMENT &apos; Keys are deducations names , Values are percentags&apos;,</span><br><span class="line">    address      STRUCT&lt;street:STRING,city:STRING,state:STRING,zip:INT&gt; COMMENT &apos;Home Address&apos;</span><br><span class="line">)</span><br><span class="line">COMMENT &apos;the table of empoyee&apos;</span><br><span class="line">ROW FORMAT DELIMITED</span><br><span class="line">FIELDS TERMINATED BY &apos;\001&apos;</span><br><span class="line">COLLECTION ITEMS TERMINATED BY &apos;\002&apos;</span><br><span class="line">MAP KEYS TERMINATED BY &apos;\003&apos;</span><br><span class="line">LINES TERMINATED BY &apos;\n&apos;</span><br><span class="line">STORED AS TEXTFILE;</span><br><span class="line">数据样式：</span><br></pre></td></tr></table></figure>
+<p><img src="/2018/12/01/5-Hive数据查询/1_mul_data_style.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">访问数组列，使用下标索引:</span><br><span class="line">SELECT name , subordinates[0] FROM employees_t linit 3;</span><br></pre></td></tr></table></figure>
+<p><img src="/2018/12/01/5-Hive数据查询/2_array_sub.png" alt=""></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/12/01/5-Hive数据查询/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -2064,7 +2367,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -2111,7 +2414,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">45</span>
+                    <span class="site-state-item-count">57</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2161,7 +2464,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">9</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">12</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -2201,7 +2510,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>

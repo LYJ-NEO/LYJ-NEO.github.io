@@ -108,14 +108,18 @@
 
 
 
-  <meta property="og:type" content="article">
+  <meta name="description" content="技术#1：使用TEZHive可以使用Apache Tez执行引擎而不是Map-reduce引擎。不会详细介绍这里提到的使用Tez的许多好处; 相反，提出一个简单的建议：如果在您的环境中默认情况下没有打开它，请在Hive查询的开头使用Tez设置为“true” 1set hive.execution.engine=tez; 技术#2：使用ORCFILEHive支持ORCfile，这是一种新的表存储格式">
+<meta name="keywords" content="BigData,Hive">
+<meta property="og:type" content="article">
 <meta property="og:title" content="8-Hive调优">
 <meta property="og:url" content="http://yoursite.com/2018/12/12/8-Hive调优/index.html">
 <meta property="og:site_name" content="LYJ-NEO">
+<meta property="og:description" content="技术#1：使用TEZHive可以使用Apache Tez执行引擎而不是Map-reduce引擎。不会详细介绍这里提到的使用Tez的许多好处; 相反，提出一个简单的建议：如果在您的环境中默认情况下没有打开它，请在Hive查询的开头使用Tez设置为“true” 1set hive.execution.engine=tez; 技术#2：使用ORCFILEHive支持ORCfile，这是一种新的表存储格式">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-04-04T00:56:50.000Z">
+<meta property="og:updated_time" content="2020-02-03T06:00:39.642Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="8-Hive调优">
+<meta name="twitter:description" content="技术#1：使用TEZHive可以使用Apache Tez执行引擎而不是Map-reduce引擎。不会详细介绍这里提到的使用Tez的许多好处; 相反，提出一个简单的建议：如果在您的环境中默认情况下没有打开它，请在Hive查询的开头使用Tez设置为“true” 1set hive.execution.engine=tez; 技术#2：使用ORCFILEHive支持ORCfile，这是一种新的表存储格式">
 
 
 
@@ -374,11 +378,29 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-04-04 08:56:50" itemprop="dateModified" datetime="2019-04-04T08:56:50+08:00">2019-04-04</time>
+                <time title="修改时间：2020-02-03 14:00:39" itemprop="dateModified" datetime="2020-02-03T14:00:39+08:00">2020-02-03</time>
               
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Tec/" itemprop="url" rel="index"><span itemprop="name">Tec</span></a></span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -417,7 +439,32 @@
       
 
       
-        
+        <h2 id="技术-1：使用TEZ"><a href="#技术-1：使用TEZ" class="headerlink" title="技术#1：使用TEZ"></a>技术#1：使用TEZ</h2><p>Hive可以使用Apache Tez执行引擎而不是Map-reduce引擎。不会详细介绍这里提到的使用Tez的许多好处; 相反，提出一个简单的建议：如果在您的环境中默认情况下没有打开它，请在Hive查询的开头使用Tez设置为“true”</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set hive.execution.engine=tez;</span><br></pre></td></tr></table></figure>
+<h2 id="技术-2：使用ORCFILE"><a href="#技术-2：使用ORCFILE" class="headerlink" title="技术#2：使用ORCFILE"></a>技术#2：使用ORCFILE</h2><p>Hive支持ORCfile，这是一种新的表存储格式，通过谓词下推，压缩等技术实现极佳的速度提升。<br>对每个HIVE表使用ORCFile应该是一个明智的选择，对于获得HIVE查询的快速响应时间非常有益。<br>作为一个例子，考虑两个大表A和B（存储为文本文件，这里没有指定一些列），以及一个简单的查询 :</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SELECT A.customerID, A.name, A.age, A.address join</span><br><span class="line">B.role, B.department, B.salary</span><br><span class="line">ON A.customerID=B.customerID;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>此查询可能需要很长时间才能执行，因为表A和B都存储为TEXT。将这些表转换为ORCFile格式通常会显着缩短查询时间：</p>
+<figure class="highlight plain"><figcaption><span>Table</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE A_ORC (</span><br><span class="line">customerID int, name string, age int, address string</span><br><span class="line">) STORED AS ORC tblproperties (“orc.compress&quot; = “SNAPPY”);</span><br><span class="line"></span><br><span class="line">INSERT INTO TABLE A_ORC SELECT * FROM A;</span><br></pre></td></tr></table></figure>
+<p>ORC支持压缩存储（使用ZLIB或如上所示使用SNAPPY），但也支持未压缩存储。<br>将基表转换为ORC通常是取决于所在团队获取数据的职责，由于其他优先级，可能需要一些时间来更改完整的获取数据过程。ORCFile的好处是如此明显，以至于推荐如上所示的自助式方法 - 将A转换为A_ORC，将B转换为B_ORC并以此方式进行连接，以便立即从更快的查询中受益，而不依赖于其他团队。</p>
+<h2 id="技术-3：VECTORIZATION"><a href="#技术-3：VECTORIZATION" class="headerlink" title="技术#3：VECTORIZATION"></a>技术#3：VECTORIZATION</h2><p>矢量化查询执行通过一次批量执行1024行而不是每行一行来提高扫描，聚合，过滤器和连接等操作的性能。<br>这个功能在Hive 0.13中引入，显着缩短了查询执行时间，并且可以通过两个参数设置轻松启用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">set hive.vectorized.execution.enabled = true;</span><br><span class="line">set hive.vectorized.execution.reduce.enabled = true;</span><br></pre></td></tr></table></figure>
+<h2 id="技术-4：查询优化"><a href="#技术-4：查询优化" class="headerlink" title="技术#4：查询优化"></a>技术#4：查询优化</h2><p>在提交最终执行之前，Hive会优化每个查询的逻辑和物理执行计划。这些优化不是基于查询的成本 - 也就是说，直到运行时。<br>最近添加到Hive，基于成本的优化，基于查询成本执行进一步优化，从而导致可能不同的决策：如何订购联接，执行哪种类型的联接，并行度等。</p>
+<p>要使用基于成本的优化（也称为CBO），请在查询开头设置以下参数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">set hive.cbo.enable=true;</span><br><span class="line">set hive.compute.query.using.stats=true;</span><br><span class="line">set hive.stats.fetch.column.stats=true;</span><br><span class="line">set hive.stats.fetch.partition.stats=true;</span><br></pre></td></tr></table></figure></p>
+<p>然后，通过运行Hive的“analyze”命令为CBO准备数据，以收集我们想要使用CBO的表的各种统计信息。<br>例如，在tweet数据表中，希望收集有关该表的统计信息以及大约2列：“sender”和“topic”：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">analyze table tweets compute statistics;</span><br><span class="line">analyze table tweets compute statistics for columns sender, topic;</span><br></pre></td></tr></table></figure>
+<p>使用HIVE 0.14（在HDP 2.2上），analyze命令的工作速度要快得多，而且您不需要指定每一列，因此只需如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">analyze table tweets compute statistics for columns;</span><br></pre></td></tr></table></figure>
+<p>现在使用此表执行查询应该会导致不同的执行计划由于成本计算和Hive创建的不同执行计划而更快。</p>
+<h2 id="技术-5：编写良好的SQL"><a href="#技术-5：编写良好的SQL" class="headerlink" title="技术#5：编写良好的SQL"></a>技术#5：编写良好的SQL</h2><p>SQL是一种强大的声明性语言。与其他声明性语言一样，编写SQL语句的方法不止一种。尽管每个语句的功能都相同，但它可能具有截然不同的性能特征</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE clicks (</span><br><span class="line">timestamp date, sessionID string, url string, source_ip string</span><br><span class="line">) STORED as ORC tblproperties (“orc.compress” = “SNAPPY”);</span><br></pre></td></tr></table></figure>
+<p>每条记录代表一次点击事件，希望找到每个sessionID的最新网址。</p>
+<p>有人使用如下方式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">SELECT clicks.* FROM </span><br><span class="line">clicks inner join</span><br><span class="line">(   select sessionID, max(timestamp) as max_ts from clicks</span><br><span class="line">    group by sessionID</span><br><span class="line">) latest</span><br><span class="line">ON clicks.sessionID = latest.sessionID AND clicks.timestamp = latest.max_ts;</span><br></pre></td></tr></table></figure>
+<p>在上面的查询中，构建一个子查询来收集每个会话中最新事件的时间戳，然后使用内部联接来过滤掉其余的事件。<br>虽然查询是一个合理的解决方案 - 从功能的角度来看 - 事实证明，有一种更好的方法来重写这个查询，如下所示</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM</span><br><span class="line">(   SELECT *, </span><br><span class="line">    RANK() over (partition by sessionID,order by timestamp desc) as rank</span><br><span class="line">    FROM clicks</span><br><span class="line">) ranked_clicks</span><br><span class="line">WHERE ranked_clicks.rank=1;</span><br></pre></td></tr></table></figure>
+<p>在这里，使用Hive的OLAP功能（OVER和RANK）来实现相同的功能，但没有使用表连接。<br>显然，删除不必要的连接几乎总能带来更好的性能，而且当使用大数据时，这比以往任何时候都更重要。在很多情况下查询不是最优的 - 所以仔细查看每个查询并考虑重写是否可以使它更好更快。</p>
+
       
     </div>
 
@@ -434,6 +481,14 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/BigData/" rel="tag"># BigData</a>
+          
+            <a href="/tags/Hive/" rel="tag"># Hive</a>
+          
+        </div>
       
 
       
@@ -509,8 +564,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -529,7 +593,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">45</span>
+                    <span class="site-state-item-count">57</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -579,7 +643,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">9</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">12</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -606,6 +676,22 @@
       </section>
 
       
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#技术-1：使用TEZ"><span class="nav-number">1.</span> <span class="nav-text">技术#1：使用TEZ</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#技术-2：使用ORCFILE"><span class="nav-number">2.</span> <span class="nav-text">技术#2：使用ORCFILE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#技术-3：VECTORIZATION"><span class="nav-number">3.</span> <span class="nav-text">技术#3：VECTORIZATION</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#技术-4：查询优化"><span class="nav-number">4.</span> <span class="nav-text">技术#4：查询优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#技术-5：编写良好的SQL"><span class="nav-number">5.</span> <span class="nav-text">技术#5：编写良好的SQL</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
 
       
 
@@ -619,7 +705,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>

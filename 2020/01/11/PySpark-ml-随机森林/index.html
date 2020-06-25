@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.4.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.4.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="书籍&amp;lt;&amp;lt;Python在大数据平台的应用&amp;gt;&amp;gt;更多信息请关注本书附书代码:附书代码Github工程:https://github.com/Shadow-Hunter-X 信息熵-熵的计算 信息熵：常被用来作为一个系统的信息含量的量化指标，从而可以进一步用来作为系统方程优化的目标或者参数选择的判据,可以作为一个系统复杂程度的度量，如果系统越复杂，出现不同情况的种类越多，那么他的信">
+<meta name="keywords" content="BigData,Spark">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PySpark-ml-随机森林">
+<meta property="og:url" content="http://yoursite.com/2020/01/11/PySpark-ml-随机森林/index.html">
+<meta property="og:site_name" content="LYJ-NEO">
+<meta property="og:description" content="书籍&amp;lt;&amp;lt;Python在大数据平台的应用&amp;gt;&amp;gt;更多信息请关注本书附书代码:附书代码Github工程:https://github.com/Shadow-Hunter-X 信息熵-熵的计算 信息熵：常被用来作为一个系统的信息含量的量化指标，从而可以进一步用来作为系统方程优化的目标或者参数选择的判据,可以作为一个系统复杂程度的度量，如果系统越复杂，出现不同情况的种类越多，那么他的信">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2020/01/11/PySpark-ml-随机森林/entropy.png">
+<meta property="og:image" content="http://yoursite.com/2020/01/11/PySpark-ml-随机森林/DT.png">
+<meta property="og:image" content="http://yoursite.com/2020/01/11/PySpark-ml-随机森林/data_demo.png">
+<meta property="og:image" content="http://yoursite.com/2020/01/11/PySpark-ml-随机森林/part1.png">
+<meta property="og:image" content="http://yoursite.com/2020/01/11/PySpark-ml-随机森林/part2.png">
+<meta property="og:image" content="http://yoursite.com/2020/01/11/PySpark-ml-随机森林/part3.png">
+<meta property="og:updated_time" content="2020-02-04T06:48:27.924Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PySpark-ml-随机森林">
+<meta name="twitter:description" content="书籍&amp;lt;&amp;lt;Python在大数据平台的应用&amp;gt;&amp;gt;更多信息请关注本书附书代码:附书代码Github工程:https://github.com/Shadow-Hunter-X 信息熵-熵的计算 信息熵：常被用来作为一个系统的信息含量的量化指标，从而可以进一步用来作为系统方程优化的目标或者参数选择的判据,可以作为一个系统复杂程度的度量，如果系统越复杂，出现不同情况的种类越多，那么他的信">
+<meta name="twitter:image" content="http://yoursite.com/2020/01/11/PySpark-ml-随机森林/entropy.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/01/11/PySpark-ml-随机森林/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>PySpark-ml-随机森林 | LYJ-NEO</title>
+  
+
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?0a1c584f1b6f1f91344a2a4d65406eff";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">LYJ-NEO</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">Gone With The Wind</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/11/PySpark-ml-随机森林/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/fly.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LYJ-NEO">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">PySpark-ml-随机森林
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-01-11 14:55:01" itemprop="dateCreated datePublished" datetime="2020-01-11T14:55:01+08:00">2020-01-11</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-02-04 14:48:27" itemprop="dateModified" datetime="2020-02-04T14:48:27+08:00">2020-02-04</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Tec/" itemprop="url" rel="index"><span itemprop="name">Tec</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/01/11/PySpark-ml-随机森林/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count gitment-comments-count" data-xid="/2020/01/11/PySpark-ml-随机森林/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>书籍&lt;&lt;Python在大数据平台的应用&gt;&gt;<br>更多信息请关注本书附书代码:<a href="https://github.com/Shadow-Hunter-X/python_practice_stepbystep" target="_blank" rel="noopener">附书代码Github工程:https://github.com/Shadow-Hunter-X</a></p>
+<h2 id="信息熵-熵的计算"><a href="#信息熵-熵的计算" class="headerlink" title="信息熵-熵的计算"></a>信息熵-熵的计算</h2><ul>
+<li>信息熵：常被用来作为一个系统的信息含量的量化指标，从而可以进一步用来作为系统方程优化的目标或者参数选择的判据,<pre><code>可以作为一个系统复杂程度的度量，如果系统越复杂，出现不同情况的种类越多，那么他的信息熵是比较大的。
+</code></pre></li>
+</ul>
+<p><img src="/2020/01/11/PySpark-ml-随机森林/entropy.png" alt="entropy.png"></p>
+<ul>
+<li>信息熵的三个性质<ul>
+<li>单调性，即发生概率越高的事件，其所携带的信息熵越低</li>
+<li>非负性，即信息熵不能为负</li>
+<li>累加性，即多随机事件同时发生存在的总不确定性的量度是可以表示为各事件不确定性的量度的和</li>
+</ul>
+</li>
+</ul>
+<p>可以发现,上述的公式中计算是相当与 将所有的期望值相加了。</p>
+<p>设想：在一个封闭系统的盒子中，其中有各种的信息源，这些信息源间，可能相互关联，或彼此独立。现在从这个盒子外部看接受信息。</p>
+<pre><code>对于单调性 ： 如果 盒子中只有一个数据源，每次都可以确定信息，这样对应的必然事件，对应的概率是1，对于熵值为0 。
+
+累加性：如果盒子中有很多数据源，两个独立数据源发生时的概率：P(A)*P(B) ；两个关联事件发生的条件概率为 P(A|B) = P(A∩B)/P(B)
+       可以发现需要间概率计算中的乘除转为为可以进行累加，所以使用对数进行处理，这样可以将概率计算中的乘除化解为加减。
+</code></pre><p>结合概率统计中概率计算<br><a href="https://blue-shadow.top/2019/02/06/4%E6%A6%82%E7%8E%87%E8%AE%A1%E7%AE%97/" target="_blank" rel="noopener">概率计算及相关</a></p>
+<h2 id="决策树-Decision-Tree"><a href="#决策树-Decision-Tree" class="headerlink" title="决策树-Decision Tree"></a>决策树-Decision Tree</h2><p><strong>由于随机森林是由很多的决策树构成的，所以在使用随机森林模型前，先了解决策树中的构建过程，有助于对随机森林的学习</strong></p>
+<ul>
+<li>使用如下测试表中的数据来说明：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>年龄段</th>
+<th>是否购车</th>
+<th>是否购房</th>
+<th>薪资水平</th>
+<th>贷款额度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>中年</td>
+<td>是</td>
+<td>是</td>
+<td>高</td>
+<td>高</td>
+</tr>
+<tr>
+<td>少年</td>
+<td>是</td>
+<td>是</td>
+<td>中等</td>
+<td>高</td>
+</tr>
+<tr>
+<td>青年</td>
+<td>是</td>
+<td>是</td>
+<td>中等</td>
+<td>低</td>
+</tr>
+<tr>
+<td>中年</td>
+<td>否</td>
+<td>是</td>
+<td>高</td>
+<td>高</td>
+</tr>
+<tr>
+<td>青年</td>
+<td>是</td>
+<td>是</td>
+<td>高</td>
+<td>低</td>
+</tr>
+<tr>
+<td>少年</td>
+<td>否</td>
+<td>是</td>
+<td>低</td>
+<td>高</td>
+</tr>
+<tr>
+<td>少年</td>
+<td>否</td>
+<td>否</td>
+<td>低</td>
+<td>低</td>
+</tr>
+<tr>
+<td>中年</td>
+<td>否</td>
+<td>否</td>
+<td>低</td>
+<td>高</td>
+</tr>
+<tr>
+<td>少年</td>
+<td>否</td>
+<td>是</td>
+<td>中等</td>
+<td>高</td>
+</tr>
+<tr>
+<td>青年</td>
+<td>否</td>
+<td>是</td>
+<td>低</td>
+<td>高</td>
+</tr>
+<tr>
+<td>青年</td>
+<td>是</td>
+<td>否</td>
+<td>高</td>
+<td>低</td>
+</tr>
+<tr>
+<td>少年</td>
+<td>是</td>
+<td>否</td>
+<td>中等</td>
+<td>低</td>
+</tr>
+<tr>
+<td>青年</td>
+<td>否</td>
+<td>否</td>
+<td>中等</td>
+<td>高</td>
+</tr>
+<tr>
+<td>中年</td>
+<td>是</td>
+<td>否</td>
+<td>中等</td>
+<td>高</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>对于决策树的计算中，需要使用到熵</li>
+</ul>
+<p>为了能够计算目标变量-贷款额度，需要计算每类的概率，然后使用熵公式进行计算。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">高贷款额度概率 : 9/14 = 0.64</span><br><span class="line">低贷款额度概率 ：5/14 = 0.36</span><br><span class="line"></span><br><span class="line">所以 熵值为 ： E(贷款额度) = - P(高贷款额度) * log(2)(P(高贷款额度))  - P(低贷款额度) * log(2)(P(低贷款额度))  </span><br><span class="line">                = -( 0.64 * log(2)(0.64)) - (0.36 * log(2)(0.36))</span><br><span class="line">                = -( 0.64 * -0.643856 ) - (0.36 * -1.473931)</span><br><span class="line">                = 0.41206784 + 0.53061516</span><br><span class="line">                = 0.94</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>用同样的方式，计算各个特征的熵值： E(年龄) = 0.69 ; E(购车) = 0.79 ; E(购房) = 0.89 ; E(薪资) = 0.91 </p>
+<ul>
+<li>信息增益</li>
+</ul>
+<p>在信息增益中，衡量标准是看特征能够为分类系统带来多少信息，带来的信息越多，该特征越重要。对一个特征而言，系统有它和没它时信息量将发生变化，而前后信息量的差值就是这个特征给系统带来的信息量。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">IG(年龄段) = E(贷款额度) - E(年龄段)</span><br><span class="line">          = 0.94 - 0.69</span><br><span class="line">          = 0.25</span><br><span class="line"></span><br><span class="line">IG(购车)  = E(贷款额度) - E(购车) </span><br><span class="line">          = 0.94 - 0.79</span><br><span class="line">          = 0.15</span><br><span class="line"></span><br><span class="line">IG(购房)  = E(贷款额度) - E(购房) </span><br><span class="line">          = 0.94 - 0.89</span><br><span class="line">          = 0.05</span><br><span class="line"></span><br><span class="line">IG(薪资)  = E(贷款额度) - E(薪资) </span><br><span class="line">          = 0.94 - 0.91</span><br><span class="line">          = 0.03</span><br></pre></td></tr></table></figure>
+<p>通过求解信息增益量，可以发现年龄信息增益量最大，所以其作为决策树的root</p>
+<p>所以最后的决策树样子应该是这样的:</p>
+<p><img src="/2020/01/11/PySpark-ml-随机森林/DT.png" alt="DT.png"></p>
+<h2 id="随机森林"><a href="#随机森林" class="headerlink" title="随机森林"></a>随机森林</h2><p>知道决策树是如何工作的后,可以转向随机森林。正如名字所暗示的,随机森林是由许多树组成的,许多决策树。<br>随机森林也可以用于分类和回归。名字“随机”的原因是,因为树的形成是随机的，集合的特性和随机的训练。现在每个<br>决策树接受不同数据点的训练试图学习输入和输出之间的关系,最终实现了这一点与其他使用其他决策树的预测相结合<br>一组数据点被训练,因此是随机森林。</p>
+<p><strong>测试用数据</strong></p>
+<p><img src="/2020/01/11/PySpark-ml-随机森林/data_demo.png" alt="data_demo.png"></p>
+<h2 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pyspark.sql <span class="keyword">import</span> SparkSession</span><br><span class="line">spark=SparkSession.builder.appName(<span class="string">'random_forest'</span>).getOrCreate()</span><br><span class="line"></span><br><span class="line">print(<span class="string">'-----------读取用于测得数据,检测数据质量和相关的特征。即相对数据有一定的认识，对后续进行逻辑回归训练做准备------------------'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 读取数据</span></span><br><span class="line">df=spark.read.csv(<span class="string">'cars.csv'</span>,inferSchema=<span class="keyword">True</span>,header=<span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line">print((df.count(),len(df.columns)))</span><br><span class="line"></span><br><span class="line">df.printSchema()</span><br><span class="line"></span><br><span class="line">df.describe().select(<span class="string">'summary'</span>,<span class="string">'地区'</span>,<span class="string">'驾驶员年龄'</span>,<span class="string">'驾龄'</span>,<span class="string">'每年保养次数'</span>,<span class="string">'汽车类型'</span>).show() <span class="comment"># 全景数据分析统计，会对各列按 平均值，方差，最小值，最大值 , 函数统计 这几个统计量来进行统计。</span></span><br><span class="line">df.groupBy(<span class="string">'故障'</span>).count().show()                                                        <span class="comment"># 以故障汇总数据</span></span><br><span class="line">df.groupBy(<span class="string">'地区'</span>).count().show()                                                        <span class="comment"># 以所在地进行汇总数据 </span></span><br><span class="line">df.groupBy(<span class="string">'汽车类型'</span>,<span class="string">'故障'</span>).count().orderBy(<span class="string">'汽车类型'</span>,<span class="string">'故障'</span>,<span class="string">'count'</span>,ascending=<span class="keyword">True</span>).show()  </span><br><span class="line"></span><br><span class="line">df.groupBy(<span class="string">'每年保养次数'</span>,<span class="string">'故障'</span>).count().orderBy(<span class="string">'每年保养次数'</span>,<span class="string">'故障'</span>,<span class="string">'count'</span>,ascending=<span class="keyword">True</span>).show()</span><br><span class="line"></span><br><span class="line">df.groupBy(<span class="string">'故障'</span>).mean().show()                                                        <span class="comment"># 计算均值</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">print(<span class="string">'-----------数据转换，将所有的特征值放到一个特征向量中，预测值分开.划分数据用于模型------------------'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> pyspark.ml.feature <span class="keyword">import</span> VectorAssembler                                         <span class="comment">#一个 导入VerctorAssembler 将多个列合并成向量列的特征转换器,即将表中各列用一个类似list表示，输出预测列为单独一列。</span></span><br><span class="line"></span><br><span class="line">df_assembler = VectorAssembler(inputCols=[<span class="string">'地区'</span>, <span class="string">'驾驶员年龄'</span>, <span class="string">'驾龄'</span>, <span class="string">'每年保养次数'</span>, <span class="string">'汽车类型'</span>], outputCol=<span class="string">"features"</span>)</span><br><span class="line">df = df_assembler.transform(df)</span><br><span class="line">df.printSchema()</span><br><span class="line"></span><br><span class="line">df.select([<span class="string">'features'</span>,<span class="string">'故障'</span>]).show(<span class="number">10</span>,<span class="keyword">False</span>)</span><br><span class="line"></span><br><span class="line">model_df=df.select([<span class="string">'features'</span>,<span class="string">'故障'</span>])                                               <span class="comment"># 选择用于模型训练的数据</span></span><br><span class="line">train_df,test_df=model_df.randomSplit([<span class="number">0.75</span>,<span class="number">0.25</span>])                                    <span class="comment"># 训练数据和测试数据分为75%和25%</span></span><br><span class="line"></span><br><span class="line">train_df.groupBy(<span class="string">'故障'</span>).count().show()</span><br><span class="line">test_df.groupBy(<span class="string">'故障'</span>).count().show()</span><br><span class="line"></span><br><span class="line">print(<span class="string">'-----------使用随机深林进行数据训练----------------'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> pyspark.ml.classification <span class="keyword">import</span> RandomForestClassifier</span><br><span class="line"></span><br><span class="line">rf_classifier=RandomForestClassifier(labelCol=<span class="string">'故障'</span>,numTrees=<span class="number">50</span>).fit(train_df)      <span class="comment"># numTrees设置随机数的数量为50,还有其他参数：maxDepth 树深;返回的模型类型为：RandomForestClassificationModel</span></span><br><span class="line"></span><br><span class="line">rf_predictions=rf_classifier.transform(test_df)</span><br><span class="line"></span><br><span class="line">print(<span class="string">'&#123;&#125;&#123;&#125;'</span>.format(<span class="string">'评估每个属性的重要性:'</span>,rf_classifier.featureImportances))   <span class="comment"># featureImportances : 评估每个功能的重要性,</span></span><br><span class="line"></span><br><span class="line">rf_predictions.select([<span class="string">'probability'</span>,<span class="string">'故障'</span>,<span class="string">'prediction'</span>]).show(<span class="number">10</span>,<span class="keyword">False</span>)</span><br><span class="line"></span><br><span class="line">print(<span class="string">"------查阅pyspark api，没有发现有训练准确率的字段，所以还需要计算预测的准确率------"</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> pyspark.ml.evaluation <span class="keyword">import</span> BinaryClassificationEvaluator      <span class="comment"># 对二进制分类的评估器,它期望两个输入列:原始预测值和标签</span></span><br><span class="line"><span class="keyword">from</span> pyspark.ml.evaluation <span class="keyword">import</span> MulticlassClassificationEvaluator  <span class="comment"># 多类分类的评估器,它期望两个输入列:预测和标签</span></span><br><span class="line"></span><br><span class="line">rf_accuracy=MulticlassClassificationEvaluator(labelCol=<span class="string">'故障'</span>,metricName=<span class="string">'accuracy'</span>).evaluate(rf_predictions)</span><br><span class="line">print(<span class="string">'MulticlassClassificationEvaluator 随机深林测试的准确性： &#123;0:.0%&#125;'</span>.format(rf_accuracy))</span><br><span class="line"></span><br><span class="line">rf_auc=BinaryClassificationEvaluator(labelCol=<span class="string">'故障'</span>).evaluate(rf_predictions)</span><br><span class="line">print(<span class="string">'BinaryClassificationEvaluator 随机深林测试的准确性： &#123;0:.0%&#125;'</span>.format(rf_auc))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">print(<span class="string">'-----------保持模型，用于下次使用----------------'</span>)</span><br><span class="line"></span><br><span class="line">rf_classifier.save(<span class="string">"RF_model"</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="/2020/01/11/PySpark-ml-随机森林/part1.png" alt="part1.png"></p>
+<p><img src="/2020/01/11/PySpark-ml-随机森林/part2.png" alt="part2.png"></p>
+<p><img src="/2020/01/11/PySpark-ml-随机森林/part3.png" alt="part3.png"></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/BigData/" rel="tag"># BigData</a>
+          
+            <a href="/tags/Spark/" rel="tag"># Spark</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/01/03/PySpark-推荐系统-RecommenderSystem/" rel="next" title="PySpark-推荐系统-RecommenderSystem">
+                <i class="fa fa-chevron-left"></i> PySpark-推荐系统-RecommenderSystem
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/01/13/PySpark-ml-分类-clustering/" rel="prev" title="PySpark-ml-分类-clustering">
+                PySpark-ml-分类-clustering <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div onclick="showGitment()" id="gitment-display-button">显示 Gitment 评论</div>
+        <div id="gitment-container" style="display:none"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/fly.jpg"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">57</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">12</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#信息熵-熵的计算"><span class="nav-number">1.</span> <span class="nav-text">信息熵-熵的计算</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#决策树-Decision-Tree"><span class="nav-number">2.</span> <span class="nav-text">决策树-Decision Tree</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#随机森林"><span class="nav-number">3.</span> <span class="nav-text">随机森林</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例代码"><span class="nav-number">4.</span> <span class="nav-text">示例代码</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder"></span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv" title="总访客量">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="site-pv" title="总访问量">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.4.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+      <style>
+        a.gitment-editor-footer-tip { display: none; }
+        .gitment-container.gitment-footer-container { display: none; }
+      </style>
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname,
+            owner: 'LYJ-NEO',
+            repo: 'LYJ-NEO.github.io',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '84e9d01a0e208628585fc510f19acf65242314f9',
+            
+                client_id: '775bf5cff2e26a9fbabb'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      function showGitment(){
+        document.getElementById("gitment-display-button").style.display = "none";
+        document.getElementById("gitment-container").style.display = "block";
+        renderGitment();
+      }
+      
+      </script>
+    
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

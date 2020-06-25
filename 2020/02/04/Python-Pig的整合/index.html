@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.4.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.4.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="书籍&amp;lt;&amp;lt;Python在大数据平台的应用&amp;gt;&amp;gt;更多信息请关注本书附书代码:附书代码Github工程:https://github.com/Shadow-Hunter-X  接下来节选Python Pig UDF函数的操作。Pig和Hadoop都是Java编写的。Java也是编写UDF的原生语言，但通过Java进行编写需要通过编译打包成Jar包后进行部署，过程是很繁琐的。但通过P">
+<meta name="keywords" content="BigData,HBase">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python-Pig的整合">
+<meta property="og:url" content="http://yoursite.com/2020/02/04/Python-Pig的整合/index.html">
+<meta property="og:site_name" content="LYJ-NEO">
+<meta property="og:description" content="书籍&amp;lt;&amp;lt;Python在大数据平台的应用&amp;gt;&amp;gt;更多信息请关注本书附书代码:附书代码Github工程:https://github.com/Shadow-Hunter-X  接下来节选Python Pig UDF函数的操作。Pig和Hadoop都是Java编写的。Java也是编写UDF的原生语言，但通过Java进行编写需要通过编译打包成Jar包后进行部署，过程是很繁琐的。但通过P">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-02-04T09:01:45.850Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python-Pig的整合">
+<meta name="twitter:description" content="书籍&amp;lt;&amp;lt;Python在大数据平台的应用&amp;gt;&amp;gt;更多信息请关注本书附书代码:附书代码Github工程:https://github.com/Shadow-Hunter-X  接下来节选Python Pig UDF函数的操作。Pig和Hadoop都是Java编写的。Java也是编写UDF的原生语言，但通过Java进行编写需要通过编译打包成Jar包后进行部署，过程是很繁琐的。但通过P">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/02/04/Python-Pig的整合/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Python-Pig的整合 | LYJ-NEO</title>
+  
+
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?0a1c584f1b6f1f91344a2a4d65406eff";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">LYJ-NEO</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">Gone With The Wind</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/04/Python-Pig的整合/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/fly.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LYJ-NEO">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Python-Pig的整合
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-02-04 16:46:12 / 修改时间：17:01:45" itemprop="dateCreated datePublished" datetime="2020-02-04T16:46:12+08:00">2020-02-04</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Tec/" itemprop="url" rel="index"><span itemprop="name">Tec</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/02/04/Python-Pig的整合/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count gitment-comments-count" data-xid="/2020/02/04/Python-Pig的整合/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>书籍&lt;&lt;Python在大数据平台的应用&gt;&gt;<br>更多信息请关注本书附书代码:<a href="https://github.com/Shadow-Hunter-X/python_practice_stepbystep" target="_blank" rel="noopener">附书代码Github工程:https://github.com/Shadow-Hunter-X</a> </p>
+<p>接下来节选Python Pig UDF函数的操作。<br>Pig和Hadoop都是Java编写的。Java也是编写UDF的原生语言，但通过Java进行编写需要通过编译打包成Jar包后进行部署，过程是很繁琐的。但通过Python编写UDF是很方便快捷的，至少在功能测试阶段是这样很方便</p>
+<h2 id="pig-util模块说明"><a href="#pig-util模块说明" class="headerlink" title="pig_util模块说明"></a>pig_util模块说明</h2><p>对于pig_util模块可以去安装Pig的目录下获取。Hello World例子，大家应该都会感觉很亲切，所以先以Hello World程序开始说明。在这个Hello World例子中只是单纯的输出数据，并没有使用Pig传递的数据。</p>
+<ul>
+<li>编写python脚本，脚本名为hello_world.py。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pig_util <span class="keyword">import</span> outputSchema    </span><br><span class="line"><span class="meta">@outputSchema('word:chararray')	    # 使用outputSchema装饰器</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello_world</span><span class="params">()</span>:</span></span><br><span class="line"><span class="keyword">return</span> <span class="string">"hello world"</span></span><br><span class="line">（<span class="number">2</span>）进入Grunt中调用Hello World UDF。</span><br><span class="line">(base) root@test_data<span class="comment"># pig -x local</span></span><br><span class="line">-- <span class="number">1</span>注册Python脚本，通过输出的的信息，判断成功的注册Python脚本</span><br><span class="line">grunt&gt; REGISTER /home/hadoop/test_data/hello_world.py using streaming_python <span class="keyword">as</span> hello_udf ;  </span><br><span class="line">-- <span class="number">2</span>加载数据</span><br><span class="line">grunt&gt; movies_data = load <span class="string">'/home/hadoop/test_data/movies.csv'</span> using PigStorage(<span class="string">','</span>) <span class="keyword">as</span> (movieId:chararray, title:chararray, genres:chararray) ;</span><br><span class="line">grunt&gt; movies_10 = LIMIT movies_data <span class="number">10</span> ;</span><br><span class="line">-- <span class="number">3</span>调用Python的udf</span><br><span class="line">grunt&gt; movies_10_hello = FOREACH movies_10 GENERATE hello_udf.hello_world() ;</span><br><span class="line">grunt&gt; dump movies_10_hello ;     -- 输出<span class="number">10</span>个hello world,如下所示</span><br><span class="line"><span class="number">2019</span><span class="number">-09</span><span class="number">-26</span> <span class="number">20</span>:<span class="number">10</span>:<span class="number">45</span>,<span class="number">505</span> [MainThread] INFO  org.apache.pig.backend.hadoop.executionengine.util.MapRedUtil - Total input paths to process : <span class="number">1</span></span><br><span class="line">(hello world)</span><br><span class="line">(hello world)</span><br><span class="line">(hello world)</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h2 id="Pig调用Python-UDF"><a href="#Pig调用Python-UDF" class="headerlink" title="Pig调用Python UDF"></a>Pig调用Python UDF</h2><p>在通过前一小节对pig_util.py使用实际并没有数据操作，只是演示了一个处理流程。这一节将进行演示，使用Python UDF操作Pig数据。在使用Python脚本时需要指定解释器，支持两种Jpython和C Ptyhon。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">使用Jython：register <span class="string">'/path/to/pigudf.py'</span> using jython <span class="keyword">as</span> myfuncs;</span><br><span class="line">使用C Python：register <span class="string">'/path/to/pigudf.py'</span> using streaming_python <span class="keyword">as</span> myfuncs;</span><br></pre></td></tr></table></figure></p>
+<p>对Movies数据进行操作。由于电影名中包含出品年份，像这样Toy Story (1995)。现在使用Python将影名和年份拆开，后计算至今出版了多少年。 </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pig_util <span class="keyword">import</span> outputSchema</span><br><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="meta">@outputSchema('title:chararray')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">parse_title</span><span class="params">(title)</span>:</span></span><br><span class="line">	movie_name = re.sub(<span class="string">r'\s*\(\d&#123;4&#125;\)'</span>,<span class="string">''</span>, title)     </span><br><span class="line">	groups=re.search(<span class="string">r'\s*\(\d&#123;4&#125;\)'</span>,title,re.M|re.I)  </span><br><span class="line">	<span class="keyword">if</span> groups:</span><br><span class="line">		issue_year=int(title[groups.span()[<span class="number">0</span>]:groups.span()[<span class="number">1</span>]].strip()[<span class="number">1</span>:<span class="number">5</span>])</span><br><span class="line">		year_diff=datetime.now().year - issue_year</span><br><span class="line">		<span class="keyword">return</span> movie_name , issue_year , year_diff</span><br><span class="line">	<span class="keyword">return</span> movie_name , <span class="number">-1</span> , <span class="number">-1</span></span><br></pre></td></tr></table></figure>
+<p>………..</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/BigData/" rel="tag"># BigData</a>
+          
+            <a href="/tags/HBase/" rel="tag"># HBase</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/02/04/HBase-SQL的使用/" rel="next" title="HBase-SQL的使用">
+                <i class="fa fa-chevron-left"></i> HBase-SQL的使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/06/25/etl-bigdata/" rel="prev" title="etl-bigdata">
+                etl-bigdata <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div onclick="showGitment()" id="gitment-display-button">显示 Gitment 评论</div>
+        <div id="gitment-container" style="display:none"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/fly.jpg"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">57</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">12</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#pig-util模块说明"><span class="nav-number">1.</span> <span class="nav-text">pig_util模块说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pig调用Python-UDF"><span class="nav-number">2.</span> <span class="nav-text">Pig调用Python UDF</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder"></span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv" title="总访客量">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="site-pv" title="总访问量">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.4.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+      <style>
+        a.gitment-editor-footer-tip { display: none; }
+        .gitment-container.gitment-footer-container { display: none; }
+      </style>
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname,
+            owner: 'LYJ-NEO',
+            repo: 'LYJ-NEO.github.io',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '84e9d01a0e208628585fc510f19acf65242314f9',
+            
+                client_id: '775bf5cff2e26a9fbabb'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      function showGitment(){
+        document.getElementById("gitment-display-button").style.display = "none";
+        document.getElementById("gitment-container").style.display = "block";
+        renderGitment();
+      }
+      
+      </script>
+    
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

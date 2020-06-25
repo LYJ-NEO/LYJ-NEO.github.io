@@ -315,7 +315,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/09/长相思/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/19/数据仓库种相关概念和技术处理/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -334,8 +334,8 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/09/09/长相思/" itemprop="url">
-                  长相思
+                <a class="post-title-link" href="/2019/02/19/数据仓库种相关概念和技术处理/" itemprop="url">
+                  数据仓库种相关概念和技术处理
                 </a>
               
             
@@ -361,7 +361,432 @@
                 
               
 
-              <time title="创建时间：2018-09-09 10:04:43" itemprop="dateCreated datePublished" datetime="2018-09-09T10:04:43+08:00">2018-09-09</time>
+              <time title="创建时间：2019-02-19 10:14:28" itemprop="dateCreated datePublished" datetime="2019-02-19T10:14:28+08:00">2019-02-19</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-04 08:56:50" itemprop="dateModified" datetime="2019-04-04T08:56:50+08:00">2019-04-04</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li>相关的概念和</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ODS</td>
+<td style="text-align:left">Operational Data Store,一个面向主题的、集成的、可变的、当前的细节数据集合，用于支持企业对于即时性的、操作性的、集成的全体信息的需求</td>
+</tr>
+<tr>
+<td>ETL</td>
+<td style="text-align:left">数据抽取、转换、装载，ETL是建立数据仓库最重要的处理过程，也是最体现工作量的环节</td>
+</tr>
+<tr>
+<td>变化数据捕获技术</td>
+<td style="text-align:left">捕获数据变化的机制</td>
+</tr>
+<tr>
+<td>CDC变化数据捕获</td>
+<td style="text-align:left">常用的变化数据捕获方法有时间戳、快照、触发器和日志四种(关系型数据库) 。对应维度模型种的渐变维度</td>
+</tr>
+<tr>
+<td>数据仓库</td>
+<td style="text-align:left">是一个面向主题的、集成的、随时间变化的、非易失的数据集合，用于支持管理者的决策过程</td>
+</tr>
+<tr>
+<td>数据集市</td>
+<td style="text-align:left">数据集市是按主题域组织的数据集合，用于支持部门级的决策，两种类型的数据集市：独立数据集市和从属数据集市</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>3种数据仓库模型</p>
+<p>3.1 关系数据模型(范式建模法)</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>超键 super key</td>
+<td style="text-align:left">一个列或者列集，唯一标识表中的一条记录。超键可能包含用于唯一标识记录所不必要的额外的列</td>
+</tr>
+<tr>
+<td>候选键 Alternate Key</td>
+<td style="text-align:left">仅包含唯一标识记录所必需的最小数量列的超键</td>
+</tr>
+<tr>
+<td>主键 Primary Key</td>
+<td style="text-align:left">唯一标识表中记录的候选键。主键是唯一、非空的</td>
+</tr>
+<tr>
+<td>外键 Froeign Key</td>
+<td style="text-align:left">一个表中的一个列或多个列的集合，这些列匹配某些其他（也可以是同一个）表中的候选键。注意外键所引用的不一定是主键，但一定是候选键</td>
+</tr>
+</tbody>
+</table>
+<p>关系：数据模型是抽象描述现实世界的一种工具和方法，是通过抽象的实体及实体之间联系的形式，来表示现实世界中事务的相互关系的一种映射<br>      所以在数据库中，通过表间的关系作为现实中的实体关系的映射。通过表间的关系，也是构造出数据模型的基础，这样才能表达出丰富的业务关系。</p>
+<p>对于构造关系数据模型，遵循3各最基本的范式：</p>
+<table>
+<thead>
+<tr>
+<th>范式</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1NF</td>
+<td style="text-align:left">表中的列只能含有原子性（不可再分）的值;每个属性值唯一，不具有多义性</td>
+</tr>
+<tr>
+<td>2NF</td>
+<td style="text-align:left">满足第一范式,没有部分依赖;每个非主属性必须完全依赖于整个主键，而非主键的一部分</td>
+</tr>
+<tr>
+<td>3NF</td>
+<td style="text-align:left">满足第二范式,没有传递依赖;每个非主属性不能依赖于其他关系中的属性，因为这样的话，这种属性应该归到其他关系中去</td>
+</tr>
+</tbody>
+</table>
+<p>对于 关系数据模型：<br>    从关系型数据库的角度出发，结合了业务系统的数据模型，能够比较方便的实现数据仓库的建模 ;<br>    但是建模方法限定在关系型数据库之上，在某些时候反而限制了整个数据仓库模型的灵活性，性能等，特别是考虑到数据仓库的底层数据向数据集市的数据进行汇总时，需要进行一定的变通才能满足相应的需求</p>
+<p> 3.2 维度建模法<br> 按照事实表，维表来构建数据仓库，数据集市。这种方法的最被人广泛知晓的名字就是星型模式（Star-schema）</p>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>事实表</td>
+<td style="text-align:left">事实表记录了特定事件的数字化的考量，一般由数字值和指向维度表的外键组成</td>
+</tr>
+<tr>
+<td>维度表</td>
+<td style="text-align:left">维度表的记录数通常比事实表少，但每条记录包含有大量用于描述事实数据的属性字段</td>
+</tr>
+<tr>
+<td>星型模式</td>
+<td style="text-align:left">一个星型模式中可以有一个或多个事实表，每个事实表引用任意数量的维度表</td>
+</tr>
+<tr>
+<td>雪花模式</td>
+<td style="text-align:left">与星型模式相同，雪花模式也是由事实表和维度表所组成。所谓的“雪花化”就是将星型模式中的维度表进行规范化处理</td>
+</tr>
+</tbody>
+</table>
+<p>优点：对于维度建模，针对各个维作了大量的预处理，如按照维进行预先的统计、分类、排序等。通过这些预处理，能够极大的提升数据仓库的处理能力<br>维度建模非常直观，紧紧围绕着业务模型，可以直观的反映出业务模型中的业务问题。</p>
+<p>缺点： 由于在构建星型模式之前需要进行大量的数据预处理，因此会导致大量的数据处理工作。<br>而且，当业务发生变化，需要重新进行维度的定义时，往往需要重新进行维度数据的预处理。而在这些与处理过程中，往往会导致大量的数据冗余。</p>
+<p> 3.3 Data Vault 模型<br>Data Vault方法需要跟踪所有数据的来源，因此其中每个数据行都要包含数据来源和装载时间属性，用以审计和跟踪数据值所对应的源系统。<br>Data Vault不区分数据在业务层面的正确与错误，它保留操作型系统的所有时间的所有数据，装载数据时不做数据验证、清洗等工作，这点明显有别于其他数据仓库建模方法</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/15/冷/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/fly.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LYJ-NEO">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/15/冷/" itemprop="url">
+                  冷~
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-12-15 20:25:47" itemprop="dateCreated datePublished" datetime="2018-12-15T20:25:47+08:00">2018-12-15</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-04 08:56:50" itemprop="dateModified" datetime="2019-04-04T08:56:50+08:00">2019-04-04</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/01/咳/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/fly.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LYJ-NEO">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/01/咳/" itemprop="url">
+                  咳
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-11-01 08:56:04" itemprop="dateCreated datePublished" datetime="2018-11-01T08:56:04+08:00">2018-11-01</time>
             
 
             
@@ -431,10 +856,7 @@
       
         
           
-            <pre><code>长相思，在长安。长相思，摧心肝 。 -- 李白 
-
-每个人心中都有一个长安，怪不得，古人喜欢诗词于长安。
-</code></pre>
+            
           
         
       
@@ -487,7 +909,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/07/微软-商业智能PowerBI体系/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/16/Sql-On-Big-Data/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -506,8 +928,8 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/07/微软-商业智能PowerBI体系/" itemprop="url">
-                  微软-商业智能PowerBI体系
+                <a class="post-title-link" href="/2018/10/16/Sql-On-Big-Data/" itemprop="url">
+                  Sql On Big Data
                 </a>
               
             
@@ -533,7 +955,7 @@
                 
               
 
-              <time title="创建时间：2018-08-07 20:27:09" itemprop="dateCreated datePublished" datetime="2018-08-07T20:27:09+08:00">2018-08-07</time>
+              <time title="创建时间：2018-10-16 17:03:44" itemprop="dateCreated datePublished" datetime="2018-10-16T17:03:44+08:00">2018-10-16</time>
             
 
             
@@ -638,7 +1060,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/05/hive-内置函数/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/15/Sql-Window-Functions/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -657,8 +1079,8 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/07/05/hive-内置函数/" itemprop="url">
-                  hive-内置函数
+                <a class="post-title-link" href="/2018/10/15/Sql-Window-Functions/" itemprop="url">
+                  Sql Window Functions
                 </a>
               
             
@@ -684,7 +1106,7 @@
                 
               
 
-              <time title="创建时间：2018-07-05 15:55:28" itemprop="dateCreated datePublished" datetime="2018-07-05T15:55:28+08:00">2018-07-05</time>
+              <time title="创建时间：2018-10-15 09:52:03" itemprop="dateCreated datePublished" datetime="2018-10-15T09:52:03+08:00">2018-10-15</time>
             
 
             
@@ -701,7 +1123,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-04-04 08:56:50" itemprop="dateModified" datetime="2019-04-04T08:56:50+08:00">2019-04-04</time>
+                <time title="修改时间：2019-02-23 13:44:57" itemprop="dateModified" datetime="2019-02-23T13:44:57+08:00">2019-02-23</time>
               
             
           </span>
@@ -753,215 +1175,24 @@
 
       
         
-          <h2>Hive内置函数</h2>
+          <h2>何谓SQL窗口函数</h2>
+
+<p>窗口函数主要应用于由Over子句定义的行集的函数，在应用关联的开窗函数前确定行集的分区和排序,OVER 子句定义查询结果集内的窗口或用户指定的行<br>集。 然后，开窗函数将计算窗口中每一行的值。 可以将 OVER 子句与函数一起使用，以便计算各种聚合值，例如移动平均值、累积聚合、运行总计或每<br>组结果的前N个结果。</p>
+<p>窗口函数主要用于分析作用，对于窗口函数的主要依据标准SQL中的window概念，在这个概念下，允许针对集合，窗口，行集执行各种的计算并放回一个结果<br>通过窗口函数有助于解决各种查询任务通过更简单，直观，有效的数据集。</p>
+<p>对于窗口函数的使用，目前主流的关系数据库都有支持，针对Hive Sql也支持使用窗口函数。为简单期间，使用sqlserver进行对窗口函数的使用说明</p>
+<h2>数据的准备</h2><br>针对在Sqlserver上使用窗口函数，使用的测试数据为AdventureWorks，相关的表结构信息：<br><br><a href="http://jeremykdev.github.io/SqlServerDatabaseDocumentationGenerator/AdventureWorks-sample.html" target="_blank" rel="noopener">表结构信息</a><br><br><a href="https://github.com/Microsoft/sql-server-samples/releases/tag/adventureworks" target="_blank" rel="noopener">AdventureWorks数据库Github地址</a><br><br><a href="https://docs.microsoft.com/zh-cn/sql/t-sql/queries/select-over-clause-transact-sql?view=sql-server-2017" target="_blank" rel="noopener">MSDN文档参考</a><br><br><h2>窗口函数语法</h2>
 
 <ul>
-<li>数学函数</li>
+<li><p>OVER 语法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">OVER (   </span><br><span class="line">       [ &lt;PARTITION BY clause&gt; ]  </span><br><span class="line">       [ &lt;ORDER BY clause&gt; ]   </span><br><span class="line">       [ &lt;ROW or RANGE clause&gt; ]  </span><br><span class="line">      )</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>PARTITION BY 子句 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;PARTITION BY clause&gt; ::=  </span><br><span class="line">PARTITION BY value_expression , ... [ n ]  </span><br><span class="line"></span><br><span class="line">PARTITION BY</span><br><span class="line">将查询结果集分为多个分区。 开窗函数分别应用于每个分区，并为每个分区重新启动计算。</span><br><span class="line"></span><br><span class="line">value_expression</span><br><span class="line">指定行集按其分区的列。 value_expression 只能引用可供 FROM 子句使用的列。 value_expression 不能引用选择列表中的表达式或别名。 value_expression 可以是列表达式、标量子查询、标量函数或用户定义的变量。</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
-<table>
-<thead>
-<tr>
-<th>返回类型</th>
-<th style="text-align:left">函数</th>
-<th style="text-align:left">说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>DOUBLE</td>
-<td style="text-align:left">round(DOUBLE a)</td>
-<td style="text-align:left">返回对a四舍五入的BIGINT值</td>
-</tr>
-<tr>
-<td>DOUBLE</td>
-<td style="text-align:left">round(DOUBLE a, INT d)</td>
-<td style="text-align:left">返回DOUBLE型d的保留n位小数的DOUBLW型的近似值</td>
-</tr>
-<tr>
-<td>DOUBLE</td>
-<td style="text-align:left">bround(DOUBLE a)</td>
-<td style="text-align:left">舍入法（1~4：舍，6~9：进，5-&gt;前位数是偶：舍，5-&gt;前位数是奇：进）</td>
-</tr>
-<tr>
-<td>DOUBLE</td>
-<td style="text-align:left">bround(DOUBLE a, INT d)</td>
-<td style="text-align:left">舍入法,保留d位小数</td>
-</tr>
-<tr>
-<td>BIGINT</td>
-<td style="text-align:left">floor(DOUBLE a)</td>
-<td style="text-align:left">向下取整，最数轴上最接近要求的值的左边的值  如：6.10-&gt;6   -3.4-&gt;-4</td>
-</tr>
-<tr>
-<td>BIGINT</td>
-<td style="text-align:left">ceil(DOUBLE a), ceiling(DOUBLE a)</td>
-<td style="text-align:left">求其不小于小给定实数的最小整数如：ceil(6) = ceil(6.1)= ceil(6.9) = 6</td>
-</tr>
-<tr>
-<td>DOUBLE</td>
-<td style="text-align:left">rand(), rand(INT seed)</td>
-<td style="text-align:left">每行返回一个DOUBLE型随机数seed是随机因子</td>
-</tr>
-<tr>
-<td>DOUBLE</td>
-<td style="text-align:left">exp(DOUBLE a), exp(DECIMAL a)</td>
-<td style="text-align:left">返回e的a幂次方， a可为小数</td>
-</tr>
-<tr>
-<td>DOUBLE</td>
-<td style="text-align:left">ln(DOUBLE a), ln(DECIMAL a)</td>
-<td style="text-align:left">以自然数为底d的对数，a可为小数</td>
-</tr>
-<tr>
-<td>DOUBLE</td>
-<td style="text-align:left">log10(DOUBLE a), log11(DECIMAL a)</td>
-<td style="text-align:left">以10为底d的对数，a可为小数</td>
-</tr>
-<tr>
-<td>DOUBLE</td>
-<td style="text-align:left">log2(DOUBLE a), log3(DECIMAL a)</td>
-<td style="text-align:left">以2为底数d的对数，a可为小数</td>
-</tr>
-<tr>
-<td>DOUBLE</td>
-<td style="text-align:left">log(DOUBLE base, DOUBLE a)</td>
-<td style="text-align:left">以base为底的对数，base 与 a都是DOUBLE类型</td>
-</tr>
-<tr>
-<td>DOUBLE</td>
-<td style="text-align:left">pow(DOUBLE a, DOUBLE p), power(DOUBLE a, DOUBLE p)</td>
-<td style="text-align:left">计算a的p次幂</td>
-</tr>
-<tr>
-<td>DOUBLE</td>
-<td style="text-align:left">sqrt(DOUBLE a), sqrt(DECIMAL a)</td>
-<td style="text-align:left">计算a的平方根</td>
-</tr>
-<tr>
-<td>STRING</td>
-<td style="text-align:left">bin(BIGINT a)</td>
-<td style="text-align:left">计算二进制a的STRING类型，a为BIGINT类型</td>
-</tr>
-<tr>
-<td>STRING</td>
-<td style="text-align:left">hex(BIGINT a) hex(STRING a) hex(BINARY a)</td>
-<td style="text-align:left">计算十六进制a的STRING类型，如果a为STRING类型就转换成字符相对应的十六进制</td>
-</tr>
-<tr>
-<td>BINARY</td>
-<td style="text-align:left">unhex(STRING a)</td>
-<td style="text-align:left">hex的逆方法</td>
-</tr>
-<tr>
-<td>STRING</td>
-<td style="text-align:left">conv(BIGINT num, INT from_base, INT to_base), conv(STRING num, INT from_base, INT to_base)</td>
-<td style="text-align:left">将GIGINT/STRING类型的num从from_base进制转换成to_base进制</td>
-</tr>
-<tr>
-<td>DOUBLE</td>
-<td style="text-align:left">abs(DOUBLE a)</td>
-<td style="text-align:left">计算a的绝对值</td>
-</tr>
-<tr>
-<td>INT or DOUBLE</td>
-<td style="text-align:left">pmod(INT a, INT b), pmod(DOUBLE a, DOUBLE b)</td>
-<td style="text-align:left">a对b取模</td>
-</tr>
-<tr>
-<td>DOUBLE</td>
-<td style="text-align:left">sin(DOUBLE a), sin(DECIMAL a)</td>
-<td style="text-align:left">求a的正弦值</td>
-</tr>
-<tr>
-<td>DOUBLE</td>
-<td style="text-align:left">asin(DOUBLE a), asin(DECIMAL a)</td>
-<td style="text-align:left">求d的反正弦值</td>
-</tr>
-<tr>
-<td>DOUBLE</td>
-<td style="text-align:left">cos(DOUBLE a), cos(DECIMAL a)</td>
-<td style="text-align:left">求余弦值</td>
-</tr>
-<tr>
-<td>DOUBLE</td>
-<td style="text-align:left">acos(DOUBLE a), acos(DECIMAL a)</td>
-<td style="text-align:left">求反余弦值</td>
-</tr>
-<tr>
-<td>DOUBLE</td>
-<td style="text-align:left">tan(DOUBLE a), tan(DECIMAL a)</td>
-<td style="text-align:left">求正切值</td>
-</tr>
-<tr>
-<td>DOUBLE</td>
-<td style="text-align:left">atan(DOUBLE a), atan(DECIMAL a)</td>
-<td style="text-align:left">求反正切值</td>
-</tr>
-<tr>
-<td>DOUBLE</td>
-<td style="text-align:left">degrees(DOUBLE a), degrees(DECIMAL a)</td>
-<td style="text-align:left">奖弧度值转换角度值</td>
-</tr>
-<tr>
-<td>DOUBLE</td>
-<td style="text-align:left">radians(DOUBLE a), radians(DOUBLE a)</td>
-<td style="text-align:left">将角度值转换成弧度值</td>
-</tr>
-<tr>
-<td>INT or DOUBLE</td>
-<td style="text-align:left">positive(INT a), positive(DOUBLE a)</td>
-<td style="text-align:left">返回a</td>
-</tr>
-<tr>
-<td>INT or DOUBLE</td>
-<td style="text-align:left">negative(INT a), negative(DOUBLE a)</td>
-<td style="text-align:left">返回a的相反数</td>
-</tr>
-<tr>
-<td>DOUBLE or INT</td>
-<td style="text-align:left">sign(DOUBLE a), sign(DECIMAL a)</td>
-<td style="text-align:left">如果a是正数则返回1.0，是负数则返回-1.0，否则返回0.0</td>
-</tr>
-<tr>
-<td>DOUBLE</td>
-<td style="text-align:left">e()</td>
-<td style="text-align:left">数学常数e</td>
-</tr>
-<tr>
-<td>DOUBLE</td>
-<td style="text-align:left">pi()</td>
-<td style="text-align:left">数学常数pi</td>
-</tr>
-<tr>
-<td>BIGINT</td>
-<td style="text-align:left">factorial(INT a)</td>
-<td style="text-align:left">求a的阶乘</td>
-</tr>
-<tr>
-<td>DOUBLE</td>
-<td style="text-align:left">cbrt(DOUBLE a)</td>
-<td style="text-align:left">求a的立方根</td>
-</tr>
-<tr>
-<td>BIGINT</td>
-<td style="text-align:left">shiftrightunsigned(BIGINT a, INT b)</td>
-<td style="text-align:left">无符号按位右移（&lt;&lt;&lt;）</td>
-</tr>
-<tr>
-<td>T</td>
-<td style="text-align:left">greatest(T v1, T v3, …)</td>
-<td style="text-align:left">求最大值</td>
-</tr>
-<tr>
-<td>T</td>
-<td style="text-align:left">least(T v1, T v3, …)</td>
-<td style="text-align:left">求最小值</td>
-</tr>
-</tbody>
-</table>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/07/05/hive-内置函数/#more" rel="contents">
+            <a class="btn" href="/2018/10/15/Sql-Window-Functions/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1017,7 +1248,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/27/烟/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/11/秋天/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -1036,8 +1267,8 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/05/27/烟/" itemprop="url">
-                  烟
+                <a class="post-title-link" href="/2018/10/11/秋天/" itemprop="url">
+                  秋天
                 </a>
               
             
@@ -1063,7 +1294,7 @@
                 
               
 
-              <time title="创建时间：2018-05-27 09:42:23" itemprop="dateCreated datePublished" datetime="2018-05-27T09:42:23+08:00">2018-05-27</time>
+              <time title="创建时间：2018-10-11 18:24:50" itemprop="dateCreated datePublished" datetime="2018-10-11T18:24:50+08:00">2018-10-11</time>
             
 
             
@@ -1133,10 +1364,9 @@
       
         
           
-            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">点燃一根烟，缥缈的凋亡,所以自己烟化，可叠叠的烟圈毕竟熏红双眼 ；化作烟月的愁端，吟出烟嗓的流花 。</span><br><span class="line"></span><br><span class="line">手指染上淡淡烟草味，缠绕挥之不去 ， 毕竟这烟花是在你手中炸裂的。</span><br><span class="line"></span><br><span class="line">第一根烟是一个故事的开端，故事会一直进行，不愿故事再见 ； 没有结尾的故事，就不会是一个悲剧 。</span><br><span class="line"></span><br><span class="line">第一包烟是一个情绪的酝酿，情绪造现在的你，但愿情绪再见 ； 没有情绪的人类，就感觉不到快乐和伤心。</span><br><span class="line"></span><br><span class="line">后来你抽了一根又一根的烟，最终渐渐忘记了数量,忘记了最初的原因，只剩下心瘾的驱使。</span><br></pre></td></tr></table></figure>
-<p><img src="/2018/05/27/烟/yan.png" alt=""></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">是否愿意相信，寂寞的抽烟人，都向往随烟而逝；化作烟月的朦胧-烟月是愁端 ； 凝结胭脂泪-化为长恨水。</span><br><span class="line"></span><br><span class="line">敏感的人抽烟了，会否认故意的在故事添加荒谬的情节，让香烟将一切释然。</span><br><span class="line"></span><br><span class="line">最后入如歌词里所述： 闭上一支烟，点上一根烟,能不能不管，你最近好吗，身体可无恙 。</span><br></pre></td></tr></table></figure>
-<p><img src="/2018/05/27/烟/moon.png" alt=""></p>
+            <p><strong>每个夏天的离去就是一次年轻的死亡，抓不住的夏蝉，悟不透夏禅 。</strong><br><img src="/2018/10/11/秋天/summer.jpg" alt=""></p>
+<p><strong>每个秋天的到来就是一次抑郁的滋长，挽不住的秋叶，勾不住秋思 。</strong><br><img src="/2018/10/11/秋天/autumn.jpg" alt=""></p>
+<p><strong>现在冬天来了，而我却没有一张照片来应景，真是萧条的季节啊,哈哈哈。</strong></p>
 
           
         
@@ -1190,7 +1420,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/01/人间失格，何如/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/10/使用Excel建立数据模型-MSBI/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -1209,8 +1439,8 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/05/01/人间失格，何如/" itemprop="url">
-                  人间失格，何如
+                <a class="post-title-link" href="/2018/10/10/使用Excel建立数据模型-MSBI/" itemprop="url">
+                  使用Excel建立数据模型-MSBI
                 </a>
               
             
@@ -1236,7 +1466,7 @@
                 
               
 
-              <time title="创建时间：2018-05-01 17:01:28" itemprop="dateCreated datePublished" datetime="2018-05-01T17:01:28+08:00">2018-05-01</time>
+              <time title="创建时间：2018-10-10 16:25:19" itemprop="dateCreated datePublished" datetime="2018-10-10T16:25:19+08:00">2018-10-10</time>
             
 
             
@@ -1253,7 +1483,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-04-04 08:56:50" itemprop="dateModified" datetime="2019-04-04T08:56:50+08:00">2019-04-04</time>
+                <time title="修改时间：2019-01-06 17:08:54" itemprop="dateModified" datetime="2019-01-06T17:08:54+08:00">2019-01-06</time>
               
             
           </span>
@@ -1270,7 +1500,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/prosiness/" itemprop="url" rel="index"><span itemprop="name">prosiness</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Tec/" itemprop="url" rel="index"><span itemprop="name">Tec</span></a></span>
 
                 
                 
@@ -1306,10 +1536,544 @@
       
         
           
-            <h2>人间失格，何如</h2>
+            <h2>关于上下文</h2>
 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">我知道有人是爱我的，但我好像缺乏爱人的能力。所谓世人，不就是你吗？ 但是,生而为人，我很抱歉。</span><br></pre></td></tr></table></figure>
-<p>太宰治 &lt;&lt;人间失格&gt;&gt;</p>
+<p>Power Pivot 中的公式可受到在数据透视表中应用的筛选器、表之间的关系以及公式中使用的筛选器的影响。可以通过“上下文”执行“动态分析”。</p>
+<ul>
+<li><p>行上下文<br>Row context可被视为“当前行”,如果创建了计算列，则行上下文由每个单独行中的值以及与当前行相关的列中的值组成。还有一些函数（EARLIER 函数和EARLIEST 函数）可从当前行获取值，然后在对整个表执行操作时使用该值。</p>
+<p>如果您在计算列中创建某一公式，则该公式的“行上下文”将包括来自当前行中所有列的值。如果该表与其他表相关，则上下文还包括来自该其他表中与当前行相关的所有值。此公式的行为类似于 Excel 表中自动引用同一行中的值的公式。请注意，表不同于范围：不能通过使用范围表示法引用来自当前行之前的行的值，并且不能引用表或单元中的任意单个值。</p>
+</li>
+<li><p>查询上下文<br>指为数据透视表中的每个单元隐式创建的数据子集，具体取决于行和列标题。<br>查询上下文引用的公式为隐式检索的数据子集。放到数据透视表中的单元格的度量值或其他值字段时， Power Pivot引擎会检查行和列标题、 切片器和报表筛选器来确定上下文</p>
+</li>
+<li><p>筛选上下文<br>根据筛选约束（已应用于行或由公式中的筛选表达式定义）而允许在每列中存在的值集。<br>通过在公式中使用参数，为列或表中允许存在的值集指定筛选约束时，将添加“筛选上下文”。基于其他上下文（如行上下文或查询上下文）应用筛选上下文。</p>
+</li>
+</ul>
+<p></p><h2>使用Excel Powerpivot构建数据模型</h2><br>PowerPivot作为Excel的一个插件，意在提供自助式商业智能，为用户提供了强大的数据分析功能。<br>PowerPivot 是一种数据建模技术，用于创建数据模型，建立关系，以及创建计算。 可使用 PowerPivot 处理大型数据集，构建广泛的关系，以及创建<br>复杂（或简单）的计算，这些操作全部在高性能环境中和所你熟悉的 Excel 内执行。在Excel中安装了PowerPivot后，数据处理中 <strong>PowerPivot数据库</strong> 中,其为内存中列式数据库,对数据压缩率高，且处理数据量和速度也更高。<p></p>
+<p></p><h3>构建前的准备</h3><br>在Excel中安装PowerPivot，对于高于2013版本，已默认安装，只要激活即可。<p></p>
+<p><img src="/2018/10/10/使用Excel建立数据模型-MSBI/1.png" alt=""></p>
+<p></p><h3>连接转载数据</h3><br>excel作为富客户端，拥有丰富且完备的功能，对于转载数据可以来自各种的数据源。<p></p>
+<ul>
+<li>进入 PowerPivot </li>
+</ul>
+<p>PowerPivot入口<br><img src="/2018/10/10/使用Excel建立数据模型-MSBI/2.png" alt="PowerPivot入口"></p>
+<p>PowerPivot设计界面<br><img src="/2018/10/10/使用Excel建立数据模型-MSBI/3.png" alt=""></p>
+<ul>
+<li><p>连接数据<br>对于目前主流的数据库，格式化的文本文件都可以从Excel进行加载，这里为了简单，连接到SQLserver数据中的AdventureWorks数据</p>
+<p><img src="/2018/10/10/使用Excel建立数据模型-MSBI/4.png" alt=""></p>
+<p>由于在AdventureWorks数据库中各表中已经具有关系了，所以在PowerPivot中也就继承了各表的关系。</p>
+<p><img src="/2018/10/10/使用Excel建立数据模型-MSBI/5.png" alt=""></p>
+</li>
+</ul>
+<p>所以这里可以看到，对于通过使用PowerPivot进行数据建模时包括： 表 和 各表间的关系，通过关系将表格转换为一个数据模型的关键。<br>实际中和关系数据库构建关系的原理是一样的。</p>
+<p>对于如果在数据源中并没有现成的表关系时，需要在PowerPivot中进行构建关系的方法，拖动表中的一列到对应的表的列上。</p>
+<p><img src="/2018/10/10/使用Excel建立数据模型-MSBI/6.png" alt=""></p>
+<p>实际的操作也就是这么的简单，但是构建数据模型前理解对应的业务模型是关键。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/01/我们都是中毒的人/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/fly.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LYJ-NEO">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/01/我们都是中毒的人/" itemprop="url">
+                  我们都是中毒的人
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-10-01 15:10:11" itemprop="dateCreated datePublished" datetime="2018-10-01T15:10:11+08:00">2018-10-01</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-04 08:56:50" itemprop="dateModified" datetime="2019-04-04T08:56:50+08:00">2019-04-04</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/feeling/" itemprop="url" rel="index"><span itemprop="name">feeling</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/14/使用python扩展Pig/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/fly.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LYJ-NEO">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/14/使用python扩展Pig/" itemprop="url">
+                  使用python扩展Pig
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-09-14 14:53:51 / 修改时间：14:55:01" itemprop="dateCreated datePublished" datetime="2018-09-14T14:53:51+08:00">2018-09-14</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Tec/" itemprop="url" rel="index"><span itemprop="name">Tec</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2>使用Python扩展Pig</h2>
+
+<p>pig通过用户定义的函数(UDFs)为自定义处理提供了广泛的支持。pig目前支持UDFs六种语言: Java, Jython, Python, JavaScript, Ruby 和 Groovy。<br>当pig执行时,它会自动检测UDF的用法。为了运行python UDFs, pig调用python命令行并对数据IO操作。</p>
+<p></p><h3>注册UDF</h3><br>在pig脚本中可以使用Python UDF之前, 必须对其进行注册, 以便pig知道在调用UDF时要查看的位置。要注册Python UDF文件, 使用pig的寄存器语句。<p></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">REGISTER &apos;udfs/myudf.py&apos; USING streaming_python AS my_udf;</span><br></pre></td></tr></table></figure>
+<p>一旦UDF函数注册成功，就可以在pig脚本中调用,在这个例子中引用my_udf:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">relation = FOREACH data GENERATE my_udf.function(field);</span><br></pre></td></tr></table></figure></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/09/14/使用python扩展Pig/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/13/感觉，懂否/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/fly.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LYJ-NEO">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/13/感觉，懂否/" itemprop="url">
+                  感觉，懂否
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-09-13 18:22:46" itemprop="dateCreated datePublished" datetime="2018-09-13T18:22:46+08:00">2018-09-13</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-04 08:56:50" itemprop="dateModified" datetime="2019-04-04T08:56:50+08:00">2019-04-04</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/feeling/" itemprop="url" rel="index"><span itemprop="name">feeling</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>占座……. 想着写什么 ………..</p>
 
           
         
@@ -1352,7 +2116,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span>
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1399,7 +2163,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">45</span>
+                    <span class="site-state-item-count">57</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1449,7 +2213,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">9</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">12</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1489,7 +2259,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>

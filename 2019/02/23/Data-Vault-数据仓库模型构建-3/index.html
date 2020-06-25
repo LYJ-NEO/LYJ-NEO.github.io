@@ -116,7 +116,7 @@
 <meta property="og:site_name" content="LYJ-NEO">
 <meta property="og:description" content="在Data Vault模型基础上构建数据集市数据仓库抽取数据的过程中，特别是第一次导入之后的每一次增量抽取往往会遇到这样的问题：业务数据库中的一些数据发生了更改，到底要不要将这些变化也反映到数据仓库中？在数据仓库中，哪些数据应该随之变化，哪些可以不用变化？考虑到这些变化，在数据仓库中的维度表又应该如何设计以满足这些需要 但是在数据仓库中，其数据主要的特征一是静态历史数据，二是少改变不删除，三是定期">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-04-07T13:04:33.381Z">
+<meta property="og:updated_time" content="2020-02-03T06:39:11.080Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Data Vault 数据仓库模型构建-3">
 <meta name="twitter:description" content="在Data Vault模型基础上构建数据集市数据仓库抽取数据的过程中，特别是第一次导入之后的每一次增量抽取往往会遇到这样的问题：业务数据库中的一些数据发生了更改，到底要不要将这些变化也反映到数据仓库中？在数据仓库中，哪些数据应该随之变化，哪些可以不用变化？考虑到这些变化，在数据仓库中的维度表又应该如何设计以满足这些需要 但是在数据仓库中，其数据主要的特征一是静态历史数据，二是少改变不删除，三是定期">
@@ -378,7 +378,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-04-07 21:04:33" itemprop="dateModified" datetime="2019-04-07T21:04:33+08:00">2019-04-07</time>
+                <time title="修改时间：2020-02-03 14:39:11" itemprop="dateModified" datetime="2020-02-03T14:39:11+08:00">2020-02-03</time>
               
             
           </span>
@@ -454,13 +454,13 @@
 </ul>
 <p>在不同的工具中对 SCD 的实现是不一样的,要关注的重点应该是具体的实现方式和解决思路的原型。</p>
 <h2 id="构建过程"><a href="#构建过程" class="headerlink" title="构建过程"></a>构建过程</h2><p>最好先构建需要的PIT表和Bridge表，这样呢能够方便进行处理.</p>
-<h4 id="构建渐变维度1类的数据集市"><a href="#构建渐变维度1类的数据集市" class="headerlink" title="构建渐变维度1类的数据集市"></a>构建渐变维度1类的数据集市</h4><p>它显示所有属性的最新值, 我们可以使用hub表(中心表)的键作为维度的代理主键 (PK)。建议使用现有的hub表中的代理键(MD5哈希列),因为它已经是唯一的。<br>这样节省为维度生成典型整数代理项的过程。将节省处理时间, 并允许在维度之前或与维度并行加载事实数据表。维度中的所有其他列都将来自贡献hub和Satellite表。</p>
+<h4 id="构建渐变维度1类的数据集市"><a href="#构建渐变维度1类的数据集市" class="headerlink" title="构建渐变维度1类的数据集市"></a>构建渐变维度1类的数据集市</h4><p>它显示所有属性的最新值, 我们可以使用hub表(中心表)的键作为维度的代理主键 (PK)。建议使用现有的hub表中的代理键(MD5哈希列), 因为它已经是唯一的,<br>并将节省为维度生成典型整数代理项的过程。这将节省处理时间, 并允许在维度之前或与维度并行加载事实数据表。维度中的所有其他列都将来自贡献hub和Satellite表。</p>
 <p>以已经构建好的 NorthWind DV模型为基础，构建 渐变1类维度表：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> </span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1</span><br></pre></td></tr></table></figure>
 <h4 id="构建渐变维度2类的数据集市"><a href="#构建渐变维度2类的数据集市" class="headerlink" title="构建渐变维度2类的数据集市"></a>构建渐变维度2类的数据集市</h4><p>渐变维度2类只是稍微困难一些。由于类型2跟踪值随时间变化, 这意味着每个业务主键的维度中可能有多行。因此,不能将hub表的业务主键用作维度表上的主键。<br>如果使用的是DV2.0, 那么建议使用与原始DV模型中相同的MD5哈希方法来创建代理主键。因此, 要在这种情况下获得唯一键,需要创建一个基于业务主键加上SAT_LOAD_DTS的哈希键。</p>
 <p>以已经构建好的 NorthWind DV模型为基础，构建 渐变2类维度表：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h4 id="构建事实表"><a href="#构建事实表" class="headerlink" title="构建事实表"></a>构建事实表</h4><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1</span><br></pre></td></tr></table></figure>
+<h4 id="构建事实表"><a href="#构建事实表" class="headerlink" title="构建事实表"></a>构建事实表</h4>
       
     </div>
 
@@ -589,7 +589,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">45</span>
+                    <span class="site-state-item-count">57</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -639,7 +639,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">9</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">12</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -675,7 +681,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#在Data-Vault模型基础上构建数据集市"><span class="nav-number">1.</span> <span class="nav-text">在Data Vault模型基础上构建数据集市</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#渐变维度1类-Type-1-SCD"><span class="nav-number">1.0.1.</span> <span class="nav-text">渐变维度1类 - Type 1 SCD</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#渐变维度2类-Type-2-SCD"><span class="nav-number">1.0.2.</span> <span class="nav-text">渐变维度2类 - Type 2 SCD</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#渐变维度3类-Type-3-SCD"><span class="nav-number">1.0.3.</span> <span class="nav-text">渐变维度3类 - Type 3 SCD</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构建过程"><span class="nav-number">2.</span> <span class="nav-text">构建过程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#构建渐变维度1类的数据集市"><span class="nav-number">2.0.1.</span> <span class="nav-text">构建渐变维度1类的数据集市</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#构建渐变维度2类的数据集市"><span class="nav-number">2.0.2.</span> <span class="nav-text">构建渐变维度2类的数据集市</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#构建事实表"><span class="nav-number">2.0.3.</span> <span class="nav-text">构建事实表</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#在Data-Vault模型基础上构建数据集市"><span class="nav-number">1.</span> <span class="nav-text">在Data Vault模型基础上构建数据集市</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#渐变维度1类-Type-1-SCD"><span class="nav-number">1.0.1.</span> <span class="nav-text">渐变维度1类 - Type 1 SCD</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#渐变维度2类-Type-2-SCD"><span class="nav-number">1.0.2.</span> <span class="nav-text">渐变维度2类 - Type 2 SCD</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#渐变维度3类-Type-3-SCD"><span class="nav-number">1.0.3.</span> <span class="nav-text">渐变维度3类 - Type 3 SCD</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构建过程"><span class="nav-number">2.</span> <span class="nav-text">构建过程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#构建渐变维度1类的数据集市"><span class="nav-number">2.0.1.</span> <span class="nav-text">构建渐变维度1类的数据集市</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#构建渐变维度2类的数据集市"><span class="nav-number">2.0.2.</span> <span class="nav-text">构建渐变维度2类的数据集市</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#构建事实表"><span class="nav-number">2.0.3.</span> <span class="nav-text">构建事实表</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -695,7 +701,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>

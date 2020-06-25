@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.4.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.4.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="书籍&amp;lt;&amp;lt;Python在大数据平台的应用&amp;gt;&amp;gt;更多信息请关注本书附书代码:附书代码Github工程:https://github.com/Shadow-Hunter-X 无督导学习前面介绍的几种机器学习算法都是监督机器的学习,在已知目标变量或标签的位置,我们试图预测基于输入特性的输出。无监督学习是不同的一种没有标记数据的感觉,我们不会试图预测任何输出因此,但试图找到有趣的模式,">
+<meta name="keywords" content="BigData,Spark">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PySpark-ml-分类-clustering">
+<meta property="og:url" content="http://yoursite.com/2020/01/13/PySpark-ml-分类-clustering/index.html">
+<meta property="og:site_name" content="LYJ-NEO">
+<meta property="og:description" content="书籍&amp;lt;&amp;lt;Python在大数据平台的应用&amp;gt;&amp;gt;更多信息请关注本书附书代码:附书代码Github工程:https://github.com/Shadow-Hunter-X 无督导学习前面介绍的几种机器学习算法都是监督机器的学习,在已知目标变量或标签的位置,我们试图预测基于输入特性的输出。无监督学习是不同的一种没有标记数据的感觉,我们不会试图预测任何输出因此,但试图找到有趣的模式,">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2020/01/13/PySpark-ml-分类-clustering/distance.png">
+<meta property="og:image" content="http://yoursite.com/2020/01/13/PySpark-ml-分类-clustering/centroid.png">
+<meta property="og:image" content="http://yoursite.com/2020/01/13/PySpark-ml-分类-clustering/var.png">
+<meta property="og:image" content="http://yoursite.com/2020/01/13/PySpark-ml-分类-clustering/Figure_1.png">
+<meta property="og:image" content="http://yoursite.com/2020/01/13/PySpark-ml-分类-clustering/Figure_2.png">
+<meta property="og:image" content="http://yoursite.com/2020/01/13/PySpark-ml-分类-clustering/part1.png">
+<meta property="og:image" content="http://yoursite.com/2020/01/13/PySpark-ml-分类-clustering/part2.png">
+<meta property="og:image" content="http://yoursite.com/2020/01/13/PySpark-ml-分类-clustering/part3.png">
+<meta property="og:updated_time" content="2020-02-04T06:48:44.182Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PySpark-ml-分类-clustering">
+<meta name="twitter:description" content="书籍&amp;lt;&amp;lt;Python在大数据平台的应用&amp;gt;&amp;gt;更多信息请关注本书附书代码:附书代码Github工程:https://github.com/Shadow-Hunter-X 无督导学习前面介绍的几种机器学习算法都是监督机器的学习,在已知目标变量或标签的位置,我们试图预测基于输入特性的输出。无监督学习是不同的一种没有标记数据的感觉,我们不会试图预测任何输出因此,但试图找到有趣的模式,">
+<meta name="twitter:image" content="http://yoursite.com/2020/01/13/PySpark-ml-分类-clustering/distance.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/01/13/PySpark-ml-分类-clustering/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>PySpark-ml-分类-clustering | LYJ-NEO</title>
+  
+
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?0a1c584f1b6f1f91344a2a4d65406eff";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">LYJ-NEO</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">Gone With The Wind</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/13/PySpark-ml-分类-clustering/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/fly.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LYJ-NEO">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">PySpark-ml-分类-clustering
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-01-13 15:03:19" itemprop="dateCreated datePublished" datetime="2020-01-13T15:03:19+08:00">2020-01-13</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-02-04 14:48:44" itemprop="dateModified" datetime="2020-02-04T14:48:44+08:00">2020-02-04</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Tec/" itemprop="url" rel="index"><span itemprop="name">Tec</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/01/13/PySpark-ml-分类-clustering/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count gitment-comments-count" data-xid="/2020/01/13/PySpark-ml-分类-clustering/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>书籍&lt;&lt;Python在大数据平台的应用&gt;&gt;<br>更多信息请关注本书附书代码:<a href="https://github.com/Shadow-Hunter-X/python_practice_stepbystep" target="_blank" rel="noopener">附书代码Github工程:https://github.com/Shadow-Hunter-X</a></p>
+<h2 id="无督导学习"><a href="#无督导学习" class="headerlink" title="无督导学习"></a>无督导学习</h2><p>前面介绍的几种机器学习算法都是监督机器的学习,在已知目标变量或标签的位置,我们试图预测基于输入特性的输出。<br>无监督学习是不同的一种没有标记数据的感觉,我们不会试图预测任何输出因此,但试图找到有趣的模式,并提出<br>数据中的组,类似的值被组合在一起。</p>
+<p><strong>主要的方法</strong></p>
+<ul>
+<li>量化观察对象,使用一个向量进行表示,如可以用年龄，身高，体重表示一个人     </li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>年龄</th>
+<th>薪水</th>
+<th>体重</th>
+<th>身高</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>30</td>
+<td>15k</td>
+<td>62</td>
+<td>172</td>
+</tr>
+<tr>
+<td>40</td>
+<td>25k</td>
+<td>75</td>
+<td>170</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>计算两个对象间的距离,通过用欧几里德法来测量距离,直截了当</li>
+</ul>
+<p><img src="/2020/01/13/PySpark-ml-分类-clustering/distance.png" alt="distance.png"></p>
+<p>=√((30-40)² + (15-25)² + (62-75)² + (172-170)²)<br>=√(100+100+169+4)<br>=19.3</p>
+<p>还要其他计算距离的算法： Manhattan 距离 ； Mahalanobis距离 ；Chebyshev 距离等。</p>
+<p>计算得到上述两个对象间的距离为19.3</p>
+<h2 id="K-Means算法"><a href="#K-Means算法" class="headerlink" title="K-Means算法"></a>K-Means算法</h2><p>K代表数据集中划分类别的个数,现在对K-Menas算法中的一些概念的说明。</p>
+<ul>
+<li>Centroid-图心   </li>
+</ul>
+<p>图心指的是中心的数据点,在一个集群的中心或一个组。它也是集群中最具有代表性的点,最大距离等距点到集群中的其他点。<br>每个集群或组包含不同数量的数据点到图心的质心最近</p>
+<p><img src="/2020/01/13/PySpark-ml-分类-clustering/centroid.png" alt="centroid.png"></p>
+<p>聚类的整个想法是最小化内光距离,这是集群的图心的数据点的内部距离最大限度的相互聚系距离,即两个之间的图心之间不同分类</p>
+<ul>
+<li>Variance-方差<br>方差是图心所在数据集中的数据点距离的总和。</li>
+</ul>
+<p><img src="/2020/01/13/PySpark-ml-分类-clustering/var.png" alt="var.png"></p>
+<a id="more"></a>
+<h2 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h2><p>用的测试数据是 iris data(鸢尾科话)数据，由于这份数据在统计计算测试中经常用到，所以在网络上搜索下，就可以找到。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pyspark.sql <span class="keyword">import</span> SparkSession</span><br><span class="line"><span class="keyword">import</span> pyspark</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> pyspark.sql.functions <span class="keyword">import</span> * </span><br><span class="line"><span class="keyword">from</span> pyspark.sql.types <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> pyspark.sql.functions <span class="keyword">import</span> rand, randn</span><br><span class="line"><span class="keyword">from</span> pyspark.ml.clustering <span class="keyword">import</span> KMeans</span><br><span class="line"></span><br><span class="line">spark = SparkSession.builder.appName(<span class="string">'k_means'</span>).getOrCreate()  <span class="comment"># 创建SparkSession对象</span></span><br><span class="line"></span><br><span class="line">print(<span class="string">"------------------读取数据-----------------"</span>)</span><br><span class="line"></span><br><span class="line">df=spark.read.csv(<span class="string">'iris_dataset.csv'</span>,inferSchema=<span class="keyword">True</span>,header=<span class="keyword">True</span>)  <span class="comment"># 读取数据</span></span><br><span class="line"></span><br><span class="line">print(<span class="string">"------------------查看分析数据-----------------"</span>)</span><br><span class="line"></span><br><span class="line">print((df.count(),len(df.columns)))         <span class="comment"># 查看数据规模</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看列信息</span></span><br><span class="line">df.printSchema()</span><br><span class="line">df.columns            </span><br><span class="line"></span><br><span class="line">df.orderBy(rand()).show(<span class="number">10</span>,<span class="keyword">False</span>)           <span class="comment"># 查看数据，随机的方式</span></span><br><span class="line"></span><br><span class="line">df.groupBy(<span class="string">'species'</span>).count().orderBy(<span class="string">'count'</span>,ascending=<span class="keyword">False</span>).show(<span class="number">10</span>,<span class="keyword">False</span>) <span class="comment"># 汇总查看数据</span></span><br><span class="line"></span><br><span class="line">print(<span class="string">"-----------------数据转换-------------------"</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> pyspark.ml.linalg <span class="keyword">import</span> Vectors</span><br><span class="line"><span class="keyword">from</span> pyspark.ml.feature <span class="keyword">import</span> VectorAssembler    <span class="comment"># 导入VerctorAssembler 将多个列合并成向量列的特征转换器,即将表中各列用一个类似list表示，输出预测列为单独一列。</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">input_cols=[<span class="string">'sepal_length'</span>, <span class="string">'sepal_width'</span>, <span class="string">'petal_length'</span>, <span class="string">'petal_width'</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将所有的属性转换为转化为一个vector</span></span><br><span class="line">vec_assembler = VectorAssembler(inputCols = input_cols, outputCol=<span class="string">'features'</span>)</span><br><span class="line">final_data = vec_assembler.transform(df)</span><br><span class="line"></span><br><span class="line">print(<span class="string">"------------设定不同的K值，进行分类,计算平方误差之和------------"</span>)</span><br><span class="line"></span><br><span class="line">errors=[]</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> k <span class="keyword">in</span> range(<span class="number">2</span>,<span class="number">10</span>):</span><br><span class="line">    kmeans = KMeans(featuresCol=<span class="string">'features'</span>,k=k)</span><br><span class="line">    model = kmeans.fit(final_data)</span><br><span class="line">    intra_distance = model.computeCost(final_data)</span><br><span class="line">    errors.append(intra_distance)</span><br><span class="line">    print(<span class="string">"With K=&#123;&#125;"</span>.format(k))</span><br><span class="line">    print(<span class="string">"Within Set Sum of Squared Errors = "</span> + str(errors))</span><br><span class="line">    print(<span class="string">'--'</span>*<span class="number">30</span>)</span><br><span class="line"></span><br><span class="line">print(<span class="string">"-----------使用mathplot计算，汇总不同K值-----------------"</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">cluster_number = range(<span class="number">2</span>,<span class="number">10</span>)</span><br><span class="line">plt.scatter(cluster_number,errors)</span><br><span class="line">plt.xlabel(<span class="string">'Number of Clusters (K)'</span>)</span><br><span class="line">plt.ylabel(<span class="string">'SSE'</span>)</span><br><span class="line">plt.show()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 通过图形，查看k=4时较为合适</span></span><br><span class="line">kmeans = KMeans(featuresCol=<span class="string">'features'</span>,k=<span class="number">4</span>,)</span><br><span class="line">model = kmeans.fit(final_data)</span><br><span class="line"></span><br><span class="line">predictions=model.transform(final_data)</span><br><span class="line"></span><br><span class="line">predictions.groupBy(<span class="string">'species'</span>,<span class="string">'prediction'</span>).count().show()      <span class="comment"># 查看分类的数据</span></span><br><span class="line"></span><br><span class="line">print(<span class="string">"---------将数据转换为panda结构，并查看空间3d图心-----------"</span>)</span><br><span class="line"></span><br><span class="line">pandas_df = predictions.toPandas()</span><br><span class="line">pandas_df.sample(<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">from</span> mpl_toolkits.mplot3d <span class="keyword">import</span> Axes3D</span><br><span class="line"></span><br><span class="line">cluster_vis = plt.figure(figsize=(<span class="number">15</span>,<span class="number">10</span>)).gca(projection=<span class="string">'3d'</span>)</span><br><span class="line">cluster_vis.scatter(pandas_df.sepal_length, pandas_df.sepal_width, pandas_df.petal_length, c=pandas_df.prediction,depthshade=<span class="keyword">False</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p><img src="/2020/01/13/PySpark-ml-分类-clustering/Figure_1.png" alt="Figure_1.png"></p>
+<p><img src="/2020/01/13/PySpark-ml-分类-clustering/Figure_2.png" alt="Figure_2.png"></p>
+<p><img src="/2020/01/13/PySpark-ml-分类-clustering/part1.png" alt="part1.png"></p>
+<p><img src="/2020/01/13/PySpark-ml-分类-clustering/part2.png" alt="part2.png"></p>
+<p><img src="/2020/01/13/PySpark-ml-分类-clustering/part3.png" alt="part3.png"></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/BigData/" rel="tag"># BigData</a>
+          
+            <a href="/tags/Spark/" rel="tag"># Spark</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/01/11/PySpark-ml-随机森林/" rel="next" title="PySpark-ml-随机森林">
+                <i class="fa fa-chevron-left"></i> PySpark-ml-随机森林
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/02/02/PySpark-ml-线性回归/" rel="prev" title="PySpark-ml-线性回归">
+                PySpark-ml-线性回归 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div onclick="showGitment()" id="gitment-display-button">显示 Gitment 评论</div>
+        <div id="gitment-container" style="display:none"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/fly.jpg"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">57</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">12</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#无督导学习"><span class="nav-number">1.</span> <span class="nav-text">无督导学习</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#K-Means算法"><span class="nav-number">2.</span> <span class="nav-text">K-Means算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例代码"><span class="nav-number">3.</span> <span class="nav-text">示例代码</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder"></span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv" title="总访客量">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="site-pv" title="总访问量">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.4.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+      <style>
+        a.gitment-editor-footer-tip { display: none; }
+        .gitment-container.gitment-footer-container { display: none; }
+      </style>
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname,
+            owner: 'LYJ-NEO',
+            repo: 'LYJ-NEO.github.io',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '84e9d01a0e208628585fc510f19acf65242314f9',
+            
+                client_id: '775bf5cff2e26a9fbabb'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      function showGitment(){
+        document.getElementById("gitment-display-button").style.display = "none";
+        document.getElementById("gitment-container").style.display = "block";
+        renderGitment();
+      }
+      
+      </script>
+    
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

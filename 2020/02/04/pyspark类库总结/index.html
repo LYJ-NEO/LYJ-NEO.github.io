@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.4.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.4.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="书籍&amp;lt;&amp;lt;Python在大数据平台的应用&amp;gt;&amp;gt;更多信息请关注本书附书代码:附书代码Github工程:https://github.com/Shadow-Hunter-X Pyspark是Apache Spark的Python应用程序编程接口(API)。Pyspark包括一组公共类、2个模块SQL模块和流数据模块；2个包Mllib和ML用于机器学习，如下图所示。  PySpark">
+<meta name="keywords" content="BigData,Spark">
+<meta property="og:type" content="article">
+<meta property="og:title" content="pyspark类库总结">
+<meta property="og:url" content="http://yoursite.com/2020/02/04/pyspark类库总结/index.html">
+<meta property="og:site_name" content="LYJ-NEO">
+<meta property="og:description" content="书籍&amp;lt;&amp;lt;Python在大数据平台的应用&amp;gt;&amp;gt;更多信息请关注本书附书代码:附书代码Github工程:https://github.com/Shadow-Hunter-X Pyspark是Apache Spark的Python应用程序编程接口(API)。Pyspark包括一组公共类、2个模块SQL模块和流数据模块；2个包Mllib和ML用于机器学习，如下图所示。  PySpark">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2020/02/04/pyspark类库总结/ar.png">
+<meta property="og:updated_time" content="2020-02-04T09:01:44.408Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="pyspark类库总结">
+<meta name="twitter:description" content="书籍&amp;lt;&amp;lt;Python在大数据平台的应用&amp;gt;&amp;gt;更多信息请关注本书附书代码:附书代码Github工程:https://github.com/Shadow-Hunter-X Pyspark是Apache Spark的Python应用程序编程接口(API)。Pyspark包括一组公共类、2个模块SQL模块和流数据模块；2个包Mllib和ML用于机器学习，如下图所示。  PySpark">
+<meta name="twitter:image" content="http://yoursite.com/2020/02/04/pyspark类库总结/ar.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/02/04/pyspark类库总结/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>pyspark类库总结 | LYJ-NEO</title>
+  
+
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?0a1c584f1b6f1f91344a2a4d65406eff";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">LYJ-NEO</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">Gone With The Wind</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/04/pyspark类库总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/fly.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LYJ-NEO">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">pyspark类库总结
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-02-04 14:29:52 / 修改时间：17:01:44" itemprop="dateCreated datePublished" datetime="2020-02-04T14:29:52+08:00">2020-02-04</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Tec/" itemprop="url" rel="index"><span itemprop="name">Tec</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/02/04/pyspark类库总结/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count gitment-comments-count" data-xid="/2020/02/04/pyspark类库总结/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>书籍&lt;&lt;Python在大数据平台的应用&gt;&gt;<br>更多信息请关注本书附书代码:<a href="https://github.com/Shadow-Hunter-X/python_practice_stepbystep" target="_blank" rel="noopener">附书代码Github工程:https://github.com/Shadow-Hunter-X</a></p>
+<p>Pyspark是Apache Spark的Python应用程序编程接口(API)。Pyspark包括一组公共类、2个模块SQL模块和流数据模块；2个包Mllib和ML用于机器学习，如下图所示。</p>
+<p><img src="/2020/02/04/pyspark类库总结/ar.png" alt="pyspark核心类库"></p>
+<h2 id="PySpark核心类说明"><a href="#PySpark核心类说明" class="headerlink" title="PySpark核心类说明"></a>PySpark核心类说明</h2><p>Pyspark核心类由公共类、SQL模块和流模块的6个子集类组成。这些类表示核心的Pyspark功能，如下表所示。</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>类名</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>公共类</td>
+<td>SparkContext</td>
+</tr>
+<tr>
+<td>公共类</td>
+<td>RDD</td>
+</tr>
+<tr>
+<td>SQL模块</td>
+<td>SparkSession</td>
+</tr>
+<tr>
+<td>SQL模块</td>
+<td>DataFrame</td>
+</tr>
+<tr>
+<td>流数据模块</td>
+<td>StreamingContext</td>
+</tr>
+<tr>
+<td>流数据模块</td>
+<td>DStream</td>
+</tr>
+</tbody>
+</table>
+<a id="more"></a>
+<h2 id="PySpark公共类说明。"><a href="#PySpark公共类说明。" class="headerlink" title="PySpark公共类说明。"></a>PySpark公共类说明。</h2><p>在Pyspark中有8个公共类，分别是SparkContext、RDD、Broadcast、Accumulator、 SparkConf、SparkFiles、StorageLevel和TaskContext，说明如下表所示。</p>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Accumulator</td>
+<td>一个只加操作共享变量，在任务只能增加值。</td>
+</tr>
+<tr>
+<td>Broadcast</td>
+<td>广播变量，可用于跨任务复用</td>
+</tr>
+<tr>
+<td>RDD</td>
+<td>弹性分布式数据集，Spark中基础编程抽象</td>
+</tr>
+<tr>
+<td>SparkConf</td>
+<td>用于Spark应用程序的参数配置</td>
+</tr>
+<tr>
+<td>SparkContext</td>
+<td>Spark应用程序的主要入口</td>
+</tr>
+<tr>
+<td>SparkFiles</td>
+<td>提供对文件操作的相关功能</td>
+</tr>
+<tr>
+<td>StorageLevel</td>
+<td>用于数据存储级别的设置</td>
+</tr>
+<tr>
+<td>TaskContext</td>
+<td>可以提供关于当前运行任务的信息</td>
+</tr>
+</tbody>
+</table>
+<h2 id="PySpark-SQL模块说明"><a href="#PySpark-SQL模块说明" class="headerlink" title="PySpark SQL模块说明"></a>PySpark SQL模块说明</h2><p>SQL模块包含了10个类，提供了类型、配置、DataFrames和许多其他功能的SQL函数和方法，具体如下表所示。</p>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SparkSession</td>
+<td>用于操作DataFrame的入口点</td>
+</tr>
+<tr>
+<td>Column</td>
+<td>用来表示DataFrame中的列</td>
+</tr>
+<tr>
+<td>Row</td>
+<td>用来表示DataFrame中的行</td>
+</tr>
+<tr>
+<td>GroupedData</td>
+<td>用于提供DataFrame中的汇总功能</td>
+</tr>
+<tr>
+<td>Types</td>
+<td>定义DataFrame中的数据类型</td>
+</tr>
+<tr>
+<td>Functions</td>
+<td>提供丰富常用的功能，如数学工具，日期计算，数据转换等</td>
+</tr>
+<tr>
+<td>Window</td>
+<td>提供窗口函数功能</td>
+</tr>
+<tr>
+<td>DataFrame</td>
+<td>用于创建DataFrame对象</td>
+</tr>
+<tr>
+<td>DataFrameNaFunctions</td>
+<td>用于处理DataFrame中的null值</td>
+</tr>
+<tr>
+<td>DataFrameStatFunctions</td>
+<td>用于统计汇总DataFrame中的数据</td>
+</tr>
+</tbody>
+</table>
+<h2 id="PySpark流数据模块说明。"><a href="#PySpark流数据模块说明。" class="headerlink" title="PySpark流数据模块说明。"></a>PySpark流数据模块说明。</h2><p>流数据模块包含3个主要的类StreamingContext、Dstream、StreamingListener。也特别提供针对了Flume、Kafka、Kinesis流数据处理的类，但这里只对前3个类说明,如下表所示。</p>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>StreamingContext</td>
+<td>用于处理Spark Streaming应用的入口</td>
+</tr>
+<tr>
+<td>DStream</td>
+<td>Spark Streaming的基本抽象，DStream是一个连续的数据流</td>
+</tr>
+<tr>
+<td>StreamingListener</td>
+<td>对Streaming数据流事件监控和处理</td>
+</tr>
+</tbody>
+</table>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/BigData/" rel="tag"># BigData</a>
+          
+            <a href="/tags/Spark/" rel="tag"># Spark</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/02/02/PySpark-ml-线性回归/" rel="next" title="PySpark-ml-线性回归">
+                <i class="fa fa-chevron-left"></i> PySpark-ml-线性回归
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/02/04/HBase-SQL的使用/" rel="prev" title="HBase-SQL的使用">
+                HBase-SQL的使用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div onclick="showGitment()" id="gitment-display-button">显示 Gitment 评论</div>
+        <div id="gitment-container" style="display:none"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/fly.jpg"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">57</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">12</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#PySpark核心类说明"><span class="nav-number">1.</span> <span class="nav-text">PySpark核心类说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PySpark公共类说明。"><span class="nav-number">2.</span> <span class="nav-text">PySpark公共类说明。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PySpark-SQL模块说明"><span class="nav-number">3.</span> <span class="nav-text">PySpark SQL模块说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PySpark流数据模块说明。"><span class="nav-number">4.</span> <span class="nav-text">PySpark流数据模块说明。</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder"></span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv" title="总访客量">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="site-pv" title="总访问量">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.4.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+      <style>
+        a.gitment-editor-footer-tip { display: none; }
+        .gitment-container.gitment-footer-container { display: none; }
+      </style>
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname,
+            owner: 'LYJ-NEO',
+            repo: 'LYJ-NEO.github.io',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '84e9d01a0e208628585fc510f19acf65242314f9',
+            
+                client_id: '775bf5cff2e26a9fbabb'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      function showGitment(){
+        document.getElementById("gitment-display-button").style.display = "none";
+        document.getElementById("gitment-container").style.display = "block";
+        renderGitment();
+      }
+      
+      </script>
+    
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

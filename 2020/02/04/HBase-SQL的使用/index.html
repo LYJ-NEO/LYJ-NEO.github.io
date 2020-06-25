@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.4.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.4.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="书籍&amp;lt;&amp;lt;Python在大数据平台的应用&amp;gt;&amp;gt;更多信息请关注本书附书代码:附书代码Github工程:https://github.com/Shadow-Hunter-X 接下来节选，HBase安装和使用Phoenix SQL操作的说明。HBase是一个分布式的，面向列的开源数据库。HBase在Hadoop之上提供了类似于Google Bigtable的能力。HBase不同于一般">
+<meta name="keywords" content="BigData,HBase">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HBase-SQL的使用">
+<meta property="og:url" content="http://yoursite.com/2020/02/04/HBase-SQL的使用/index.html">
+<meta property="og:site_name" content="LYJ-NEO">
+<meta property="og:description" content="书籍&amp;lt;&amp;lt;Python在大数据平台的应用&amp;gt;&amp;gt;更多信息请关注本书附书代码:附书代码Github工程:https://github.com/Shadow-Hunter-X 接下来节选，HBase安装和使用Phoenix SQL操作的说明。HBase是一个分布式的，面向列的开源数据库。HBase在Hadoop之上提供了类似于Google Bigtable的能力。HBase不同于一般">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2020/02/04/HBase-SQL的使用/HBaseUI.png">
+<meta property="og:image" content="http://yoursite.com/2020/02/04/HBase-SQL的使用/phoenix.png">
+<meta property="og:image" content="http://yoursite.com/2020/02/04/HBase-SQL的使用/phoenix_create.png">
+<meta property="og:image" content="http://yoursite.com/2020/02/04/HBase-SQL的使用/phoenix_upsert.png">
+<meta property="og:image" content="http://yoursite.com/2020/02/04/HBase-SQL的使用/phoenix-select.png">
+<meta property="og:updated_time" content="2020-02-04T09:13:36.796Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="HBase-SQL的使用">
+<meta name="twitter:description" content="书籍&amp;lt;&amp;lt;Python在大数据平台的应用&amp;gt;&amp;gt;更多信息请关注本书附书代码:附书代码Github工程:https://github.com/Shadow-Hunter-X 接下来节选，HBase安装和使用Phoenix SQL操作的说明。HBase是一个分布式的，面向列的开源数据库。HBase在Hadoop之上提供了类似于Google Bigtable的能力。HBase不同于一般">
+<meta name="twitter:image" content="http://yoursite.com/2020/02/04/HBase-SQL的使用/HBaseUI.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/02/04/HBase-SQL的使用/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>HBase-SQL的使用 | LYJ-NEO</title>
+  
+
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?0a1c584f1b6f1f91344a2a4d65406eff";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">LYJ-NEO</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">Gone With The Wind</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/04/HBase-SQL的使用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/fly.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LYJ-NEO">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">HBase-SQL的使用
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-02-04 16:21:31 / 修改时间：17:13:36" itemprop="dateCreated datePublished" datetime="2020-02-04T16:21:31+08:00">2020-02-04</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Tec/" itemprop="url" rel="index"><span itemprop="name">Tec</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/02/04/HBase-SQL的使用/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count gitment-comments-count" data-xid="/2020/02/04/HBase-SQL的使用/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>书籍&lt;&lt;Python在大数据平台的应用&gt;&gt;<br>更多信息请关注本书附书代码:<a href="https://github.com/Shadow-Hunter-X/python_practice_stepbystep" target="_blank" rel="noopener">附书代码Github工程:https://github.com/Shadow-Hunter-X</a></p>
+<p>接下来节选，HBase安装和使用Phoenix SQL操作的说明。<br>HBase是一个分布式的，面向列的开源数据库。HBase在Hadoop之上提供了类似于Google Bigtable的能力。HBase不同于一般的关系数据库，它是一个适合于非结构化数据存储的数据库，其下载地址:<a href="http://archive.apache.org/dist/hbase/。" target="_blank" rel="noopener">http://archive.apache.org/dist/hbase/。</a></p>
+<h2 id="安装HBase"><a href="#安装HBase" class="headerlink" title="安装HBase"></a>安装HBase</h2><ul>
+<li><p>下载HBase压缩包，拷贝到/usr下并解压缩。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf hbase-1.2.2-bin.tar.gz –C ./</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在/etc/profile文件中添加配置信息。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export HBASE_HOME=/usr/hbase-1.2.2</span><br><span class="line">export PATH=$PATH:$HBASE_HOME/bin:$HBASE_HOME</span><br><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>HBase的配置文件../conf/hbase-env.sh。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_HOME=/usr/jvm	</span><br><span class="line">export HBASE_MANAGES_ZK=true     #是否使用自带的zookeeper</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改HBase的配置文件/conf/hbase-site.xml。<br>配置中以最小配置为准则，即只配置了数据存放地址。且为本地运行，但这样不影响后面章节使用Python库连接操作HBase的演示。</p>
+<property><br><name>hbase.rootdir</name>  #设置数据存放的位置<br>   <value>file:///usr/hbase-1.2.2/tmp_data</value><br></property>
+
+</li>
+</ul>
+<a id="more"></a>
+<ul>
+<li>开启HBase服务，通过HBase Web UI验证。其默认的端口为16010<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(base) root@bin# start-hbase.sh       通过HBase安装路径Bin目录下的start-hbase.sh开启</span><br><span class="line">starting master, logging to /usr/hbase-1.2.2/logs/hbase-root-master-ubuntu.out</span><br><span class="line">Java HotSpot(TM) 64-Bit Server VM warning: ignoring option PermSize=128m; support was removed in 8.0</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>通过HBase Web UI能查看目前HBase状态，能够在管理界面上看到执行的任务的状态和对应资源的使用情况。</p>
+<p><img src="/2020/02/04/HBase-SQL的使用/HBaseUI.png" alt="HBase Web UI"></p>
+<ul>
+<li>输入HBase Shell命令，使用不同的HBase命令进行验证。<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:/usr# hbase shell         开启hbase shell，输入如下信息</span><br><span class="line">….. </span><br><span class="line">HBase Shell; enter 'help&lt;RETURN&gt;' for list of supported commands.</span><br><span class="line">Type "exit&lt;RETURN&gt;" to leave the HBase Shell</span><br><span class="line">Version 1.2.2</span><br><span class="line">hbase(main):001:0&gt; status            查看目前HBase状态</span><br><span class="line">1 active master, 0 backup masters, 1 servers, 0 dead, 3.0000 average load</span><br><span class="line">hbase(main):002:0&gt; list               列出当前有那些HBase表</span><br><span class="line">TABLE</span><br><span class="line">emp</span><br><span class="line">1 row(s) in 0.1230 seconds</span><br><span class="line">=&gt; ["emp"]</span><br><span class="line">hbase(main):003:0&gt; create 'user', 'user name', 'user info' </span><br><span class="line">0 row(s) in 1.3490 seconds</span><br><span class="line">=&gt; Hbase::Table – user</span><br><span class="line">hbase(main):004:0&gt; put 'user' , '1' , 'user name:first_name','neo' </span><br><span class="line">0 row(s) in 0.4420 seconds</span><br><span class="line">hbase(main):005:0&gt; put 'user' , '1' , 'user name:last_name','lan' </span><br><span class="line">0 row(s) in 0.0240 seconds</span><br><span class="line">hbase(main):007:0&gt; get 'user','1'           查看刚才插入的数据</span><br><span class="line">COLUMN                                       CELL</span><br><span class="line"> user name:first_name                        timestamp=1568958912232, value=neo</span><br><span class="line"> user name:last_name                        timestamp=1568958933490, value=lan</span><br><span class="line">2 row(s) in 0.0600 seconds</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="安装Phoenix操作。"><a href="#安装Phoenix操作。" class="headerlink" title="安装Phoenix操作。"></a>安装Phoenix操作。</h2><p>Phoenix是HBase的一个开源SQL接口，通过它可以使用标准JDBC API而不是常规的HBase客户端api来创建表、插入数据和查询HBase数据。其下载地址为<a href="http://archive.apache.org/dist/phoenix/，并下载版本和HBase版本对应的Phoenix。将下载好的安装包拷贝到/usr目录下，使用以下命令进行安装。" target="_blank" rel="noopener">http://archive.apache.org/dist/phoenix/，并下载版本和HBase版本对应的Phoenix。将下载好的安装包拷贝到/usr目录下，使用以下命令进行安装。</a><br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">base) root@usr# tar -zxvf apache-phoenix-4.11.0-HBase-1.2-bin.tar.gz -C ./    解压到当前目录</span><br><span class="line">进入安装的目录中的bin文件夹下，将所有的phoneix开始的jar包拷贝到HBase的lib目录下</span><br><span class="line">(base) root@apache-phoenix-4.11.0-HBase-1.2-bin# cp phoenix-*.jar ../hbase-1.2.2/lib/</span><br><span class="line">(base) root@bin# ./sqlline.py 127.0.0.1:2181   调用sqline.py脚本开启Phoenix</span><br><span class="line">jdbc:phoenix:127.0.0.1:2181&gt;!table</span><br></pre></td></tr></table></figure></p>
+<p>查看当前HBase中的表，如下图所示。在使用Phoenix时，需要创建额外的元数据记录表的信息。</p>
+<p><img src="/2020/02/04/HBase-SQL的使用/phoenix.png" alt="HBase Web UI"></p>
+<p>在成功安装Phoenix后，使用Phoenix进行操作说明。使用Phoenix SQL在HBase上创建表，插入数据后进行数据操作。<br>创建表操作</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">jdbc:phoenix:127.0.0.1:2181&gt; CREATE TABLE IF NOT EXISTS us_population (</span><br><span class="line">. . . . . . . . . . . . . . . &gt;       state CHAR(2) NOT NULL,</span><br><span class="line">. . . . . . . . . . . . . . . &gt;       city VARCHAR NOT NULL,</span><br><span class="line">. . . . . . . . . . . . . . . &gt;       population BIGINT</span><br><span class="line">. . . . . . . . . . . . . . . &gt;       CONSTRAINT my_pk PRIMARY KEY (state, city));</span><br><span class="line"></span><br><span class="line">upsert into us_population (state,city,population) values ('NY','New York',8143197);</span><br><span class="line">1 row affected (0.081 seconds)</span><br><span class="line">upsert into us_population (state,city,population) values ('CA','Los Angeles',3844829);</span><br><span class="line">1 row affected (0.081 seconds)</span><br><span class="line">…..</span><br><span class="line"></span><br><span class="line">0: jdbc:phoenix:127.0.0.1:2181&gt; upsert into us_population (state,city,population) values('NY','New York',8143198);</span><br><span class="line">1 row affected (0.081 seconds)</span><br><span class="line">0: jdbc:phoenix:127.0.0.1:2181&gt;select  * from us_population ;</span><br></pre></td></tr></table></figure>
+<p><img src="/2020/02/04/HBase-SQL的使用/phoenix_create.png" alt="phoenix_create"></p>
+<p><img src="/2020/02/04/HBase-SQL的使用/phoenix_upsert.png" alt="phoenix_upsert"></p>
+<p><img src="/2020/02/04/HBase-SQL的使用/phoenix-select.png" alt="phoenix-select"></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/BigData/" rel="tag"># BigData</a>
+          
+            <a href="/tags/HBase/" rel="tag"># HBase</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/02/04/pyspark类库总结/" rel="next" title="pyspark类库总结">
+                <i class="fa fa-chevron-left"></i> pyspark类库总结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/02/04/Python-Pig的整合/" rel="prev" title="Python-Pig的整合">
+                Python-Pig的整合 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div onclick="showGitment()" id="gitment-display-button">显示 Gitment 评论</div>
+        <div id="gitment-container" style="display:none"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/fly.jpg"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">57</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">12</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装HBase"><span class="nav-number">1.</span> <span class="nav-text">安装HBase</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Phoenix操作。"><span class="nav-number">2.</span> <span class="nav-text">安装Phoenix操作。</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder"></span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv" title="总访客量">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="site-pv" title="总访问量">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.4.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+      <style>
+        a.gitment-editor-footer-tip { display: none; }
+        .gitment-container.gitment-footer-container { display: none; }
+      </style>
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname,
+            owner: 'LYJ-NEO',
+            repo: 'LYJ-NEO.github.io',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '84e9d01a0e208628585fc510f19acf65242314f9',
+            
+                client_id: '775bf5cff2e26a9fbabb'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      function showGitment(){
+        document.getElementById("gitment-display-button").style.display = "none";
+        document.getElementById("gitment-container").style.display = "block";
+        renderGitment();
+      }
+      
+      </script>
+    
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
