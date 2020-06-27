@@ -108,13 +108,17 @@
 
 
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="LYJ-NEO">
+  <meta name="description" content="知道了书的结尾，才会明白书的开头">
+<meta name="keywords" content="bigdata，Python，Hadoop，Pyspark，Hive，IT">
+<meta property="og:type" content="website">
+<meta property="og:title" content="IT杂文-大数据、Python">
 <meta property="og:url" content="http://yoursite.com/page/6/index.html">
-<meta property="og:site_name" content="LYJ-NEO">
+<meta property="og:site_name" content="IT杂文-大数据、Python">
+<meta property="og:description" content="知道了书的结尾，才会明白书的开头">
 <meta property="og:locale" content="zh-CN">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LYJ-NEO">
+<meta name="twitter:title" content="IT杂文-大数据、Python">
+<meta name="twitter:description" content="知道了书的结尾，才会明白书的开头">
 
 
 
@@ -131,7 +135,7 @@
   };
 </script>
 
-  <title>LYJ-NEO</title>
+  <title>IT杂文-大数据、Python</title>
   
 
 
@@ -200,13 +204,13 @@
     <div class="custom-logo-site-title">
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">LYJ-NEO</span>
+        <span class="site-title">IT杂文-大数据、Python</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
     
       
-        <p class="site-subtitle">Gone With The Wind</p>
+        <p class="site-subtitle">人能做他想做的，但不能要他想要的</p>
       
     
   </div>
@@ -315,16 +319,723 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/13/Python-mrjob库的安装和使用/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/10/使用Excel建立数据模型-MSBI/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
+      <meta itemprop="name" content="LYJ__hi@163.com">
+      <meta itemprop="description" content="知道了书的结尾，才会明白书的开头">
       <meta itemprop="image" content="/images/fly.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LYJ-NEO">
+      <meta itemprop="name" content="IT杂文-大数据、Python">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/10/使用Excel建立数据模型-MSBI/" itemprop="url">
+                  使用Excel建立数据模型-MSBI
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-10-10 16:25:19" itemprop="dateCreated datePublished" datetime="2018-10-10T16:25:19+08:00">2018-10-10</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-01-06 17:08:54" itemprop="dateModified" datetime="2019-01-06T17:08:54+08:00">2019-01-06</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Tec/" itemprop="url" rel="index"><span itemprop="name">Tec</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2>关于上下文</h2>
+
+<p>Power Pivot 中的公式可受到在数据透视表中应用的筛选器、表之间的关系以及公式中使用的筛选器的影响。可以通过“上下文”执行“动态分析”。</p>
+<ul>
+<li><p>行上下文<br>Row context可被视为“当前行”,如果创建了计算列，则行上下文由每个单独行中的值以及与当前行相关的列中的值组成。还有一些函数（EARLIER 函数和EARLIEST 函数）可从当前行获取值，然后在对整个表执行操作时使用该值。</p>
+<p>如果您在计算列中创建某一公式，则该公式的“行上下文”将包括来自当前行中所有列的值。如果该表与其他表相关，则上下文还包括来自该其他表中与当前行相关的所有值。此公式的行为类似于 Excel 表中自动引用同一行中的值的公式。请注意，表不同于范围：不能通过使用范围表示法引用来自当前行之前的行的值，并且不能引用表或单元中的任意单个值。</p>
+</li>
+<li><p>查询上下文<br>指为数据透视表中的每个单元隐式创建的数据子集，具体取决于行和列标题。<br>查询上下文引用的公式为隐式检索的数据子集。放到数据透视表中的单元格的度量值或其他值字段时， Power Pivot引擎会检查行和列标题、 切片器和报表筛选器来确定上下文</p>
+</li>
+<li><p>筛选上下文<br>根据筛选约束（已应用于行或由公式中的筛选表达式定义）而允许在每列中存在的值集。<br>通过在公式中使用参数，为列或表中允许存在的值集指定筛选约束时，将添加“筛选上下文”。基于其他上下文（如行上下文或查询上下文）应用筛选上下文。</p>
+</li>
+</ul>
+<p></p><h2>使用Excel Powerpivot构建数据模型</h2><br>PowerPivot作为Excel的一个插件，意在提供自助式商业智能，为用户提供了强大的数据分析功能。<br>PowerPivot 是一种数据建模技术，用于创建数据模型，建立关系，以及创建计算。 可使用 PowerPivot 处理大型数据集，构建广泛的关系，以及创建<br>复杂（或简单）的计算，这些操作全部在高性能环境中和所你熟悉的 Excel 内执行。在Excel中安装了PowerPivot后，数据处理中 <strong>PowerPivot数据库</strong> 中,其为内存中列式数据库,对数据压缩率高，且处理数据量和速度也更高。<p></p>
+<p></p><h3>构建前的准备</h3><br>在Excel中安装PowerPivot，对于高于2013版本，已默认安装，只要激活即可。<p></p>
+<p><img src="/2018/10/10/使用Excel建立数据模型-MSBI/1.png" alt=""></p>
+<p></p><h3>连接转载数据</h3><br>excel作为富客户端，拥有丰富且完备的功能，对于转载数据可以来自各种的数据源。<p></p>
+<ul>
+<li>进入 PowerPivot </li>
+</ul>
+<p>PowerPivot入口<br><img src="/2018/10/10/使用Excel建立数据模型-MSBI/2.png" alt="PowerPivot入口"></p>
+<p>PowerPivot设计界面<br><img src="/2018/10/10/使用Excel建立数据模型-MSBI/3.png" alt=""></p>
+<ul>
+<li><p>连接数据<br>对于目前主流的数据库，格式化的文本文件都可以从Excel进行加载，这里为了简单，连接到SQLserver数据中的AdventureWorks数据</p>
+<p><img src="/2018/10/10/使用Excel建立数据模型-MSBI/4.png" alt=""></p>
+<p>由于在AdventureWorks数据库中各表中已经具有关系了，所以在PowerPivot中也就继承了各表的关系。</p>
+<p><img src="/2018/10/10/使用Excel建立数据模型-MSBI/5.png" alt=""></p>
+</li>
+</ul>
+<p>所以这里可以看到，对于通过使用PowerPivot进行数据建模时包括： 表 和 各表间的关系，通过关系将表格转换为一个数据模型的关键。<br>实际中和关系数据库构建关系的原理是一样的。</p>
+<p>对于如果在数据源中并没有现成的表关系时，需要在PowerPivot中进行构建关系的方法，拖动表中的一列到对应的表的列上。</p>
+<p><img src="/2018/10/10/使用Excel建立数据模型-MSBI/6.png" alt=""></p>
+<p>实际的操作也就是这么的简单，但是构建数据模型前理解对应的业务模型是关键。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/01/我们都是中毒的人/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LYJ__hi@163.com">
+      <meta itemprop="description" content="知道了书的结尾，才会明白书的开头">
+      <meta itemprop="image" content="/images/fly.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="IT杂文-大数据、Python">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/01/我们都是中毒的人/" itemprop="url">
+                  我们都是中毒的人
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-10-01 15:10:11" itemprop="dateCreated datePublished" datetime="2018-10-01T15:10:11+08:00">2018-10-01</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-04 08:56:50" itemprop="dateModified" datetime="2019-04-04T08:56:50+08:00">2019-04-04</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/feeling/" itemprop="url" rel="index"><span itemprop="name">feeling</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/14/使用python扩展Pig/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LYJ__hi@163.com">
+      <meta itemprop="description" content="知道了书的结尾，才会明白书的开头">
+      <meta itemprop="image" content="/images/fly.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="IT杂文-大数据、Python">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/14/使用python扩展Pig/" itemprop="url">
+                  使用python扩展Pig
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-09-14 14:53:51 / 修改时间：14:55:01" itemprop="dateCreated datePublished" datetime="2018-09-14T14:53:51+08:00">2018-09-14</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Tec/" itemprop="url" rel="index"><span itemprop="name">Tec</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2>使用Python扩展Pig</h2>
+
+<p>pig通过用户定义的函数(UDFs)为自定义处理提供了广泛的支持。pig目前支持UDFs六种语言: Java, Jython, Python, JavaScript, Ruby 和 Groovy。<br>当pig执行时,它会自动检测UDF的用法。为了运行python UDFs, pig调用python命令行并对数据IO操作。</p>
+<p></p><h3>注册UDF</h3><br>在pig脚本中可以使用Python UDF之前, 必须对其进行注册, 以便pig知道在调用UDF时要查看的位置。要注册Python UDF文件, 使用pig的寄存器语句。<p></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">REGISTER &apos;udfs/myudf.py&apos; USING streaming_python AS my_udf;</span><br></pre></td></tr></table></figure>
+<p>一旦UDF函数注册成功，就可以在pig脚本中调用,在这个例子中引用my_udf:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">relation = FOREACH data GENERATE my_udf.function(field);</span><br></pre></td></tr></table></figure></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/09/14/使用python扩展Pig/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/13/感觉，懂否/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LYJ__hi@163.com">
+      <meta itemprop="description" content="知道了书的结尾，才会明白书的开头">
+      <meta itemprop="image" content="/images/fly.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="IT杂文-大数据、Python">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/13/感觉，懂否/" itemprop="url">
+                  感觉，懂否
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-09-13 18:22:46" itemprop="dateCreated datePublished" datetime="2018-09-13T18:22:46+08:00">2018-09-13</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-04 08:56:50" itemprop="dateModified" datetime="2019-04-04T08:56:50+08:00">2019-04-04</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/feeling/" itemprop="url" rel="index"><span itemprop="name">feeling</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>占座……. 想着写什么 ………..</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/13/Python-mrjob库的安装和使用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LYJ__hi@163.com">
+      <meta itemprop="description" content="知道了书的结尾，才会明白书的开头">
+      <meta itemprop="image" content="/images/fly.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="IT杂文-大数据、Python">
     </span>
 
     
@@ -508,13 +1219,13 @@
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/12/Hadoop-Data-Flow/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
+      <meta itemprop="name" content="LYJ__hi@163.com">
+      <meta itemprop="description" content="知道了书的结尾，才会明白书的开头">
       <meta itemprop="image" content="/images/fly.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LYJ-NEO">
+      <meta itemprop="name" content="IT杂文-大数据、Python">
     </span>
 
     
@@ -685,13 +1396,13 @@
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/12/Hadoop-Streaming-with-python/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
+      <meta itemprop="name" content="LYJ__hi@163.com">
+      <meta itemprop="description" content="知道了书的结尾，才会明白书的开头">
       <meta itemprop="image" content="/images/fly.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LYJ-NEO">
+      <meta itemprop="name" content="IT杂文-大数据、Python">
     </span>
 
     
@@ -865,13 +1576,13 @@
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/11/python-snakebite/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
+      <meta itemprop="name" content="LYJ__hi@163.com">
+      <meta itemprop="description" content="知道了书的结尾，才会明白书的开头">
       <meta itemprop="image" content="/images/fly.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LYJ-NEO">
+      <meta itemprop="name" content="IT杂文-大数据、Python">
     </span>
 
     
@@ -1057,13 +1768,13 @@
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/09/长相思/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
+      <meta itemprop="name" content="LYJ__hi@163.com">
+      <meta itemprop="description" content="知道了书的结尾，才会明白书的开头">
       <meta itemprop="image" content="/images/fly.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LYJ-NEO">
+      <meta itemprop="name" content="IT杂文-大数据、Python">
     </span>
 
     
@@ -1229,13 +1940,13 @@
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/07/微软-商业智能PowerBI体系/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
+      <meta itemprop="name" content="LYJ__hi@163.com">
+      <meta itemprop="description" content="知道了书的结尾，才会明白书的开头">
       <meta itemprop="image" content="/images/fly.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LYJ-NEO">
+      <meta itemprop="name" content="IT杂文-大数据、Python">
     </span>
 
     
@@ -1362,184 +2073,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/27/烟/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/fly.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LYJ-NEO">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/05/27/烟/" itemprop="url">
-                  烟
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-05-27 09:42:23" itemprop="dateCreated datePublished" datetime="2018-05-27T09:42:23+08:00">2018-05-27</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-04-04 08:56:50" itemprop="dateModified" datetime="2019-04-04T08:56:50+08:00">2019-04-04</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/feeling/" itemprop="url" rel="index"><span itemprop="name">feeling</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">点燃一根烟，缥缈的凋亡,所以自己烟化，可叠叠的烟圈毕竟熏红双眼 ；化作烟月的愁端，吟出烟嗓的流花 。</span><br><span class="line"></span><br><span class="line">手指染上淡淡烟草味，缠绕挥之不去 ， 毕竟这烟花是在你手中炸裂的。</span><br><span class="line"></span><br><span class="line">第一根烟是一个故事的开端，故事会一直进行，不愿故事再见 ； 没有结尾的故事，就不会是一个悲剧 。</span><br><span class="line"></span><br><span class="line">第一包烟是一个情绪的酝酿，情绪造现在的你，但愿情绪再见 ； 没有情绪的人类，就感觉不到快乐和伤心。</span><br><span class="line"></span><br><span class="line">后来你抽了一根又一根的烟，最终渐渐忘记了数量,忘记了最初的原因，只剩下心瘾的驱使。</span><br></pre></td></tr></table></figure>
-<p><img src="/2018/05/27/烟/yan.png" alt=""></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">是否愿意相信，寂寞的抽烟人，都向往随烟而逝；化作烟月的朦胧-烟月是愁端 ； 凝结胭脂泪-化为长恨水。</span><br><span class="line"></span><br><span class="line">敏感的人抽烟了，会否认故意的在故事添加荒谬的情节，让香烟将一切释然。</span><br><span class="line"></span><br><span class="line">最后入如歌词里所述： 闭上一支烟，点上一根烟,能不能不管，你最近好吗，身体可无恙 。</span><br></pre></td></tr></table></figure>
-<p><img src="/2018/05/27/烟/moon.png" alt=""></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span>
+    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1573,10 +2111,10 @@
             
               <img class="site-author-image" itemprop="image"
                 src="/images/fly.jpg"
-                alt="" />
+                alt="LYJ__hi@163.com" />
             
-              <p class="site-author-name" itemprop="name"></p>
-              <p class="site-description motion-element" itemprop="description"></p>
+              <p class="site-author-name" itemprop="name">LYJ__hi@163.com</p>
+              <p class="site-description motion-element" itemprop="description">知道了书的结尾，才会明白书的开头</p>
           </div>
 
           
@@ -1586,7 +2124,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">57</span>
+                    <span class="site-state-item-count">61</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1686,7 +2224,7 @@
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder"></span>
+  <span class="author" itemprop="copyrightHolder">LYJ__hi@163.com</span>
 
   
 

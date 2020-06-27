@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.4.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.4.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="上一篇:install-airflow Airflow平台是一个用于描述、执行、监控工作流的工具。通过编写Python脚本，支持不同类型的任务。 主要概念&amp;amp;核心构架对Airflow中最核心的概念和构架思想进行说明,并在最后结合对应API进行演示操作。 DAG-有向无环图DAG-有向无环图，是要运行的所有Tasks的集合，组织方式反映了Task的关系和依赖。DAG通过Python脚本编写，以">
+<meta name="keywords" content="BigData,etl">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2-airflow-concept">
+<meta property="og:url" content="http://yoursite.com/2020/06/27/2-airflow-concept/index.html">
+<meta property="og:site_name" content="IT杂文-大数据、Python">
+<meta property="og:description" content="上一篇:install-airflow Airflow平台是一个用于描述、执行、监控工作流的工具。通过编写Python脚本，支持不同类型的任务。 主要概念&amp;amp;核心构架对Airflow中最核心的概念和构架思想进行说明,并在最后结合对应API进行演示操作。 DAG-有向无环图DAG-有向无环图，是要运行的所有Tasks的集合，组织方式反映了Task的关系和依赖。DAG通过Python脚本编写，以">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2020/06/27/2-airflow-concept/res/task_lifecycle_diagram.png">
+<meta property="og:updated_time" content="2020-06-27T10:26:21.337Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="2-airflow-concept">
+<meta name="twitter:description" content="上一篇:install-airflow Airflow平台是一个用于描述、执行、监控工作流的工具。通过编写Python脚本，支持不同类型的任务。 主要概念&amp;amp;核心构架对Airflow中最核心的概念和构架思想进行说明,并在最后结合对应API进行演示操作。 DAG-有向无环图DAG-有向无环图，是要运行的所有Tasks的集合，组织方式反映了Task的关系和依赖。DAG通过Python脚本编写，以">
+<meta name="twitter:image" content="http://yoursite.com/2020/06/27/2-airflow-concept/res/task_lifecycle_diagram.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/06/27/2-airflow-concept/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>2-airflow-concept | IT杂文-大数据、Python</title>
+  
+
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?0a1c584f1b6f1f91344a2a4d65406eff";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">IT杂文-大数据、Python</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">人能做他想做的，但不能要他想要的</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/27/2-airflow-concept/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LYJ__hi@163.com">
+      <meta itemprop="description" content="知道了书的结尾，才会明白书的开头">
+      <meta itemprop="image" content="/images/fly.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="IT杂文-大数据、Python">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">2-airflow-concept
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-06-27 18:08:59 / 修改时间：18:26:21" itemprop="dateCreated datePublished" datetime="2020-06-27T18:08:59+08:00">2020-06-27</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Tec/" itemprop="url" rel="index"><span itemprop="name">Tec</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/06/27/2-airflow-concept/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count gitment-comments-count" data-xid="/2020/06/27/2-airflow-concept/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><a href="https://blue-shadow.top/2020/06/27/1-install-airflow" target="_blank" rel="noopener">上一篇:install-airflow</a></p>
+<p>Airflow平台是一个用于描述、执行、监控工作流的工具。通过编写Python脚本，支持不同类型的任务。</p>
+<h2 id="主要概念-amp-核心构架"><a href="#主要概念-amp-核心构架" class="headerlink" title="主要概念&amp;核心构架"></a>主要概念&amp;核心构架</h2><p>对Airflow中最核心的概念和构架思想进行说明,并在最后结合对应API进行演示操作。</p>
+<h3 id="DAG-有向无环图"><a href="#DAG-有向无环图" class="headerlink" title="DAG-有向无环图"></a>DAG-有向无环图</h3><p>DAG-有向无环图，是要运行的所有Tasks的集合，组织方式反映了Task的关系和依赖。DAG通过Python脚本编写，以代码定义了DAG的结构，包括具体的任务和任务间的依赖关系。<br>DAG描述的是期望如何执行工作流程，但并不关心任务具体要做了什么，DAG的任务就是确保它们所做的任何事情在正确的时间、以正确的顺序、或以正确的方式处理各种类型的任务。<br>DAG通过Python文件定义，存在在定义的DAG_FOLDER文件夹下，执行每个文件中的代码来动态构建DAG对象。</p>
+<p>DAG的配置参数，配置参数字典被传递到DAG，将把它们应用任何操作符上。这使得可以很容易地将一个通用参数应用于多个操作符，而不必多次键入它。<br>以下是常用的配置产生。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">default_args = &#123;</span><br><span class="line">    <span class="string">'owner'</span>: <span class="string">'airflow'</span>,</span><br><span class="line">    <span class="string">'depends_on_past'</span>: <span class="keyword">False</span>,</span><br><span class="line">    <span class="string">'start_date'</span>: days_ago(<span class="number">2</span>),</span><br><span class="line">    <span class="string">'email'</span>: [<span class="string">'airflow@example.com'</span>],</span><br><span class="line">    <span class="string">'email_on_failure'</span>: <span class="keyword">False</span>,</span><br><span class="line">    <span class="string">'email_on_retry'</span>: <span class="keyword">False</span>,</span><br><span class="line">    <span class="string">'retries'</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="string">'retry_delay'</span>: timedelta(minutes=<span class="number">5</span>),</span><br><span class="line">    <span class="comment"># 'queue': 'bash_queue',</span></span><br><span class="line">    <span class="comment"># 'pool': 'backfill',</span></span><br><span class="line">    <span class="comment"># 'priority_weight': 10,</span></span><br><span class="line">    <span class="comment"># 'end_date': datetime(2016, 1, 1),</span></span><br><span class="line">    <span class="comment"># 'wait_for_downstream': False,</span></span><br><span class="line">    <span class="comment"># 'dag': dag,</span></span><br><span class="line">    <span class="comment"># 'sla': timedelta(hours=2),</span></span><br><span class="line">    <span class="comment"># 'execution_timeout': timedelta(seconds=300),</span></span><br><span class="line">    <span class="comment"># 'on_failure_callback': some_function,</span></span><br><span class="line">    <span class="comment"># 'on_success_callback': some_other_function,</span></span><br><span class="line">    <span class="comment"># 'on_retry_callback': another_function,</span></span><br><span class="line">    <span class="comment"># 'sla_miss_callback': yet_another_function,</span></span><br><span class="line">    <span class="comment"># 'trigger_rule': 'all_success'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>创建还是用DAG的基本代码。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1-导入必要的库</span></span><br><span class="line"><span class="keyword">from</span> airflow <span class="keyword">import</span> DAG</span><br><span class="line"><span class="keyword">from</span> airflow.utils.dates <span class="keyword">import</span> days_ago</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2-设置DAG参数</span></span><br><span class="line">default_args = &#123;</span><br><span class="line">    <span class="string">'owner'</span>: <span class="string">'airflow'</span>,</span><br><span class="line">    <span class="string">'depends_on_past'</span>: <span class="keyword">False</span>,</span><br><span class="line">    <span class="string">'start_date'</span>: days_ago(<span class="number">2</span>),</span><br><span class="line">    <span class="string">'email'</span>: [<span class="string">'airflow@example.com'</span>],</span><br><span class="line">    <span class="string">'email_on_failure'</span>: <span class="keyword">False</span>,</span><br><span class="line">    <span class="string">'email_on_retry'</span>: <span class="keyword">False</span>,</span><br><span class="line">    <span class="string">'retries'</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="string">'retry_delay'</span>: timedelta(minutes=<span class="number">5</span>)</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="comment"># 3-创建DAG</span></span><br><span class="line">dag = DAG(</span><br><span class="line">    <span class="string">'test'</span>,</span><br><span class="line">    default_args=default_args,</span><br><span class="line">    description=<span class="string">'simple test DAG'</span>,</span><br><span class="line">    schedule_interval=timedelta(days=<span class="number">1</span>),</span><br><span class="line">)</span><br></pre></td></tr></table></figure></p>
+<h3 id="Operator"><a href="#Operator" class="headerlink" title="Operator"></a>Operator</h3><p>DAG描述如何运行一个工作流，实际完成何种操作由Operator来定义。Operator描述工作流中的单个任务,可以独立运行,不需要与其他Operator共享资源。<br>DAG将确保Operator以正确的顺序运行,除了这些依赖关系,Operator通常独立运行。如果两个Operator需要共享信息,比如文件名或少量数据,<br>可以考虑将它们合并到一个操作符中，或使用XComs。</p>
+<p>在Airflow中，提供了必要的常用Operator，如下所示。</p>
+<table>
+<thead>
+<tr>
+<th>Operator</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BashOperator</td>
+<td>执行Bash命令</td>
+</tr>
+<tr>
+<td>PythonOperator</td>
+<td>执行Python函数</td>
+</tr>
+<tr>
+<td>EmailOperator</td>
+<td>用于发送邮件</td>
+</tr>
+<tr>
+<td>SimpleHttpOperator</td>
+<td>用于发送HTTP请求</td>
+</tr>
+<tr>
+<td>DockerOperator</td>
+<td>Docker操作相关</td>
+</tr>
+<tr>
+<td>HiveOperator</td>
+<td>Hive操作</td>
+</tr>
+<tr>
+<td>MySqlOperator, SqliteOperator, PostgresOperator, MsSqlOperator, OracleOperator, JdbcOperator等</td>
+<td>用于执行SQL</td>
+</tr>
+</tbody>
+</table>
+<p>Operator只有在被分配到DAG时才会被加载，所以Operator的创建方法和分配的代码如下。<br><a id="more"></a><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 导入必要的库</span></span><br><span class="line"><span class="keyword">from</span> airflow <span class="keyword">import</span> DAG</span><br><span class="line"><span class="keyword">from</span> airflow.operators.bash_operator <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">dag = DAG(<span class="string">'my_dag'</span>, start_date=datetime(<span class="number">2020</span>, <span class="number">1</span>, <span class="number">1</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 立即分配到dag</span></span><br><span class="line">explicit_op = DummyOperator(task_id=<span class="string">'op1'</span>, dag=dag)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 推迟分配到dag</span></span><br><span class="line">deferred_op = DummyOperator(task_id=<span class="string">'op2'</span>)</span><br><span class="line">deferred_op.dag = dag</span><br></pre></td></tr></table></figure></p>
+<h3 id="Relationship"><a href="#Relationship" class="headerlink" title="Relationship"></a>Relationship</h3><p>前面讲述的DAG、Operator相关的概念。并通过代码简单演示了创建方法、分配方式。对于Operator间的执行顺序、依赖关系在这小节说明。<br>通过使用set_upstream()和set_downstream()函数,或使用 &gt;&gt;、&lt;&lt;操作符。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">from</span> airflow <span class="keyword">import</span> DAG</span><br><span class="line"><span class="keyword">from</span> airflow.operators.bash_operator <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">dag = DAG(<span class="string">'my_dag'</span>, start_date=datetime(<span class="number">2020</span>, <span class="number">1</span>, <span class="number">1</span>))</span><br><span class="line">op1 = DummyOperator(task_id=<span class="string">'op1'</span>, dag=dag)</span><br><span class="line">op2 = DummyOperator(task_id=<span class="string">'op2'</span>, dag=dag)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 1-任务op1在任务op2之前执行,使用 &gt;&gt; 操作符和 set_downstream 函数 </span></span><br><span class="line">op1 &gt;&gt; op2</span><br><span class="line">op1.set_downstream(op2)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2-任务op2在任务op1之后执行,使用 &lt;&lt; 操作符和 set_upstream 函数 </span></span><br><span class="line">op2 &lt;&lt; op1</span><br><span class="line">op2.set_upstream(op1)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3-在关系链中直接使用DAG</span></span><br><span class="line">dag &gt;&gt; op1 &gt;&gt; op2</span><br><span class="line"><span class="comment">#等价于</span></span><br><span class="line">op1.dag=dag</span><br><span class="line">op1.set_downstream(op2)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4-针对任务列表的使用</span></span><br><span class="line">op3 = DummyOperator(task_id=<span class="string">'op3'</span>, dag=dag)</span><br><span class="line">op4 = DummyOperator(task_id=<span class="string">'op4'</span>, dag=dag)</span><br><span class="line">op1 &gt;&gt; [op3,op4] &gt;&gt; op2</span><br><span class="line"><span class="comment">#等价于</span></span><br><span class="line">op1 &gt;&gt; op3 &gt;&gt; op2</span><br><span class="line">op1 &gt;&gt; op4 &gt;&gt; op2</span><br><span class="line"></span><br><span class="line"><span class="comment"># 5-可以使用chain、cross_downstream 在特定情况下更容易设置操作符之间关系的方法</span></span><br><span class="line">[op1, op2, op3] &gt;&gt; op4</span><br><span class="line">[op1, op2, op3] &gt;&gt; op5</span><br><span class="line">[op1, op2, op3] &gt;&gt; op6</span><br><span class="line"><span class="comment"># 等价于</span></span><br><span class="line">cross_downstream([op1, op2, op3], [op4, op5, op6])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">op1 &gt;&gt; op2 &gt;&gt; op3 &gt;&gt; op4 &gt;&gt; op5</span><br><span class="line"><span class="comment">#等价于</span></span><br><span class="line">chain(op1, op2, op3, op4, op5)</span><br></pre></td></tr></table></figure>
+<h3 id="Tasks"><a href="#Tasks" class="headerlink" title="Tasks"></a>Tasks</h3><p>一旦Operator被实例化，它就被称为-任务。参数化任务成为DAG中的一个节点。任务实例表示任务的特定运行，并被描述为DAG、任务和时间点的组合。任务实例还具有指示性状态，可以是运行、成功、失败、跳过、重试等。</p>
+<p>任务的完整生命周期如下所示:<br>No Status: 调度器创建了空任务实例<br>Scheduled: 调度程序确定的任务实例需要运行<br>Queued: 调度器将任务发送给executor以在队列上运行<br>Running: worker拾取任务并正在运行它<br>Success: 任务完成</p>
+<p><img src="/2020/06/27/2-airflow-concept/res/task_lifecycle_diagram.png" alt="Task生命周期"></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/BigData/" rel="tag"># BigData</a>
+          
+            <a href="/tags/etl/" rel="tag"># etl</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/06/27/1-install-airflow/" rel="next" title="1-install-airflow">
+                <i class="fa fa-chevron-left"></i> 1-install-airflow
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/06/27/3-airflow-脚本/" rel="prev" title="3-airflow-脚本">
+                3-airflow-脚本 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div onclick="showGitment()" id="gitment-display-button">显示 Gitment 评论</div>
+        <div id="gitment-container" style="display:none"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/fly.jpg"
+                alt="LYJ__hi@163.com" />
+            
+              <p class="site-author-name" itemprop="name">LYJ__hi@163.com</p>
+              <p class="site-description motion-element" itemprop="description">知道了书的结尾，才会明白书的开头</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">61</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">12</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#主要概念-amp-核心构架"><span class="nav-number">1.</span> <span class="nav-text">主要概念&amp;核心构架</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DAG-有向无环图"><span class="nav-number">1.1.</span> <span class="nav-text">DAG-有向无环图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Operator"><span class="nav-number">1.2.</span> <span class="nav-text">Operator</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Relationship"><span class="nav-number">1.3.</span> <span class="nav-text">Relationship</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tasks"><span class="nav-number">1.4.</span> <span class="nav-text">Tasks</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LYJ__hi@163.com</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv" title="总访客量">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="site-pv" title="总访问量">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.4.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+      <style>
+        a.gitment-editor-footer-tip { display: none; }
+        .gitment-container.gitment-footer-container { display: none; }
+      </style>
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname,
+            owner: 'LYJ-NEO',
+            repo: 'LYJ-NEO.github.io',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '84e9d01a0e208628585fc510f19acf65242314f9',
+            
+                client_id: '775bf5cff2e26a9fbabb'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      function showGitment(){
+        document.getElementById("gitment-display-button").style.display = "none";
+        document.getElementById("gitment-container").style.display = "block";
+        renderGitment();
+      }
+      
+      </script>
+    
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

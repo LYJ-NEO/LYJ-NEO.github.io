@@ -108,13 +108,17 @@
 
 
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="LYJ-NEO">
+  <meta name="description" content="知道了书的结尾，才会明白书的开头">
+<meta name="keywords" content="bigdata，Python，Hadoop，Pyspark，Hive，IT">
+<meta property="og:type" content="website">
+<meta property="og:title" content="IT杂文-大数据、Python">
 <meta property="og:url" content="http://yoursite.com/page/3/index.html">
-<meta property="og:site_name" content="LYJ-NEO">
+<meta property="og:site_name" content="IT杂文-大数据、Python">
+<meta property="og:description" content="知道了书的结尾，才会明白书的开头">
 <meta property="og:locale" content="zh-CN">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LYJ-NEO">
+<meta name="twitter:title" content="IT杂文-大数据、Python">
+<meta name="twitter:description" content="知道了书的结尾，才会明白书的开头">
 
 
 
@@ -131,7 +135,7 @@
   };
 </script>
 
-  <title>LYJ-NEO</title>
+  <title>IT杂文-大数据、Python</title>
   
 
 
@@ -200,13 +204,13 @@
     <div class="custom-logo-site-title">
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">LYJ-NEO</span>
+        <span class="site-title">IT杂文-大数据、Python</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
     
       
-        <p class="site-subtitle">Gone With The Wind</p>
+        <p class="site-subtitle">人能做他想做的，但不能要他想要的</p>
       
     
   </div>
@@ -315,16 +319,562 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/11/3-Hive数据定义/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/12/7-Hive设计模式/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
+      <meta itemprop="name" content="LYJ__hi@163.com">
+      <meta itemprop="description" content="知道了书的结尾，才会明白书的开头">
       <meta itemprop="image" content="/images/fly.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LYJ-NEO">
+      <meta itemprop="name" content="IT杂文-大数据、Python">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/12/7-Hive设计模式/" itemprop="url">
+                  7-Hive设计模式
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-12-12 11:25:17" itemprop="dateCreated datePublished" datetime="2018-12-12T11:25:17+08:00">2018-12-12</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-02-03 14:01:26" itemprop="dateModified" datetime="2020-02-03T14:01:26+08:00">2020-02-03</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Tec/" itemprop="url" rel="index"><span itemprop="name">Tec</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2>Hive设计模式</h2>
+
+<p>hive是基于Hadoop的一个数据仓库工具，可以将结构化的数据文件映射为一张数据库表，并提供简单的sql查询功能，可以将sql语句转换为MapReduce任务进行运行。<br>对于传统关系数据构建数据仓库的建模方法，对于Hive是否适用 ； 针对Hive自身特点，需要如何合理构建 ，本文将记将进行探讨。</p>
+<p>Hive看上去及实际行为都像一个关系型数据库，但Hive实现和使用和传统的关系型数据库是非常不同的，事实上Hive是反模式的。</p>
+<h2>数据仓库数据模型</h2>
+
+<p><strong>数据模型是抽象描述现实世界的一种工具和方法，是通过抽象的实体及实体之间联系的形式，来表示现实世界中事务的相互关系的一种映射</strong></p>
+<p>数据仓库的数据模型的架构和数据仓库的整体架构是紧密关联在一起的，我们首先来了解一下整个数据仓库的数据模型应该包含的几个部分。<br>从下图我们可以很清楚地看到，整个数据模型的架构分成 5 大部分，每个部分其实都有其独特的功能。<br><img src="/2018/12/12/7-Hive设计模式/dw_model.jpg" alt=""></p>
+<ul>
+<li>系统记录域（System of Record）：这部分是主要的数据仓库业务数据存储区，数据模型在这里保证了数据的一致性。</li>
+<li>内部管理域（Housekeeping）：这部分主要存储数据仓库用于内部管理的元数据，数据模型在这里能够帮助进行统一的元数据的管理。</li>
+<li>汇总域（Summary of Area）：这部分数据来自于系统记录域的汇总，数据模型在这里保证了分析域的主题分析的性能，满足了部分的报表查询。</li>
+<li>分析域（Analysis Area）：这部分数据模型主要用于各个业务部分的具体的主题业务分析。这部分数据模型可以单独存储在相应的数据集市中。</li>
+<li>反馈域（Feedback Area）：可选项，这部分数据模型主要用于相应前端的反馈数据，数据仓库可以视业务的需要设置这一区域。</li>
+</ul>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/12/12/7-Hive设计模式/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/12/6-Hive视图和索引/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LYJ__hi@163.com">
+      <meta itemprop="description" content="知道了书的结尾，才会明白书的开头">
+      <meta itemprop="image" content="/images/fly.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="IT杂文-大数据、Python">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/12/6-Hive视图和索引/" itemprop="url">
+                  6-Hive视图和索引
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-12-12 11:24:32" itemprop="dateCreated datePublished" datetime="2018-12-12T11:24:32+08:00">2018-12-12</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-02-03 13:55:01" itemprop="dateModified" datetime="2020-02-03T13:55:01+08:00">2020-02-03</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Tec/" itemprop="url" rel="index"><span itemprop="name">Tec</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2>视图</h2><br>视图可以允许保存一个查询并像对待表一样对这个查询j进行操作，这是要给逻辑结构，因为它不会像一个表会存储数据，<br>当一个查询引用一个视图时，这个视图说定义的查询语句和用户查询语句结合在一起，然后Hive指定查询计划，从逻辑上讲<br>Hive先执行这个视图，然后使用这个结果进行后续的查询。<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">创建视图： </span><br><span class="line"></span><br><span class="line">CREATE VIEW [IF NOT EXISTS] view_name [(column_name [COMMENT column_comment], ...) ]</span><br><span class="line">[COMMENT table_comment]</span><br><span class="line">AS SELECT ...</span><br></pre></td></tr></table></figure><br><br><img src="/2018/12/12/6-Hive视图和索引/1_create_view.png" alt=""><br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">删除视图：</span><br><span class="line"></span><br><span class="line">DROP VIEW view_name ;</span><br></pre></td></tr></table></figure><br><br><img src="/2018/12/12/6-Hive视图和索引/2_drop_view.png" alt=""><br><br><em> 使用视图来降低查询复杂度<br>  查询长或复杂的时候，使用视图将这个查询语句分割成多个小的，更可控的片段可以降低这种复杂度。
+
+</em> 使用视图来限制基于条件过滤的数据<br>  对于视图来说，一个常见的使用场景是基于一个或多个列值来限制输出结果。有些数据库运行将视图作为一种安全机制，不给用户直接访问敏感数据的原始表，<br>  而提供给用户提供一个通过WHERE子句限制了的视图。<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/12/12/6-Hive视图和索引/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/01/5-Hive数据查询/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LYJ__hi@163.com">
+      <meta itemprop="description" content="知道了书的结尾，才会明白书的开头">
+      <meta itemprop="image" content="/images/fly.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="IT杂文-大数据、Python">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/01/5-Hive数据查询/" itemprop="url">
+                  5-Hive数据查询
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-12-01 11:24:02" itemprop="dateCreated datePublished" datetime="2018-12-01T11:24:02+08:00">2018-12-01</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-02-03 14:03:38" itemprop="dateModified" datetime="2020-02-03T14:03:38+08:00">2020-02-03</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Tec/" itemprop="url" rel="index"><span itemprop="name">Tec</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2>SELECT子句</h2>
+
+<ul>
+<li>针对复合类型列的查询(数组，字典，结构)</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">含有复合类型列的样表：</span><br><span class="line">CREATE TABLE IF NOT EXISTS employees_t</span><br><span class="line">(</span><br><span class="line">    name STRING  COMMENT &apos;Employee name&apos;,</span><br><span class="line">    salary FLOAT COMMENT &apos;Employee salary&apos;,</span><br><span class="line">    subordinates ARRAY&lt;STRING&gt; COMMENT &apos; Names of subordinates&apos;,</span><br><span class="line">    deducations  MAP&lt;STRING,FLOAT&gt; COMMENT &apos; Keys are deducations names , Values are percentags&apos;,</span><br><span class="line">    address      STRUCT&lt;street:STRING,city:STRING,state:STRING,zip:INT&gt; COMMENT &apos;Home Address&apos;</span><br><span class="line">)</span><br><span class="line">COMMENT &apos;the table of empoyee&apos;</span><br><span class="line">ROW FORMAT DELIMITED</span><br><span class="line">FIELDS TERMINATED BY &apos;\001&apos;</span><br><span class="line">COLLECTION ITEMS TERMINATED BY &apos;\002&apos;</span><br><span class="line">MAP KEYS TERMINATED BY &apos;\003&apos;</span><br><span class="line">LINES TERMINATED BY &apos;\n&apos;</span><br><span class="line">STORED AS TEXTFILE;</span><br><span class="line">数据样式：</span><br></pre></td></tr></table></figure>
+<p><img src="/2018/12/01/5-Hive数据查询/1_mul_data_style.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">访问数组列，使用下标索引:</span><br><span class="line">SELECT name , subordinates[0] FROM employees_t linit 3;</span><br></pre></td></tr></table></figure>
+<p><img src="/2018/12/01/5-Hive数据查询/2_array_sub.png" alt=""></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/12/01/5-Hive数据查询/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/11/3-Hive数据定义/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LYJ__hi@163.com">
+      <meta itemprop="description" content="知道了书的结尾，才会明白书的开头">
+      <meta itemprop="image" content="/images/fly.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="IT杂文-大数据、Python">
     </span>
 
     
@@ -501,13 +1051,13 @@
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/08/2-Hive数据类型和文件格式/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
+      <meta itemprop="name" content="LYJ__hi@163.com">
+      <meta itemprop="description" content="知道了书的结尾，才会明白书的开头">
       <meta itemprop="image" content="/images/fly.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LYJ-NEO">
+      <meta itemprop="name" content="IT杂文-大数据、Python">
     </span>
 
     
@@ -827,13 +1377,13 @@
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/01/0-Hive命令/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
+      <meta itemprop="name" content="LYJ__hi@163.com">
+      <meta itemprop="description" content="知道了书的结尾，才会明白书的开头">
       <meta itemprop="image" content="/images/fly.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LYJ-NEO">
+      <meta itemprop="name" content="IT杂文-大数据、Python">
     </span>
 
     
@@ -1104,13 +1654,13 @@
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/14/Hortonworks-Data-Platform-大数据开发环境的使用/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
+      <meta itemprop="name" content="LYJ__hi@163.com">
+      <meta itemprop="description" content="知道了书的结尾，才会明白书的开头">
       <meta itemprop="image" content="/images/fly.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LYJ-NEO">
+      <meta itemprop="name" content="IT杂文-大数据、Python">
     </span>
 
     
@@ -1265,13 +1815,13 @@
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/05/hive-内置函数/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
+      <meta itemprop="name" content="LYJ__hi@163.com">
+      <meta itemprop="description" content="知道了书的结尾，才会明白书的开头">
       <meta itemprop="image" content="/images/fly.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LYJ-NEO">
+      <meta itemprop="name" content="IT杂文-大数据、Python">
     </span>
 
     
@@ -1644,13 +2194,13 @@
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/16/在Hive中使用CUBE-ROLLUP-GROUPING-SETS等分析函数/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
+      <meta itemprop="name" content="LYJ__hi@163.com">
+      <meta itemprop="description" content="知道了书的结尾，才会明白书的开头">
       <meta itemprop="image" content="/images/fly.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LYJ-NEO">
+      <meta itemprop="name" content="IT杂文-大数据、Python">
     </span>
 
     
@@ -1827,13 +2377,13 @@
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/06/10总体和样本/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
+      <meta itemprop="name" content="LYJ__hi@163.com">
+      <meta itemprop="description" content="知道了书的结尾，才会明白书的开头">
       <meta itemprop="image" content="/images/fly.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LYJ-NEO">
+      <meta itemprop="name" content="IT杂文-大数据、Python">
     </span>
 
     
@@ -1989,531 +2539,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/06/8连续性随机变量/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/fly.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LYJ-NEO">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/06/8连续性随机变量/" itemprop="url">
-                  8连续性随机变量
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-02-06 17:07:05" itemprop="dateCreated datePublished" datetime="2019-02-06T17:07:05+08:00">2019-02-06</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020-02-03 13:55:39" itemprop="dateModified" datetime="2020-02-03T13:55:39+08:00">2020-02-03</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2>连续型随机变量</h2>
-
-<p>相关定理内容摘录： 概率与数理统计（茆诗松 周纪芗）</p>
-<p>对于随机变量并不是只有离散型的，还有连续型的随机变量，对于连续型的随机变量有着和离散型随机变量完全不同求解期望和方差的方法。</p>
-<p>连续型随机变量是指如果随机变量X的所有可能取值不可以逐个列举出来，而是取数轴上某一区间内的任一点的随机变量。<br>例如，一批电子元件的寿命、实际中常遇到的测量误差等都是连续型随机变量</p>
-<h3>相关概念</h3><br><em> 概率密度函数：通过定义数据公式发现是一个积分的操作。
-</em> 概率的值为通过概率密度函数绘制出的图形的面积。所以为了求解概率，先求解概率密度函数<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/02/06/8连续性随机变量/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/06/7离散型随机变量/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/fly.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LYJ-NEO">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/06/7离散型随机变量/" itemprop="url">
-                  7离散型随机变量
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-02-06 17:06:00" itemprop="dateCreated datePublished" datetime="2019-02-06T17:06:00+08:00">2019-02-06</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020-02-03 13:55:26" itemprop="dateModified" datetime="2020-02-03T13:55:26+08:00">2020-02-03</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2>离散型随机变量</h2>
-
-<p>相关定理内容摘录： 概率与数理统计（茆诗松 周纪芗）</p>
-<h3>相关概念</h3>
-
-<ul>
-<li>分布列：表示概率在所有的可能发生的情况中的分布。</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>事件</th>
-<th>A</th>
-<th>B</th>
-<th>C</th>
-<th>D</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>P</td>
-<td>0.15</td>
-<td>0.1</td>
-<td>0.5</td>
-<td>0.25</td>
-</tr>
-</tbody>
-</table>
-<p>A,B,C,D 分别表示四个不同的事件， P 为他们对应的概率，（0≤p≤1）对于任意一个分布列，所有概率之和为1，也可记为100%。</p>
-<h3>离散型随机变量及其分布列</h3><br>离散型（discrete）随机变量即在一定区间内变量取值为有限个或可数个。例如某地区某年人口的出生数、死亡数，某药治疗某病病人的有效数、无效数等。<br>离散型随机变量通常依据概率质量函数分类，主要分为：伯努利随机变量、二项随机变量、几何随机变量和泊松随机变量。<br><br><em> 定义1<br>如果随机变量X只可能取有限个或至多可列个值，则称X为离散型随机变量。<br></em>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/02/06/7离散型随机变量/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/06/6随机变量和概率分布/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/fly.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LYJ-NEO">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/06/6随机变量和概率分布/" itemprop="url">
-                  6随机变量和概率分布
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-02-06 17:05:07" itemprop="dateCreated datePublished" datetime="2019-02-06T17:05:07+08:00">2019-02-06</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020-02-03 13:55:14" itemprop="dateModified" datetime="2020-02-03T13:55:14+08:00">2020-02-03</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2>随机变量和概率分布</h2>
-
-<p>相关定理内容摘录： 概率与数理统计（茆诗松 周纪芗）</p>
-<h3>相关概念</h3>
-
-<ul>
-<li><p>随机变量<br>假设一个变量在数轴上的取值依赖于随机现象的基本结果，则此变量为随机变量，可以用大写字母X，Y，Z来表示。</p>
-</li>
-<li><p>离散性随机变量<br>如一个随机变量仅取值数轴上有限或可孤立点，则这个随机变量为<strong>离散随机变量</strong></p>
-</li>
-<li><p>连续随机变量<br>假如一个随机变量的可能取值充满数轴上的一个区间（a,b）,则此随机变量为<strong>连续随机变量</strong></p>
-</li>
-</ul>
-<p></p><h3>随机变量的概率分布</h3><br>对于概率分布这个概念，一个随机变量的值会对应一个概率。这所有的随机变量的值和其对一个的概率构建一个概率分布图，即得到了概率分布。<p></p>
-<ul>
-<li>数学期望<br>数学期望(mean)（或均值，亦简称期望）是试验中每次可能结果的概率乘以其结果的总和。 即 随机变量 乘以 对应的概率值的和。<br>数学期望 指用概率分布算得的一种加权平均，是概率论中的一个基本概念,期望指示预测结果。</li>
-</ul>
-<p><img src="/2019/02/06/6随机变量和概率分布/6_1_expert.png" alt=""><br></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/02/06/6随机变量和概率分布/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -2547,10 +2577,10 @@
             
               <img class="site-author-image" itemprop="image"
                 src="/images/fly.jpg"
-                alt="" />
+                alt="LYJ__hi@163.com" />
             
-              <p class="site-author-name" itemprop="name"></p>
-              <p class="site-description motion-element" itemprop="description"></p>
+              <p class="site-author-name" itemprop="name">LYJ__hi@163.com</p>
+              <p class="site-description motion-element" itemprop="description">知道了书的结尾，才会明白书的开头</p>
           </div>
 
           
@@ -2560,7 +2590,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">57</span>
+                    <span class="site-state-item-count">61</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2660,7 +2690,7 @@
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder"></span>
+  <span class="author" itemprop="copyrightHolder">LYJ__hi@163.com</span>
 
   
 
