@@ -108,18 +108,18 @@
 
 
 
-  <meta name="description" content="书籍&amp;lt;&amp;lt;Python在大数据平台的应用&amp;gt;&amp;gt;更多信息请关注本书附书代码:附书代码Github工程:https://github.com/Shadow-Hunter-X  接下来节选Python Pig UDF函数的操作。Pig和Hadoop都是Java编写的。Java也是编写UDF的原生语言，但通过Java进行编写需要通过编译打包成Jar包后进行部署，过程是很繁琐的。但通过P">
+  <meta name="description" content="书籍&amp;lt;&amp;lt;Python大数据分析从入门到精通&amp;gt;&amp;gt;更多信息请关注本书附书代码:附书代码Github工程:https://github.com/Shadow-Hunter-X  接下来节选Python Pig UDF函数的操作。Pig和Hadoop都是Java编写的。Java也是编写UDF的原生语言，但通过Java进行编写需要通过编译打包成Jar包后进行部署，过程是很繁琐的。但通">
 <meta name="keywords" content="BigData,HBase">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Python-Pig的整合">
 <meta property="og:url" content="http://yoursite.com/2020/02/04/Python-Pig的整合/index.html">
 <meta property="og:site_name" content="IT杂文-大数据、Python">
-<meta property="og:description" content="书籍&amp;lt;&amp;lt;Python在大数据平台的应用&amp;gt;&amp;gt;更多信息请关注本书附书代码:附书代码Github工程:https://github.com/Shadow-Hunter-X  接下来节选Python Pig UDF函数的操作。Pig和Hadoop都是Java编写的。Java也是编写UDF的原生语言，但通过Java进行编写需要通过编译打包成Jar包后进行部署，过程是很繁琐的。但通过P">
+<meta property="og:description" content="书籍&amp;lt;&amp;lt;Python大数据分析从入门到精通&amp;gt;&amp;gt;更多信息请关注本书附书代码:附书代码Github工程:https://github.com/Shadow-Hunter-X  接下来节选Python Pig UDF函数的操作。Pig和Hadoop都是Java编写的。Java也是编写UDF的原生语言，但通过Java进行编写需要通过编译打包成Jar包后进行部署，过程是很繁琐的。但通">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-02-04T09:01:45.850Z">
+<meta property="og:updated_time" content="2020-11-07T08:21:59.868Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python-Pig的整合">
-<meta name="twitter:description" content="书籍&amp;lt;&amp;lt;Python在大数据平台的应用&amp;gt;&amp;gt;更多信息请关注本书附书代码:附书代码Github工程:https://github.com/Shadow-Hunter-X  接下来节选Python Pig UDF函数的操作。Pig和Hadoop都是Java编写的。Java也是编写UDF的原生语言，但通过Java进行编写需要通过编译打包成Jar包后进行部署，过程是很繁琐的。但通过P">
+<meta name="twitter:description" content="书籍&amp;lt;&amp;lt;Python大数据分析从入门到精通&amp;gt;&amp;gt;更多信息请关注本书附书代码:附书代码Github工程:https://github.com/Shadow-Hunter-X  接下来节选Python Pig UDF函数的操作。Pig和Hadoop都是Java编写的。Java也是编写UDF的原生语言，但通过Java进行编写需要通过编译打包成Jar包后进行部署，过程是很繁琐的。但通">
 
 
 
@@ -361,12 +361,24 @@
                 
               
 
-              <time title="创建时间：2020-02-04 16:46:12 / 修改时间：17:01:45" itemprop="dateCreated datePublished" datetime="2020-02-04T16:46:12+08:00">2020-02-04</time>
+              <time title="创建时间：2020-02-04 16:46:12" itemprop="dateCreated datePublished" datetime="2020-02-04T16:46:12+08:00">2020-02-04</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-11-07 16:21:59" itemprop="dateModified" datetime="2020-11-07T16:21:59+08:00">2020-11-07</time>
               
             
           </span>
@@ -427,7 +439,7 @@
       
 
       
-        <p>书籍&lt;&lt;Python在大数据平台的应用&gt;&gt;<br>更多信息请关注本书附书代码:<a href="https://github.com/Shadow-Hunter-X/python_practice_stepbystep" target="_blank" rel="noopener">附书代码Github工程:https://github.com/Shadow-Hunter-X</a> </p>
+        <p>书籍&lt;&lt;Python大数据分析从入门到精通&gt;&gt;<br>更多信息请关注本书附书代码:<a href="https://github.com/Shadow-Hunter-X/python_practice_stepbystep" target="_blank" rel="noopener">附书代码Github工程:https://github.com/Shadow-Hunter-X</a> </p>
 <p>接下来节选Python Pig UDF函数的操作。<br>Pig和Hadoop都是Java编写的。Java也是编写UDF的原生语言，但通过Java进行编写需要通过编译打包成Jar包后进行部署，过程是很繁琐的。但通过Python编写UDF是很方便快捷的，至少在功能测试阶段是这样很方便</p>
 <h2 id="pig-util模块说明"><a href="#pig-util模块说明" class="headerlink" title="pig_util模块说明"></a>pig_util模块说明</h2><p>对于pig_util模块可以去安装Pig的目录下获取。Hello World例子，大家应该都会感觉很亲切，所以先以Hello World程序开始说明。在这个Hello World例子中只是单纯的输出数据，并没有使用Pig传递的数据。</p>
 <ul>
@@ -568,7 +580,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">61</span>
+                    <span class="site-state-item-count">63</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -585,9 +597,7 @@
                     
                       
                     
-                      
-                    
-                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-count">2</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>

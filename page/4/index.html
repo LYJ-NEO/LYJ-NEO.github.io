@@ -319,6 +319,369 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/16/在Hive中使用CUBE-ROLLUP-GROUPING-SETS等分析函数/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LYJ__hi@163.com">
+      <meta itemprop="description" content="知道了书的结尾，才会明白书的开头">
+      <meta itemprop="image" content="/images/fly.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="IT杂文-大数据、Python">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/16/在Hive中使用CUBE-ROLLUP-GROUPING-SETS等分析函数/" itemprop="url">
+                  在Hive中使用CUBE,ROLLUP,GROUPING SETS等分析函数
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-02-16 22:09:35" itemprop="dateCreated datePublished" datetime="2019-02-16T22:09:35+08:00">2019-02-16</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-02-03 13:59:00" itemprop="dateModified" datetime="2020-02-03T13:59:00+08:00">2020-02-03</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Tec/" itemprop="url" rel="index"><span itemprop="name">Tec</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>在上次介绍了Sql中的窗口分析函数，本次在Hive上进行实操说明CUBE,ROLLUP,GROUPING SETS等分析函数。</p>
+<p>对于这些函数子句可以认为是对于 Hive中的 增强型聚合函数 ，可以使用它们构建<strong>小型的多维分析模型</strong></p>
+<ul>
+<li>CUBE创建列集维度的所有可能组合的小计。一旦在一组维度上计算了一个立方体，我们就可以得到这些维度上所有可能的聚合问题的答案</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">GROUP BY a, b, c WITH CUBE 相当于如下两种表示</span><br><span class="line">GROUP BY a, b, c </span><br><span class="line">GROUPING SETS ( (a, b, c), (a, b), (b, c), (a, c), (a), (b), (c), ( ))</span><br></pre></td></tr></table></figure>
+<ul>
+<li>ROLLUP子句与GROUP BY一起用于计算维度层次结构级别的聚合</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GROUP BY a, b, c with ROLLUP 是构建从 a 钻探到b钻探到c的层次结构数据 相当于</span><br><span class="line">GROUPING SETS ( (a, b, c), (a, b), (a), ( ))</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/02/16/在Hive中使用CUBE-ROLLUP-GROUPING-SETS等分析函数/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/06/10总体和样本/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LYJ__hi@163.com">
+      <meta itemprop="description" content="知道了书的结尾，才会明白书的开头">
+      <meta itemprop="image" content="/images/fly.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="IT杂文-大数据、Python">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/06/10总体和样本/" itemprop="url">
+                  10总体和样本
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-02-06 17:08:01" itemprop="dateCreated datePublished" datetime="2019-02-06T17:08:01+08:00">2019-02-06</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-02-03 14:01:03" itemprop="dateModified" datetime="2020-02-03T14:01:03+08:00">2020-02-03</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2>总体和样本</h2>
+
+<h3>相关概念</h3>
+
+<ul>
+<li><p>总体<br>研究对象的全体称为总体，构成总体的每个成员称为个体。</p>
+</li>
+<li><p>样本<br>从总体中抽取的部分个体组合称为样本，样本中所含有的个体称为样品，样本中样品的个数称为样本容量。</p>
+</li>
+<li><p>抽样<br>通过抽样，得到抽样数据，计算抽样数据的概率属性。通过样本的均值和方差来推测总体的均值和方差。当然对于样本的质量就很重要了，如果样本数据发生了偏倚，那么对总体的预测也就会造成估计错误。</p>
+</li>
+</ul>
+<h3>如何设计样本</h3>
+
+<ul>
+<li><p>确定目标总体<br>首先需要明确目标总体，才能从总体中抽取样本，对于目标总体是正在研究，并且打算为其采集结果的群体，说选择的目标总体很大程度上取决于研究的目的。目标总体要尽可能准确，这样更容易的得出可能代表总体的样本。</p>
+</li>
+<li><p>确定抽样单位<br>一旦确定了目标总体，就需要确定抽取哪一类对象。通常，要抽取的对象类型就是在确定目标总体时描述的对象类型。</p>
+</li>
+<li><p>确定抽样空间<br>在目标总体的范围中所有抽样单位编号，这样单位构成抽样空间，有时不可能得出覆盖整个目标总体的抽样空间。</p>
+</li>
+</ul>
+<h3>对于样本数据偏倚的原因</h3><br>样本有时会发生偏倚，使得最终的记过发生误差。对于产生偏倚的原因：<br><br><em> 抽样空间中条目不齐全，未包含目标总体中的所有对象。
+</em> 抽样单位不正确。<br><em> 为样本选择的一个个抽样单位，未出现在实际样本中。
+</em> 调查问卷问题设计不当<br>* 样本缺乏随机性<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/02/06/10总体和样本/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/06/8连续性随机变量/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1723,360 +2086,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/05/1-导入数据到Hive/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="LYJ__hi@163.com">
-      <meta itemprop="description" content="知道了书的结尾，才会明白书的开头">
-      <meta itemprop="image" content="/images/fly.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="IT杂文-大数据、Python">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/05/1-导入数据到Hive/" itemprop="url">
-                  1-导入数据到Hive
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-11-05 14:56:45" itemprop="dateCreated datePublished" datetime="2018-11-05T14:56:45+08:00">2018-11-05</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020-02-03 13:53:45" itemprop="dateModified" datetime="2020-02-03T13:53:45+08:00">2020-02-03</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Tec/" itemprop="url" rel="index"><span itemprop="name">Tec</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p></p><h2>导入数据到Hive</h2><br>    可以通过各种不同的方法和工具，将各种不同数据源导入Hive中,对于Hive中的数据库本质上仅仅是表的一个目录或者命名空间。<br>所以Hive实际上并不存储实际的数据。对于要导入到Hive的数据，是存放在HDFS上的各种格式数据文件。<p></p>
-<p></p><h3>文本文件数据</h3><br>    从文本文件（CSV，TSV）将文件存放到HDFS后导入到Hive中<p></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">将文本文件上传到HDFS文件系统，使用 hadoop hdfs dfs -put local_file_path  hdfs_file_path</span><br><span class="line"></span><br><span class="line">具体的导入数据的操作方法:</span><br><span class="line"></span><br><span class="line">1 先将本地文件上传到虚拟机中(数据是AdventureWorks中的部分表数据)</span><br><span class="line">$ scp.exe -P 2222 *.csv root@sandbox-hdp.hortonworks.com:~/hive_data</span><br></pre></td></tr></table></figure>
-<p><img src="/2018/11/05/1-导入数据到Hive/1_scp_file.png" alt=""></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2 将数据文件直接导入到HDFS文件系统</span><br><span class="line">hdfs dfs -put file_name</span><br></pre></td></tr></table></figure>
-<p><img src="/2018/11/05/1-导入数据到Hive/2_put_file.png" alt=""></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">3 创建相应的表,指定数据路径</span><br><span class="line"></span><br><span class="line">创建数据库:</span><br><span class="line">CREATE DATABASE IF NOT EXISTS AdventureWorksDW;</span><br><span class="line">由于使用的Hadoop是分布式配置模式，</span><br><span class="line">&lt;property&gt; </span><br><span class="line">      &lt;name&gt;hive.metastore.warehouse.dir&lt;/name&gt;   </span><br><span class="line">      &lt;value&gt;/apps/hive/warehouse&lt;/value&gt; </span><br><span class="line">&lt;/property&gt;</span><br></pre></td></tr></table></figure>
-<p><img src="/2018/11/05/1-导入数据到Hive/4_db_position.png" alt=""></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/11/05/1-导入数据到Hive/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/06/4概率计算/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="LYJ__hi@163.com">
-      <meta itemprop="description" content="知道了书的结尾，才会明白书的开头">
-      <meta itemprop="image" content="/images/fly.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="IT杂文-大数据、Python">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/06/4概率计算/" itemprop="url">
-                  4概率计算
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-02-06 17:02:20" itemprop="dateCreated datePublished" datetime="2019-02-06T17:02:20+08:00">2019-02-06</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020-02-03 13:59:54" itemprop="dateModified" datetime="2020-02-03T13:59:54+08:00">2020-02-03</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2>概率计算</h2>
-
-<h3>相关概念</h3>
-
-<ul>
-<li>随机现象：在一定条件下，并不总是出现相同结果的现象。</li>
-<li>随机试验：可以重复的随机现象。</li>
-<li>基本结果：随机现象最简单的结果，是统计中的抽样的基本单元，故也称为样本点。</li>
-<li>基本空间：随机现象所有基本结果的全体。</li>
-<li>随机事件：某些基本结果组成的集合称为随机事件。</li>
-<li>必然事件和不可能事件：一定会发生的时间和不可能发生的事件。</li>
-<li><p>维恩图：可以用来表示在基本空间中的事件关系的椭圆形图，较直观。</p>
-</li>
-<li><p>事件的包含关系：<br>  事件A的任意结果都在事件B中，B包含A，使用符号 A⊂B，注意开口方向。<br><img src="/2019/02/06/4概率计算/4_1_include.png" alt=""><br>$$<br>  A \subset B<br>$$</p>
-</li>
-<li><p>事件相等 : 事件A中的任意结果都在B中，而B中的任意结果也都在A中 A = B</p>
-</li>
-<li>事件互斥 : 事件A和B没有相同的结果</li></ul>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/02/06/4概率计算/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2128,7 +2137,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">61</span>
+                    <span class="site-state-item-count">63</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2145,9 +2154,7 @@
                     
                       
                     
-                      
-                    
-                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-count">2</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>

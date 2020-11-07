@@ -319,6 +319,364 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/04/Python-Pig的整合/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LYJ__hi@163.com">
+      <meta itemprop="description" content="知道了书的结尾，才会明白书的开头">
+      <meta itemprop="image" content="/images/fly.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="IT杂文-大数据、Python">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/02/04/Python-Pig的整合/" itemprop="url">
+                  Python-Pig的整合
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-02-04 16:46:12" itemprop="dateCreated datePublished" datetime="2020-02-04T16:46:12+08:00">2020-02-04</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-11-07 16:21:59" itemprop="dateModified" datetime="2020-11-07T16:21:59+08:00">2020-11-07</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Tec/" itemprop="url" rel="index"><span itemprop="name">Tec</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>书籍&lt;&lt;Python大数据分析从入门到精通&gt;&gt;<br>更多信息请关注本书附书代码:<a href="https://github.com/Shadow-Hunter-X/python_practice_stepbystep" target="_blank" rel="noopener">附书代码Github工程:https://github.com/Shadow-Hunter-X</a> </p>
+<p>接下来节选Python Pig UDF函数的操作。<br>Pig和Hadoop都是Java编写的。Java也是编写UDF的原生语言，但通过Java进行编写需要通过编译打包成Jar包后进行部署，过程是很繁琐的。但通过Python编写UDF是很方便快捷的，至少在功能测试阶段是这样很方便</p>
+<h2 id="pig-util模块说明"><a href="#pig-util模块说明" class="headerlink" title="pig_util模块说明"></a>pig_util模块说明</h2><p>对于pig_util模块可以去安装Pig的目录下获取。Hello World例子，大家应该都会感觉很亲切，所以先以Hello World程序开始说明。在这个Hello World例子中只是单纯的输出数据，并没有使用Pig传递的数据。</p>
+<ul>
+<li>编写python脚本，脚本名为hello_world.py。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pig_util <span class="keyword">import</span> outputSchema    </span><br><span class="line"><span class="meta">@outputSchema('word:chararray')	    # 使用outputSchema装饰器</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello_world</span><span class="params">()</span>:</span></span><br><span class="line"><span class="keyword">return</span> <span class="string">"hello world"</span></span><br><span class="line">（<span class="number">2</span>）进入Grunt中调用Hello World UDF。</span><br><span class="line">(base) root@test_data<span class="comment"># pig -x local</span></span><br><span class="line">-- <span class="number">1</span>注册Python脚本，通过输出的的信息，判断成功的注册Python脚本</span><br><span class="line">grunt&gt; REGISTER /home/hadoop/test_data/hello_world.py using streaming_python <span class="keyword">as</span> hello_udf ;  </span><br><span class="line">-- <span class="number">2</span>加载数据</span><br><span class="line">grunt&gt; movies_data = load <span class="string">'/home/hadoop/test_data/movies.csv'</span> using PigStorage(<span class="string">','</span>) <span class="keyword">as</span> (movieId:chararray, title:chararray, genres:chararray) ;</span><br><span class="line">grunt&gt; movies_10 = LIMIT movies_data <span class="number">10</span> ;</span><br><span class="line">-- <span class="number">3</span>调用Python的udf</span><br><span class="line">grunt&gt; movies_10_hello = FOREACH movies_10 GENERATE hello_udf.hello_world() ;</span><br><span class="line">grunt&gt; dump movies_10_hello ;     -- 输出<span class="number">10</span>个hello world,如下所示</span><br><span class="line"><span class="number">2019</span><span class="number">-09</span><span class="number">-26</span> <span class="number">20</span>:<span class="number">10</span>:<span class="number">45</span>,<span class="number">505</span> [MainThread] INFO  org.apache.pig.backend.hadoop.executionengine.util.MapRedUtil - Total input paths to process : <span class="number">1</span></span><br><span class="line">(hello world)</span><br><span class="line">(hello world)</span><br><span class="line">(hello world)</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2020/02/04/Python-Pig的整合/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/04/HBase-SQL的使用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LYJ__hi@163.com">
+      <meta itemprop="description" content="知道了书的结尾，才会明白书的开头">
+      <meta itemprop="image" content="/images/fly.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="IT杂文-大数据、Python">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/02/04/HBase-SQL的使用/" itemprop="url">
+                  HBase-SQL的使用
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-02-04 16:21:31 / 修改时间：17:13:36" itemprop="dateCreated datePublished" datetime="2020-02-04T16:21:31+08:00">2020-02-04</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Tec/" itemprop="url" rel="index"><span itemprop="name">Tec</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>书籍&lt;&lt;Python在大数据平台的应用&gt;&gt;<br>更多信息请关注本书附书代码:<a href="https://github.com/Shadow-Hunter-X/python_practice_stepbystep" target="_blank" rel="noopener">附书代码Github工程:https://github.com/Shadow-Hunter-X</a></p>
+<p>接下来节选，HBase安装和使用Phoenix SQL操作的说明。<br>HBase是一个分布式的，面向列的开源数据库。HBase在Hadoop之上提供了类似于Google Bigtable的能力。HBase不同于一般的关系数据库，它是一个适合于非结构化数据存储的数据库，其下载地址:<a href="http://archive.apache.org/dist/hbase/。" target="_blank" rel="noopener">http://archive.apache.org/dist/hbase/。</a></p>
+<h2 id="安装HBase"><a href="#安装HBase" class="headerlink" title="安装HBase"></a>安装HBase</h2><ul>
+<li><p>下载HBase压缩包，拷贝到/usr下并解压缩。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf hbase-1.2.2-bin.tar.gz –C ./</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在/etc/profile文件中添加配置信息。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export HBASE_HOME=/usr/hbase-1.2.2</span><br><span class="line">export PATH=$PATH:$HBASE_HOME/bin:$HBASE_HOME</span><br><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>HBase的配置文件../conf/hbase-env.sh。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_HOME=/usr/jvm	</span><br><span class="line">export HBASE_MANAGES_ZK=true     #是否使用自带的zookeeper</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改HBase的配置文件/conf/hbase-site.xml。<br>配置中以最小配置为准则，即只配置了数据存放地址。且为本地运行，但这样不影响后面章节使用Python库连接操作HBase的演示。</p>
+<property><br><name>hbase.rootdir</name>  #设置数据存放的位置<br>   <value>file:///usr/hbase-1.2.2/tmp_data</value><br></property>
+
+</li>
+</ul>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2020/02/04/HBase-SQL的使用/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/04/pyspark类库总结/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -581,7 +939,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-02-04 14:48:33" itemprop="dateModified" datetime="2020-02-04T14:48:33+08:00">2020-02-04</time>
+                <time title="修改时间：2020-11-07 16:21:33" itemprop="dateModified" datetime="2020-11-07T16:21:33+08:00">2020-11-07</time>
               
             
           </span>
@@ -633,7 +991,7 @@
 
       
         
-          <p>书籍&lt;&lt;Python在大数据平台的应用&gt;&gt;<br>更多信息请关注本书附书代码:<a href="https://github.com/Shadow-Hunter-X/python_practice_stepbystep" target="_blank" rel="noopener">附书代码Github工程:https://github.com/Shadow-Hunter-X</a></p>
+          <p>书籍&lt;&lt;Python大数据分析从入门到精通&gt;&gt;<br>更多信息请关注本书附书代码:<a href="https://github.com/Shadow-Hunter-X/python_practice_stepbystep" target="_blank" rel="noopener">附书代码Github工程:https://github.com/Shadow-Hunter-X</a></p>
 <h3 id="变量的类型"><a href="#变量的类型" class="headerlink" title="变量的类型"></a>变量的类型</h3><ul>
 <li><p>类别数据（定性数据）<br>数据被划分为各种类别，用以描述某类的性质户特征，因此也称为定性数据。对于类别数据不要将其理解为数字。（如甜品的种类）。</p>
 </li>
@@ -817,7 +1175,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-02-04 14:48:44" itemprop="dateModified" datetime="2020-02-04T14:48:44+08:00">2020-02-04</time>
+                <time title="修改时间：2020-11-07 16:21:47" itemprop="dateModified" datetime="2020-11-07T16:21:47+08:00">2020-11-07</time>
               
             
           </span>
@@ -869,7 +1227,7 @@
 
       
         
-          <p>书籍&lt;&lt;Python在大数据平台的应用&gt;&gt;<br>更多信息请关注本书附书代码:<a href="https://github.com/Shadow-Hunter-X/python_practice_stepbystep" target="_blank" rel="noopener">附书代码Github工程:https://github.com/Shadow-Hunter-X</a></p>
+          <p>书籍&lt;&lt;Python大数据分析从入门到精通&gt;&gt;<br>更多信息请关注本书附书代码:<a href="https://github.com/Shadow-Hunter-X/python_practice_stepbystep" target="_blank" rel="noopener">附书代码Github工程:https://github.com/Shadow-Hunter-X</a></p>
 <h2 id="无督导学习"><a href="#无督导学习" class="headerlink" title="无督导学习"></a>无督导学习</h2><p>前面介绍的几种机器学习算法都是监督机器的学习,在已知目标变量或标签的位置,我们试图预测基于输入特性的输出。<br>无监督学习是不同的一种没有标记数据的感觉,我们不会试图预测任何输出因此,但试图找到有趣的模式,并提出<br>数据中的组,类似的值被组合在一起。</p>
 <p><strong>主要的方法</strong></p>
 <ul>
@@ -1038,7 +1396,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-02-04 14:48:27" itemprop="dateModified" datetime="2020-02-04T14:48:27+08:00">2020-02-04</time>
+                <time title="修改时间：2020-11-07 16:21:20" itemprop="dateModified" datetime="2020-11-07T16:21:20+08:00">2020-11-07</time>
               
             
           </span>
@@ -1090,7 +1448,7 @@
 
       
         
-          <p>书籍&lt;&lt;Python在大数据平台的应用&gt;&gt;<br>更多信息请关注本书附书代码:<a href="https://github.com/Shadow-Hunter-X/python_practice_stepbystep" target="_blank" rel="noopener">附书代码Github工程:https://github.com/Shadow-Hunter-X</a></p>
+          <p>书籍&lt;&lt;Python大数据分析从入门到精通&gt;&gt;<br>更多信息请关注本书附书代码:<a href="https://github.com/Shadow-Hunter-X/python_practice_stepbystep" target="_blank" rel="noopener">附书代码Github工程:https://github.com/Shadow-Hunter-X</a></p>
 <h2 id="信息熵-熵的计算"><a href="#信息熵-熵的计算" class="headerlink" title="信息熵-熵的计算"></a>信息熵-熵的计算</h2><ul>
 <li>信息熵：常被用来作为一个系统的信息含量的量化指标，从而可以进一步用来作为系统方程优化的目标或者参数选择的判据,<pre><code>可以作为一个系统复杂程度的度量，如果系统越复杂，出现不同情况的种类越多，那么他的信息熵是比较大的。
 </code></pre></li>
@@ -1352,7 +1710,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-02-04 14:49:00" itemprop="dateModified" datetime="2020-02-04T14:49:00+08:00">2020-02-04</time>
+                <time title="修改时间：2020-11-07 16:20:21" itemprop="dateModified" datetime="2020-11-07T16:20:21+08:00">2020-11-07</time>
               
             
           </span>
@@ -1404,7 +1762,7 @@
 
       
         
-          <p>书籍&lt;&lt;Python在大数据平台的应用&gt;&gt;<br>更多信息请关注本书附书代码:<a href="https://github.com/Shadow-Hunter-X/python_practice_stepbystep" target="_blank" rel="noopener">附书代码Github工程:https://github.com/Shadow-Hunter-X</a></p>
+          <p>书籍&lt;&lt;Python大数据分析从入门到精通&gt;&gt;<br>更多信息请关注本书附书代码:<a href="https://github.com/Shadow-Hunter-X/python_practice_stepbystep" target="_blank" rel="noopener">附书代码Github工程:https://github.com/Shadow-Hunter-X</a></p>
 <h2 id="推荐系统"><a href="#推荐系统" class="headerlink" title="推荐系统"></a>推荐系统</h2><p>自动推荐内容或产品以个性化的方式向适当的用户提供,以增强整体体验。推荐系统在术语上非常强大使用海量的数据,学会理解偏好。</p>
 <p>对于PySpark中的“推荐系统”模块 <strong>pyspark.ml.recommendation module</strong><br><a href="http://spark.apache.org/docs/latest/api/python/pyspark.ml.html#module-pyspark.ml.recommendation" target="_blank" rel="noopener">官方文档链接：api/python/pyspark.ml.html#module-pyspark.ml.recommendation</a></p>
 <h2 id="spark-推荐系统的ALS-算法"><a href="#spark-推荐系统的ALS-算法" class="headerlink" title="spark 推荐系统的ALS 算法"></a>spark 推荐系统的ALS 算法</h2><ul>
@@ -2043,440 +2401,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/23/Data-Vault-数据仓库模型构建-1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="LYJ__hi@163.com">
-      <meta itemprop="description" content="知道了书的结尾，才会明白书的开头">
-      <meta itemprop="image" content="/images/fly.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="IT杂文-大数据、Python">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/23/Data-Vault-数据仓库模型构建-1/" itemprop="url">
-                  Data Vault 数据仓库模型构建-1
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-02-23 14:39:15" itemprop="dateCreated datePublished" datetime="2019-02-23T14:39:15+08:00">2019-02-23</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020-02-03 14:39:19" itemprop="dateModified" datetime="2020-02-03T14:39:19+08:00">2020-02-03</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Tec/" itemprop="url" rel="index"><span itemprop="name">Tec</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="关于Data-Vault数据模型"><a href="#关于Data-Vault数据模型" class="headerlink" title="关于Data Vault数据模型"></a>关于Data Vault数据模型</h3><ul>
-<li><p>Data Vault是一种数据仓库建模方法，用来存储来自多个操作型系统的完整的历史数据。 </p>
-</li>
-<li><p>Data Vault方法需要跟踪所有数据的来源，因此其中每个数据行都要包含数据来源和装载时间属性， 用以审计和跟踪数据值所对应的源系统。 </p>
-</li>
-<li><p>Data Vault不区分数据在业务层面的正确与错误， 它保留操作型系统的所有时间的所有数据， 装载数据时不做数据验证、清洗等工作， 这点明显有别于其他数据仓库建模方法。 </p>
-</li>
-<li><p>Data Vault建模方法显式地将结构信息和属性信息分离， 能够还原业务环境的变化。 Data Vault允许并行数据装载，不需要重新设计就可以实现扩展。</p>
-</li>
-</ul>
-<p>Data Vault是面向细节的，可追踪历史的，一组有连接关系的规范化的表的集合。 这些表可以支持一个或多个业务功能。<br>它是一种综合了第三范式（3NF）和星型模型优点的建模方法。<br>其设计理念是要满足企业对灵活性、 可扩展性、 一致性和对需求的适应性要求， 是一种专为企业级数据仓库量身定制的建模方式</p>
-<h3 id="Data-Vault-模型各类表说明"><a href="#Data-Vault-模型各类表说明" class="headerlink" title="Data Vault 模型各类表说明"></a>Data Vault 模型各类表说明</h3><p>对于Data Vault主要分为3种类型的表：中心表，链接表，卫星表（附属表）。</p>
-<h4 id="中心表"><a href="#中心表" class="headerlink" title="中心表"></a>中心表</h4><p>对于构建Data Vault模型的，第一件事就是构建中心表，中心表示DV模型中的核心。如果设计得当，将可以兼容整合各种数据源。<br>为了达到这点，就应该假设系统源是不可知的，所以中心表应该依赖于实际的业务逻辑标识，而不是使用代理键。</p>
-<p>中心表的表结构：</p>
-<table>
-<thead>
-<tr>
-<th>字段</th>
-<th style="text-align:left">说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>hub_key</td>
-<td style="text-align:left">代理主键，通过对业务主键进行MD5计算所得</td>
-</tr>
-<tr>
-<td>business_key</td>
-<td style="text-align:left">业务主键,唯一标识业务主键，来之源系统</td>
-</tr>
-<tr>
-<td>load_dts</td>
-<td style="text-align:left">数据第一次转载的时间,只记录第一次转载时间</td>
-</tr>
-<tr>
-<td>rec_src</td>
-<td style="text-align:left">数据源系统</td>
-</tr>
-</tbody>
-</table>
-<h4 id="链接表"><a href="#链接表" class="headerlink" title="链接表"></a>链接表</h4><p>链接表的目的是为了灵活性和易扩展，通过链接表可以在不改变原有的构架和转载条件下进行扩展。在Data Vault模型中所有的<br>关系和事件都是通过链接表来表示。在DV模型中，中心表没有外键，对于中心表间的连接是通过链接表。所以连接表至少要有两个<br>父中心表。</p>
-<p>链接表表结构：</p>
-<table>
-<thead>
-<tr>
-<th>字段</th>
-<th style="text-align:left">说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>link_key</td>
-<td style="text-align:left">代理主键，使用相关的父Hub表的业务主键拼接后计算MD5值</td>
-</tr>
-<tr>
-<td>hub_keys</td>
-<td style="text-align:left">hubs的代理键</td>
-</tr>
-<tr>
-<td>hub_business_keys</td>
-<td style="text-align:left">hubs的业务主键</td>
-</tr>
-<tr>
-<td>load_dts</td>
-<td style="text-align:left">第一次装载数据的时间</td>
-</tr>
-<tr>
-<td>rec_src</td>
-<td style="text-align:left">源系统信息</td>
-</tr>
-</tbody>
-</table>
-<h4 id="卫星表（附属表）"><a href="#卫星表（附属表）" class="headerlink" title="卫星表（附属表）"></a>卫星表（附属表）</h4><p>卫星表示所有的原始数据系统，在这个表中也捕获数据的变化，所以这种表有点像维度模型中的渐变维度表。<br>一个附属表总有一个且唯一一个外键引用到中心表或链接表。</p>
-<table>
-<thead>
-<tr>
-<th>字段</th>
-<th style="text-align:left">说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>sta_key</td>
-<td style="text-align:left">代理主键，相关的hub或link表的主键和数据载入时间的MD5值</td>
-</tr>
-</tbody>
-</table>
-<p>HASHBYTES(‘MD5’,[CustomerID]+[CompanyName])</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/12/8-Hive调优/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="LYJ__hi@163.com">
-      <meta itemprop="description" content="知道了书的结尾，才会明白书的开头">
-      <meta itemprop="image" content="/images/fly.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="IT杂文-大数据、Python">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/12/8-Hive调优/" itemprop="url">
-                  8-Hive调优
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-12-12 11:25:41" itemprop="dateCreated datePublished" datetime="2018-12-12T11:25:41+08:00">2018-12-12</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020-02-03 14:00:39" itemprop="dateModified" datetime="2020-02-03T14:00:39+08:00">2020-02-03</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Tec/" itemprop="url" rel="index"><span itemprop="name">Tec</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="技术-1：使用TEZ"><a href="#技术-1：使用TEZ" class="headerlink" title="技术#1：使用TEZ"></a>技术#1：使用TEZ</h2><p>Hive可以使用Apache Tez执行引擎而不是Map-reduce引擎。不会详细介绍这里提到的使用Tez的许多好处; 相反，提出一个简单的建议：如果在您的环境中默认情况下没有打开它，请在Hive查询的开头使用Tez设置为“true”</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set hive.execution.engine=tez;</span><br></pre></td></tr></table></figure>
-<h2 id="技术-2：使用ORCFILE"><a href="#技术-2：使用ORCFILE" class="headerlink" title="技术#2：使用ORCFILE"></a>技术#2：使用ORCFILE</h2><p>Hive支持ORCfile，这是一种新的表存储格式，通过谓词下推，压缩等技术实现极佳的速度提升。<br>对每个HIVE表使用ORCFile应该是一个明智的选择，对于获得HIVE查询的快速响应时间非常有益。<br>作为一个例子，考虑两个大表A和B（存储为文本文件，这里没有指定一些列），以及一个简单的查询 :</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SELECT A.customerID, A.name, A.age, A.address join</span><br><span class="line">B.role, B.department, B.salary</span><br><span class="line">ON A.customerID=B.customerID;</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/12/12/8-Hive调优/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2528,7 +2452,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">61</span>
+                    <span class="site-state-item-count">63</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2545,9 +2469,7 @@
                     
                       
                     
-                      
-                    
-                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-count">2</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>

@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.4.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.4.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="本文档为&amp;lt;&amp;lt;Python大数据分析从入门到精通&amp;gt;&amp;gt;的配套的视频教程。   讲解方式和原则：简单的分步式讲解 ; 侧重点为对大数据平台熟悉，并能使用相关的工具 ; 熟悉即可配套图书进行自主学习。   Windows环境安装 Spark环境：相关的章节 :  第二章中 2.2 安装 Spark 环境（Windows）；后续章节中的相关示例。  下载必要的安装包 (到对应的URL">
+<meta name="keywords" content="BigData">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python大数据分析从入门到精通">
+<meta property="og:url" content="http://yoursite.com/2020/07/06/Python大数据分析从入门到精通/index.html">
+<meta property="og:site_name" content="IT杂文-大数据、Python">
+<meta property="og:description" content="本文档为&amp;lt;&amp;lt;Python大数据分析从入门到精通&amp;gt;&amp;gt;的配套的视频教程。   讲解方式和原则：简单的分步式讲解 ; 侧重点为对大数据平台熟悉，并能使用相关的工具 ; 熟悉即可配套图书进行自主学习。   Windows环境安装 Spark环境：相关的章节 :  第二章中 2.2 安装 Spark 环境（Windows）；后续章节中的相关示例。  下载必要的安装包 (到对应的URL">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2020/07/06/Python大数据分析从入门到精通/">
+<meta property="og:updated_time" content="2020-11-07T14:08:03.108Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python大数据分析从入门到精通">
+<meta name="twitter:description" content="本文档为&amp;lt;&amp;lt;Python大数据分析从入门到精通&amp;gt;&amp;gt;的配套的视频教程。   讲解方式和原则：简单的分步式讲解 ; 侧重点为对大数据平台熟悉，并能使用相关的工具 ; 熟悉即可配套图书进行自主学习。   Windows环境安装 Spark环境：相关的章节 :  第二章中 2.2 安装 Spark 环境（Windows）；后续章节中的相关示例。  下载必要的安装包 (到对应的URL">
+<meta name="twitter:image" content="http://yoursite.com/2020/07/06/Python大数据分析从入门到精通/">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/07/06/Python大数据分析从入门到精通/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Python大数据分析从入门到精通 | IT杂文-大数据、Python</title>
+  
+
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?0a1c584f1b6f1f91344a2a4d65406eff";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">IT杂文-大数据、Python</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">人能做他想做的，但不能要他想要的</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/06/Python大数据分析从入门到精通/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LYJ__hi@163.com">
+      <meta itemprop="description" content="知道了书的结尾，才会明白书的开头">
+      <meta itemprop="image" content="/images/fly.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="IT杂文-大数据、Python">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Python大数据分析从入门到精通
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-07-06 12:18:27" itemprop="dateCreated datePublished" datetime="2020-07-06T12:18:27+08:00">2020-07-06</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-11-07 22:08:03" itemprop="dateModified" datetime="2020-11-07T22:08:03+08:00">2020-11-07</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/07/06/Python大数据分析从入门到精通/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count gitment-comments-count" data-xid="/2020/07/06/Python大数据分析从入门到精通/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><strong>本文档为&lt;&lt;Python大数据分析从入门到精通&gt;&gt;的配套的视频教程。</strong></p>
+<blockquote>
+<blockquote>
+<p>讲解方式和原则：简单的分步式讲解 ; 侧重点为对大数据平台熟悉，并能使用相关的工具 ; 熟悉即可配套图书进行自主学习。</p>
+</blockquote>
+</blockquote>
+<h2 id="Windows环境安装-Spark环境："><a href="#Windows环境安装-Spark环境：" class="headerlink" title="Windows环境安装 Spark环境："></a>Windows环境安装 Spark环境：</h2><pre><code>相关的章节 :  第二章中 2.2 安装 Spark 环境（Windows）；后续章节中的相关示例。 
+</code></pre><h3 id="下载必要的安装包-到对应的URL下进行下载"><a href="#下载必要的安装包-到对应的URL下进行下载" class="headerlink" title="下载必要的安装包 (到对应的URL下进行下载)"></a>下载必要的安装包 (到对应的URL下进行下载)</h3><ul>
+<li><p>下载Java进行安装，先到 <a href="https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html" target="_blank" rel="noopener">https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html</a> 下载JDK 8<br>下载完毕后，双击安装即可</p>
+</li>
+<li><p>到<a href="http://spark.apache.org/downloads.html" target="_blank" rel="noopener">http://spark.apache.org/downloads.html</a> 中下载Spark</p>
+</li>
+<li><p>如果无法打开，可在国内镜像源下载，如清华大学镜像：<a href="https://mirrors.tuna.tsinghua.edu.cn/" target="_blank" rel="noopener">https://mirrors.tuna.tsinghua.edu.cn/</a></p>
+</li>
+<li><p>到<a href="https://github.com/steveloughran/winutils/" target="_blank" rel="noopener">https://github.com/steveloughran/winutils/</a> 下载对应Spark版本的 winutils.exe（Windows中的Hadoop编译版本）。</p>
+</li>
+<li><p>解压下载的Spark压缩包，并将下载的winutils.exe拷贝到解压目录下的bin目录下</p>
+</li>
+<li><p>配置Spark的环境变量,为能方便使用 </p>
+</li>
+</ul>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">spark-shell.cmd      # 开启spark shell,在开启页面提示下的地址可以访问<span class="type">Spark</span> <span class="type">UI</span> </span><br><span class="line"><span class="keyword">val</span> num = <span class="type">Array</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">10</span>)  <span class="comment">//通过集合创建RDD</span></span><br><span class="line"><span class="keyword">val</span> newRDD = no.map(num =&gt; (num * <span class="number">2</span>))           <span class="comment">//通过已有RDD创建</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> data=sc.textFile(<span class="string">"D:/spark.txt"</span>)    <span class="comment">//从文件读取数据创建RDD</span></span><br><span class="line">data.count()			    <span class="comment">//元素统计</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> contextdata = data.filter(line =&gt; line.contains(<span class="string">"sparkcontext"</span>))  <span class="comment">// 过滤操作</span></span><br><span class="line"></span><br><span class="line">data.first()</span><br></pre></td></tr></table></figure>
+<p>在验证成功的好Spark后，进行安装PySpark。<br><a id="more"></a></p>
+<h3 id="安装Anaconda，并安装PySpark库-–"><a href="#安装Anaconda，并安装PySpark库-–" class="headerlink" title="安装Anaconda，并安装PySpark库 –"></a>安装Anaconda，并安装PySpark库 –</h3><ul>
+<li><p>到<a href="https://www.anaconda.com/products/individual" target="_blank" rel="noopener">https://www.anaconda.com/products/individual</a> 下载Windows平台的安装包。 </p>
+</li>
+<li><p>双击下载的安装包,选择对应的安装目录即可</p>
+</li>
+<li><p>下载完毕后，安装PySpark：打开Anaconda –&gt; 左侧的Environments选项 –&gt; 右侧输入框：PySpark ，范围选择All –&gt; PySpark项 进行安装。</p>
+<p>一些其他的工具的安装：如使用vscode。<br>特别说明：针对一些无法找到的Python包，使用conda命令进行安装，操作方法使用bing或google按：conda和Python包名为关键字进行搜索。(一般是前几个)<br>然后使用Anaconda Powershell，输入安装的命令即可。</p>
+</li>
+</ul>
+<h3 id="验证完毕后的验证使用"><a href="#验证完毕后的验证使用" class="headerlink" title="验证完毕后的验证使用"></a>验证完毕后的验证使用</h3><ul>
+<li><p>在windows上打开pyspark时，会自动跳转到Jupyter notebook上。然后输入一些代码进行验证安装成功，在这里使用官方提供的Word Count例子进行演示</p>
+</li>
+<li><p>使用一个例子：word count 进行说明</p>
+</li>
+</ul>
+<h2 id="安装HDP大数据环境"><a href="#安装HDP大数据环境" class="headerlink" title="安装HDP大数据环境"></a>安装HDP大数据环境</h2><pre><code>相关的章节 : 第二章 2.1 安装HDP SandBox ；后续章节相关实例使用。
+</code></pre><h3 id="下载必要的安装包-到对应的URL下进行下载-–-演示"><a href="#下载必要的安装包-到对应的URL下进行下载-–-演示" class="headerlink" title="下载必要的安装包 (到对应的URL下进行下载)  – 演示"></a>下载必要的安装包 (到对应的URL下进行下载)  – 演示</h3><p>HDP是完整的大数据数据平台，提供很多便利性和灵活性。并提供了HDP SandBox供学习使用，接下来将对HDP的下载安装和操作进行说明。</p>
+<ul>
+<li><p>到<a href="https://www.cloudera.com/downloads/hortonworks-sandbox/hdp.html" target="_blank" rel="noopener">https://www.cloudera.com/downloads/hortonworks-sandbox/hdp.html</a> 下载HDP SandBox。 由于整个虚拟文件很大，下载时间可能很久。</p>
+</li>
+<li><p>在下载完毕后，导入到对应的虚拟环境中使用，操作过程如下（演示通过vmware导入的操作）</p>
+</li>
+<li><p>在执行导入操作后，开启虚拟机使用，针对不同的虚拟机环境只是地址不同，进行简单的演示</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>账号</th>
+<th>角色</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Admin</td>
+<td>系统管理员</td>
+</tr>
+<tr>
+<td>maria_dev</td>
+<td>负责准备并从数据中获取洞察力。用于探索不同的HDP组件如Hive、Pig、HBase</td>
+</tr>
+<tr>
+<td>raj_ops</td>
+<td>负责基础设施建设，研究和开发活动。如设计、安装、配置和管理</td>
+</tr>
+<tr>
+<td>holger_gov</td>
+<td>主要用于管理数据元素，包括内容和元数据</td>
+</tr>
+<tr>
+<td>amy_ds</td>
+<td>使用Hive、Spark、Zeppelin进行探索性数据分析</td>
+</tr>
+</tbody>
+</table>
+<h3 id="HDP大数据平台的使用"><a href="#HDP大数据平台的使用" class="headerlink" title="HDP大数据平台的使用"></a>HDP大数据平台的使用</h3><pre><code>相关的章节 : 第二章 2.1 自安装大数据环境 ； 后续章节相关实例使用。
+</code></pre><ul>
+<li><p>Web Shell 的使用<br>用root登录到SandBox（默认密码为hadoop），初次登录后需要修改root密码</p>
+</li>
+<li><p>修改admin密码，admin的初始密码也为admin<br>ambari-admin-password-reset</p>
+</li>
+<li><p>操作的演示<br> 查看HDP大数据环境的安装目录：/usr/hdp/2.6.5 **  ；</p>
+<p> 在这里就直接可以进行对大数据平台操作，如对Hive的操作演示 ;</p>
+<p> 将文件上传到HDFS，然后使用HDFS命令的演示</p>
+</li>
+<li><p>演示通过git bash（Power shell也可以）进行向HDP中导入文件操作 </p>
+</li>
+</ul>
+<p>上传文件操作：<br>  scp -P 2222 &lt;local_directory_file&gt; <a href="mailto:root@sandbox-hdp.hortonworks.com" target="_blank" rel="noopener">root@sandbox-hdp.hortonworks.com</a>:&lt;sandbox_directory_file&gt;<br>  例子： scp.exe -P 2222 license <a href="mailto:root@192.168.168.139" target="_blank" rel="noopener">root@192.168.168.139</a>:/root/</p>
+<ul>
+<li>ssh 登录(未安装在Windows上安装SSH)<br>ssh <a href="mailto:root@192.168.168.139" target="_blank" rel="noopener">root@192.168.168.139</a> -p 2222</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -put license /tmp</span><br><span class="line"></span><br><span class="line">hdfs dfs -cat license /tmp/license</span><br></pre></td></tr></table></figure>
+<p>演示使用，PySpark的WordCount 示例<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">sc.parallelize([0, 2, 3, 4, 6], 5).glom().collect()</span><br><span class="line"></span><br><span class="line">textFile = sc.textFile(&apos;/root/Main.py&apos;)</span><br><span class="line"></span><br><span class="line">type(textFile)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#hdfs://sandbox-hdp.hortonworks.com:8020/</span><br><span class="line">from operator import add</span><br><span class="line"></span><br><span class="line">lines = spark.read.text(&apos;hdfs://sandbox-hdp.hortonworks.com:8020/tmp/license&apos;).rdd.map(lambda r: r[0])</span><br><span class="line"></span><br><span class="line">counts = lines.flatMap(lambda x: x.split(&apos; &apos;)) \</span><br><span class="line">                  .map(lambda x: (x, 1)) \</span><br><span class="line">                  .reduceByKey(add)</span><br><span class="line"></span><br><span class="line">output = counts.collect()</span><br><span class="line">for (word, count) in output:</span><br><span class="line">    print(&quot;%s: %i&quot; % (word, count))</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><p>Ambari的管理操作</p>
+<p>使用Files View<br>导航到Files View，查看界面，并介绍账号的作用，然后上传文件。后续对Hive View中对这个文件构建一张Hive表。</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>账号</th>
+<th>角色</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Admin</td>
+<td>系统管理员</td>
+</tr>
+<tr>
+<td>maria_dev</td>
+<td>负责准备并从数据中获取洞察力。用于探索不同的HDP组件如Hive、Pig、HBase</td>
+</tr>
+<tr>
+<td>raj_ops</td>
+<td>负责基础设施建设，研究和开发活动。如设计、安装、配置和管理</td>
+</tr>
+<tr>
+<td>holger_gov</td>
+<td>主要用于管理数据元素，包括内容和元数据</td>
+</tr>
+<tr>
+<td>amy_ds</td>
+<td>使用Hive、Spark、Zeppelin进行探索性数据分析</td>
+</tr>
+</tbody>
+</table>
+<p>  使用Hive View  2<br>  导航到Hive View 2 ; 进行查询查询操作;并构建一张表 。 </p>
+<p>  后续对Zeppelin、SuperSet等说明</p>
+<h2 id="自安装大数据环境"><a href="#自安装大数据环境" class="headerlink" title="自安装大数据环境"></a>自安装大数据环境</h2><pre><code>相关的章节：第二章 2.3节； 后续章节相关实例使用。
+</code></pre><p>对于要下载的安装包，可在本书附录中说明的地址下载。或是参考在Windows安装Spark时说明的清华大学镜像地址中下载。</p>
+<p>在演示前，已经将需要的安装包下载好，并存放在/usr/install_package (大家根据自己情况存放到自己目录下)<br>由于事先已经安装好，这里演示安装到其他的目录下。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">sudo passwd root    // 启用root账号</span><br><span class="line"></span><br><span class="line">apt-get install openssh-server   // 安装前最好先更新源： sudo apt-get update</span><br><span class="line"></span><br><span class="line">// 免秘钥登陆配置</span><br><span class="line">cd ~/.ssh/ 		//若没有该目录，请先执行一次ssh localhost</span><br><span class="line">ssh-keygen -t rsa  // 有提示，都按回车就可以</span><br><span class="line">cat ./id_rsa.pub &gt;&gt; ./authorized_keys 	//加入授权</span><br></pre></td></tr></table></figure>
+<ul>
+<li>安装JDK</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">mkdir /usr/BD           // 创建BD目录用来存放安装的大数据软件</span><br><span class="line"></span><br><span class="line">tar -zxvf jdk-8u11-linux-x64.tar.gz -C  ../BD   // 解压到目录</span><br><span class="line"></span><br><span class="line">mv ../BD/jdk1.8.0_11/  ../BD/jvm     // 修改文件夹名</span><br><span class="line"></span><br><span class="line">vi /etc/profile    // 配置profile文件</span><br><span class="line"></span><br><span class="line">// 添加以下的配置信息,按实际的安装环境进行配置</span><br><span class="line">export JAVA_HOME=/usr/jvm</span><br><span class="line">export JRE_HOME=$&#123;JAVA_HOME&#125;/jre</span><br><span class="line">export CLASSPATH=.:$&#123;JAVA_HOME&#125;/lib:$&#123;JRE_HOME&#125;/lib</span><br><span class="line">export PATH=$&#123;JAVA_HOME&#125;/bin:$PATH</span><br><span class="line"></span><br><span class="line">// 配置完毕生效</span><br><span class="line">source /etc/profile</span><br><span class="line">java -version</span><br></pre></td></tr></table></figure>
+<ul>
+<li>安装Anaconda </li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">bash Anaconda2-2019.07-Linux-x86_64.sh</span><br><span class="line"></span><br><span class="line">// 成功安装后，会提示是否进行初始化操作：输入yes</span><br><span class="line">In order to continue the installation process, please review the license</span><br><span class="line">agreement.</span><br><span class="line">Please, press ENTER to continue</span><br><span class="line"><span class="meta">&gt;</span>&gt;&gt;</span><br><span class="line">.....</span><br><span class="line"></span><br><span class="line">conda --version     // 验证成功安装</span><br><span class="line"></span><br><span class="line">anaconda-navigator   //开启navigator</span><br><span class="line"></span><br><span class="line">// 用同样的方法安装PySpark</span><br></pre></td></tr></table></figure>
+<ul>
+<li>安装Hadoop </li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">tar --zxvf  hadoop-2.7.6.tar.gz -C ../BD</span><br><span class="line"></span><br><span class="line">// 修改profile</span><br><span class="line">export HADOOP_HOME=/usr/hadoop-2.7.6</span><br><span class="line">export PATH=$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$PATH</span><br><span class="line"></span><br><span class="line">// 配置hadoop-env.sh文件 </span><br><span class="line">export JAVA_HOME=/usr/JVM</span><br><span class="line"></span><br><span class="line">// 配置core-site.xml文件</span><br><span class="line">&lt;configuration&gt;</span><br><span class="line">        &lt;property&gt;</span><br><span class="line">             &lt;name&gt;hadoop.tmp.dir&lt;/name&gt;</span><br><span class="line">             &lt;value&gt;file:/usr/hadoop-2.7.6/tmp&lt;/value&gt;</span><br><span class="line">             &lt;description&gt;Abase for other temporary directories.&lt;/description&gt;</span><br><span class="line">        &lt;/property&gt;</span><br><span class="line">        &lt;property&gt;</span><br><span class="line">             &lt;name&gt;fs.defaultFS&lt;/name&gt;</span><br><span class="line">             &lt;value&gt;hdfs://localhost:9000&lt;/value&gt;</span><br><span class="line">        &lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br><span class="line"></span><br><span class="line">// 配置 hdfs-site.xml</span><br><span class="line">&lt;configuration&gt;</span><br><span class="line">        &lt;property&gt;</span><br><span class="line">             &lt;name&gt;dfs.replication&lt;/name&gt;</span><br><span class="line">             &lt;value&gt;1&lt;/value&gt;</span><br><span class="line">        &lt;/property&gt;</span><br><span class="line">        &lt;property&gt;</span><br><span class="line">             &lt;name&gt;dfs.namenode.name.dir&lt;/name&gt;</span><br><span class="line">             &lt;value&gt;file:/usr/hadoop-2.7.6/tmp/dfs/name&lt;/value&gt;</span><br><span class="line">        &lt;/property&gt;</span><br><span class="line">        &lt;property&gt;</span><br><span class="line">             &lt;name&gt;dfs.datanode.data.dir&lt;/name&gt;</span><br><span class="line">             &lt;value&gt;file:/usr/hadoop-2.7.6/tmp/dfs/data&lt;/value&gt;</span><br><span class="line">        &lt;/property&gt;</span><br><span class="line">	&lt;/configuration&gt;</span><br><span class="line"></span><br><span class="line">// 配置 maped-site.xml </span><br><span class="line">&lt;configuration&gt;</span><br><span class="line">	&lt;property&gt;</span><br><span class="line">		&lt;name&gt;mapreduce.framework.name&lt;/name&gt;</span><br><span class="line">		&lt;value&gt;yarn&lt;/value&gt;</span><br><span class="line">		&lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br><span class="line"></span><br><span class="line">// 配置yarn-site.xml</span><br><span class="line">&lt;property&gt;</span><br><span class="line">		&lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt;</span><br><span class="line">		&lt;value&gt;mapreduce_value&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"></span><br><span class="line">// 格式化操作 </span><br><span class="line">hdfs namenode -format</span><br><span class="line">start-dfs.sh</span><br><span class="line"></span><br><span class="line">// 打开浏览器验证 </span><br><span class="line">http://localhost:50070</span><br></pre></td></tr></table></figure>
+<ul>
+<li>安装Hive </li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf apache-hive-1.2.2-bin.tar.gz ../BD    // #重命名文件夹</span><br><span class="line">mv  ../BD/apache-hive-1.2.2-bin  ../BD/apache-hive-1.2.2</span><br><span class="line"></span><br><span class="line">// profile</span><br><span class="line">export HIVE_HOME=/usr/hive-1.2.2     #配置Hive安装目录地址,依据安装位置进行配置</span><br><span class="line">export PATH=$PATH:$HIVE_HOME/bin:$HIVE_HOME</span><br><span class="line"></span><br><span class="line">source  source/etc/profile   #让修改配置内容立即时效</span><br><span class="line"></span><br><span class="line">CREATE DATABASE testdb;</span><br><span class="line"></span><br><span class="line">use testdb;</span><br><span class="line"></span><br><span class="line">CREATE TABLE iris_data(x1 string , x2 string , x3 string , x4 string , x5 string)</span><br><span class="line">ROW FORMAT DELIMITED</span><br><span class="line">FIELDS TERMINATED BY ','</span><br><span class="line">LINES TERMINATED BY '\n'</span><br><span class="line">STORED AS TEXTFILE;</span><br><span class="line"></span><br><span class="line">// 使用同样的方法将 hdfs dfs -put 将文件iris_dataset.csv上传到HDFS</span><br><span class="line">// hdfs dfs -mkdir /test_data</span><br><span class="line">hdfs dfs -put iris_dataset.csv /test_data/</span><br><span class="line"></span><br><span class="line">LOAD DATA INPATH '/test_data/iris_dataset.csv' OVERWRITE INTO TABLE iris_data ;</span><br><span class="line"></span><br><span class="line"> SELECT * FROM iris_data LIMIT 10</span><br></pre></td></tr></table></figure>
+<ul>
+<li>安装Spark </li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf spark-2.2.0-bin-hadoop2.7.tgz -C ../BD    #将Spark压缩包解压到BD目录</span><br><span class="line"></span><br><span class="line">mv ../BD/spark-2.2.0-bin-hadoop2.7  ../BD/spark-2.2.0  </span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> profile</span><br><span class="line">export SPAKR_HOME=/usr/spark-2.2.0     #配置Spark的安装目录,依据安装位置情况进行配置</span><br><span class="line">export PAHT=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin #配置Spark中可执行文件目录bin</span><br><span class="line"></span><br><span class="line">source  source/etc/profile   #让修改配置内容立即时效</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> /conf/spark-env.sh</span><br><span class="line">JAVA_HOME=/usr/jvm</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 启用spark-shell</span><br><span class="line">spark-shell</span><br></pre></td></tr></table></figure>
+<h2 id="数据导入方式"><a href="#数据导入方式" class="headerlink" title="数据导入方式"></a>数据导入方式</h2><p>相关章节： 第3章<br>接下来对分析数据进行说明， 这些数据应具备一定的代表性， 且有着良好质量的， 通过这些数据能够有效地完成各种分析操作。</p>
+<ul>
+<li><p>MovieLens 电影评分数据<br>下载地址:  <a href="http://files.grouplens.org/datasets/movielens/" target="_blank" rel="noopener">http://files.grouplens.org/datasets/movielens/</a><br>ml-latest-small.zip    2019-12-03 11:14    955K<br>解压查看其中的文件,其中包含 4 个数据文件，将各文件打开查看下：<br>（1） ratings.csv 电影评分数据集， 其中 userId、 movieId、 rating、 timestamp 为数据列， 表示每个用户对每部电影在什么时候的评分。<br>（2） movies.csv 对电影的分类数据集， 其中 movieId、 title、 genres 为数据列， 表示了每部电影的名字和分类。<br>（3） tags.csv 标签文件， 其中 userId、 movieId、 tag、 timestamp 为数据列， 表示每个用户对电影的分类。<br>（4） links.csv 链接信息， 其中 movieId、 imdbId、 tmdbId 为数据列。 它是每个电影的 imdb( 网络电影资料库 ) 和 tmdb( 电影数据库 ) 的关联编号。</p>
+</li>
+<li><p>Iris 鸢尾花卉数据集<br>下载地址：  <a href="http://archive.ics.uci.edu/ml/datasets/iris" target="_blank" rel="noopener">http://archive.ics.uci.edu/ml/datasets/iris</a><br>Iris 数据集是一类多重变量分析的数据集。 它包含 150 个数据样本， 共分为 3 类， 每类有 50 个数据且每条数据包含 4 个属性。</p>
+</li>
+<li><p>Northwind数据<br>下载地址： 本书GitHub工程： <a href="https://github.com/Shadow-Hunter-X/python_practice_stepbystep/tree/master/python-on-bigdata/data" target="_blank" rel="noopener">https://github.com/Shadow-Hunter-X/python_practice_stepbystep/tree/master/python-on-bigdata/data</a><br>其中包含了构建Northwind使用的数据和脚本。</p>
+</li>
+<li><p>导入操作方法：<br>像 Movielens , Iris这样的数据 使用 HDFS 命令将数据上传到HDFS上，并构建对应的Hive表即可，以下在演示一次操作。<br>Windows上的Spark环境直接使用PySpark的API读取这些问题件就可以。</p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// 读取文件操作，填写Windows路径即可。相关的内容在 第九章、第十章讲解数据读取时有详细的介绍</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> pysparkimport SparkContext 		<span class="comment"># 导入 SparkContext</span></span><br><span class="line"><span class="keyword">from</span> pyspark.sql <span class="keyword">import</span> SparkSession 	<span class="comment"># 导入 SparkSession</span></span><br><span class="line">spark=SparkSession.builder.appName(<span class="string">'my_app'</span>).getOrCreate()    <span class="comment"># 创建 SparkSession 对象</span></span><br><span class="line">df=spark.read.csv(<span class="string">'movies.csv'</span>,header=<span class="keyword">True</span>, inferSchema=<span class="keyword">True</span>) <span class="comment"># 读取文件</span></span><br></pre></td></tr></table></figure>
+<p>  针对HDP环境，可进行可视化操作（参考安装HDP那个视频）或使用HDFS命令<br>  自安装大数据平台，使用HDFS命令进行操作</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -mkdir /data_demo </span><br><span class="line">hdfs dfs -put *.csv /data_demo    // 这些上传的文件供Hive，Pig，HBase使用</span><br></pre></td></tr></table></figure>
+<p>  对于Northwind使用对应的脚本构建，处理方法如下：<br>在 Northwind 脚本的压缩包中有 1 个 Hive SQL 和 11个 CSV 数据文件， 其中每个 CSV 文件对应一个表</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -mkdir /northwind          // 在 HDFS 中创建Northwind 文件夹</span><br><span class="line">hdfs dfs -put *.csv /northwind      // 将 CSV 数据文件上传到新创建的文件中</span><br><span class="line">hdfs dfs -ls /northwind             // 查看上传的 CSV 文件</span><br><span class="line">hive -f  1-northwind-hive.sql       // 使用 hive –f 命令调用整个 SQL 脚本</span><br><span class="line">hive -e  "select * from northwind.region limit 3"  //使用 hive –e 查看数据</span><br></pre></td></tr></table></figure>
+<h2 id="HDFS演示操作"><a href="#HDFS演示操作" class="headerlink" title="HDFS演示操作"></a>HDFS演示操作</h2><p>相关章节： 第4章</p>
+<ul>
+<li>首先安装Snakebite</li>
+</ul>
+<p>通过Anaconda进行安装，安装方法和前面介绍安装PySpark的方法相似，演示安装。</p>
+<p>使用命令安装：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda install snakebite</span><br></pre></td></tr></table></figure>
+<ul>
+<li>HDFS命令的介绍和使用演示</li>
+</ul>
+<p>使用 hdfs –help查看有想那些命令，主要是用 dfs 命令<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">hdfs --<span class="built_in">help</span></span><br><span class="line"></span><br><span class="line">使用演示：</span><br><span class="line">hdfs dfs -ls /                //查看 HDFS 根目录下的文件</span><br><span class="line">hdfs dfs -count /test_data    //命令进行统计</span><br><span class="line">hdfs fsck /                   // fsck 命令进行检查</span><br><span class="line"></span><br><span class="line">hdfs dfsadmin -report         // dfsadmin –report 命令获取 HDFS 状态报告</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>Snakebite的使用</li>
+</ul>
+<p>开启Anaconda，使用notebook进行演示。演示一些函数使用，更全面的函数请参考书中说明。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">from snakebite.client import Client # 导入 Snakebite Client</span><br><span class="line">client = Client(&quot;hadoop_env.com&quot;, 9000, use_trash=False) # 连接到 Hadoop，主机名是在 hosts 文件，端口Hadoop中 core-site.xml 文件的配置</span><br><span class="line"></span><br><span class="line">ls_files=client.ls([&apos;/test_data&apos;]) # 查看 test_data 下的文件， ls 函数返回的是一个迭代器</span><br><span class="line"></span><br><span class="line">for x in ls_files:</span><br><span class="line">	print x # 输出 ls 函数返回迭代器中的文件信息 , 结果如下</span><br><span class="line">	</span><br><span class="line">list(client.count([&apos;/&apos;])) # 统计 HDFS 根目录下的文件数量，直接转换为列表显示</span><br><span class="line"></span><br><span class="line">mkdirs=client.mkdir([&apos;/temp_data&apos;,&apos;/201909&apos;],create_parent=True)</span><br><span class="line">list(mkdirs)</span><br><span class="line"></span><br><span class="line">client.df()      查看HDFS 文件系统的信息</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Snakebite CLI的使用<br>Snakebite CLI 通过在 Bash 中输入对应的命令参数完成操作， 以达到灵活查看和操作 HDFS的目的。</li>
+</ul>
+<p>snakebite –help<br><img src="/2020/07/06/Python大数据分析从入门到精通/" alt="解释说明图"></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">snakebite -v 		查看 snakebite 的版本</span><br><span class="line">snakebite ls / 		通过 snakebite 命令查看 HDFS 中的文件</span><br><span class="line">./snakebite df 		通过 snakebite调用 df查看 HDFS文件的系统信息 </span><br><span class="line">snakebite get /apps/hive/warehouse/testdb.db/iris_data/iris.data /root/test_data</span><br></pre></td></tr></table></figure>
+<h2 id="PyHive的使用"><a href="#PyHive的使用" class="headerlink" title="PyHive的使用"></a>PyHive的使用</h2><p>Hive 作为 Hadoop 大数据平台的数据仓库，可以避免编写复杂的MapReduce程序，转而选择Sql 。<br>而PyHive是Python连接使用Hive的一个包。通过 PyHive 连接到 Hive 进行数据查询，操作前需开启<br>hiveserver2 服务， 并默认端口为 10000</p>
+<ul>
+<li><p>PyHive的安装<br>方法和前面一样，通过Anaconda进行安装。如果可视化界面上无法找的话，则使用命令。<br> conda install pyhive </p>
+</li>
+<li><p>使用PyHive编写代码<br>使用Notebook进行开发，首先看起HiveServer2服务。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">from pyhive import hive 			# 导入Pyhive</span><br><span class="line">connection = hive.Connection(host=&apos;hadoop_env.com&apos;, port=10000)  # 连接 Hive</span><br><span class="line">cursor = connection.cursor()</span><br><span class="line">cursor.execute(&apos;show databases&apos;) # 查看在 Hive 中的数据库</span><br><span class="line">print cursor.fetchall() 	# 输出查看</span><br><span class="line"></span><br><span class="line"># 使用 CREATE DATABASE testdb 命令创建 testdb 数据库</span><br><span class="line">cursor.execute(&quot;CREATE DATABASE testdb&quot;) # 创建 testdb 数据库</span><br><span class="line">cursor.execute(&apos;show databases&apos;) 		 # 在 PyHive 中查看数据库</span><br><span class="line">print cursor.fetchall()all() 			 # 查看新创建的数据库</span><br><span class="line"></span><br><span class="line"># 使用 USE testdb 切换到 testdb 数据库， 并创建表</span><br><span class="line">cursor.execute(&quot;USE testdb&quot;) # 切换到 testdb 数据库</span><br><span class="line">cursor.execute(&quot;CREATE TABLE iris_data2(sepal_length string , sepal_width</span><br><span class="line">string , petal_length string , petal_width string , species string) ROW</span><br><span class="line">FORMAT DELIMITED FIELDS TERMINATED BY &apos;,&apos; LINES TERMINATED BY &apos;\n&apos; STORED</span><br><span class="line">AS TEXTFILE&quot;)       # 创建表</span><br><span class="line">cursor.execute(&apos;show tables&apos;)</span><br><span class="line">print cursor.fetchall()  # 查看 testdb 数据库中的表</span><br><span class="line"></span><br><span class="line"># 使用 LOAD DATA INPATH 装载数据并查看</span><br><span class="line">cursor.execute(&quot;LOAD DATA INPATH &apos;/test_data/iris.data&apos; OVERWRITE INTO</span><br><span class="line">TABLE iris_data2&quot;)</span><br><span class="line"></span><br><span class="line">cursor.execute(&quot;select * from iris_data2 limit 3&quot;) # 导入数据并查看</span><br><span class="line">print cursor.fetchall() # 查询结果如下所示</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>后续使用Python编写 Hive UDF的操作，请参考书中内容进行实施。</p>
+<h2 id="HappyBase-amp-Pig-UDF"><a href="#HappyBase-amp-Pig-UDF" class="headerlink" title="HappyBase &amp; Pig UDF"></a>HappyBase &amp; Pig UDF</h2><ul>
+<li>HappyBase的安装<br>HappyBase 是由 Python 开发的。 它可同 HBase 进行交互， 其主要由 4 个大类构成， 分别是<br>Connection、 Table、 Batch、 ConnectionPool。</li>
+</ul>
+<p>对 于 在 Anaconda 上 安 装 HappyBase 的 情 况 有 一 些 特 殊： ① 在 软 件 界 面 上 无 法 搜 索 到<br>HappyBase 包； ②使用 conda install happybase 也无法完成安装。 因此需要在 Anaconda 官网上查询<br>添加使用特殊命令参数进行安装， 选择以下三种方法之一进行安装。<br>使用 caonda 命令 HappyBase 的方法<br>conda install -c conda-forge happybase<br>conda install -c conda-forge/label/gcc7 happybase<br>conda install -c conda-forge/label/cf201901 happybase</p>
+<ul>
+<li>构建一个HBase表，使用HBase Shell,用于测试HappyBase</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">start-hbase.sh</span><br><span class="line">// 使用以下的语句创建表和</span><br><span class="line">create <span class="string">'user'</span>, <span class="string">'user name'</span>, <span class="string">'address'</span></span><br><span class="line">put <span class="string">'user'</span> , <span class="string">'1'</span> , <span class="string">'user name:first_name'</span> , <span class="string">'mike'</span></span><br><span class="line">put <span class="string">'user'</span> , <span class="string">'1'</span> , <span class="string">'user name:last_name'</span> , <span class="string">'lee'</span></span><br><span class="line">put <span class="string">'user'</span> , <span class="string">'1'</span> , <span class="string">'address:city'</span> , <span class="string">'BeiJin'</span></span><br><span class="line">put <span class="string">'user'</span> , <span class="string">'1'</span> , <span class="string">'address:region'</span> , <span class="string">' 海淀区 '</span></span><br><span class="line">put <span class="string">'user'</span> , <span class="string">'1'</span> , <span class="string">'address:city'</span> , <span class="string">'ShangHai'</span></span><br><span class="line">put <span class="string">'user'</span> , <span class="string">'1'</span> , <span class="string">'address:region'</span> , <span class="string">' 闵行区 '</span></span><br><span class="line">put <span class="string">'user'</span> , <span class="string">'2'</span> , <span class="string">'user name:first_name'</span> , <span class="string">'lily'</span></span><br><span class="line">put <span class="string">'user'</span> , <span class="string">'2'</span> , <span class="string">'user name:last_name'</span> , <span class="string">'wang'</span></span><br><span class="line">put <span class="string">'user'</span> , <span class="string">'2'</span> , <span class="string">'address:city'</span> , <span class="string">'ShangHai'</span></span><br><span class="line">put <span class="string">'user'</span> , <span class="string">'2'</span> , <span class="string">'address:region'</span> , <span class="string">' 徐汇区 '</span></span><br><span class="line">put <span class="string">'user'</span> , <span class="string">'2'</span> , <span class="string">'address:city'</span> , <span class="string">'GuangZhou'</span></span><br><span class="line">put <span class="string">'user'</span> , <span class="string">'2'</span> , <span class="string">'address:region'</span> , <span class="string">' 越秀区 '</span></span><br><span class="line">put <span class="string">'user'</span> , <span class="string">'3'</span> , <span class="string">'user name:first_name'</span> , <span class="string">'petter'</span></span><br><span class="line">put <span class="string">'user'</span> , <span class="string">'3'</span> , <span class="string">'user name:last_name'</span> , <span class="string">'lee'</span></span><br><span class="line">put <span class="string">'user'</span> , <span class="string">'3'</span> , <span class="string">'address:city'</span> , <span class="string">'GuangZhou'</span></span><br><span class="line">put <span class="string">'user'</span> , <span class="string">'3'</span> , <span class="string">'address:region'</span> , <span class="string">' 天河区 '</span></span><br><span class="line">put <span class="string">'user'</span> , <span class="string">'3'</span> , <span class="string">'address:city'</span> , <span class="string">'ShenZhen'</span></span><br><span class="line">put <span class="string">'user'</span> , <span class="string">'3'</span> , <span class="string">'address:region'</span> , <span class="string">' 南山区 '</span></span><br><span class="line">put <span class="string">'user'</span> , <span class="string">'4'</span> , <span class="string">'user name:first_name'</span> , <span class="string">'bill'</span></span><br><span class="line">put <span class="string">'user'</span> , <span class="string">'4'</span> , <span class="string">'user name:last_name'</span> , <span class="string">'lan'</span></span><br><span class="line">put <span class="string">'user'</span> , <span class="string">'4'</span> , <span class="string">'address:city'</span> , <span class="string">'ShenZhen'</span></span><br><span class="line">put <span class="string">'user'</span> , <span class="string">'4'</span> , <span class="string">'address:region'</span> , <span class="string">' 福田区 '</span></span><br><span class="line">put <span class="string">'user'</span> , <span class="string">'4'</span> , <span class="string">'address:city'</span> , <span class="string">'BeiJin'</span></span><br><span class="line">put <span class="string">'user'</span> , <span class="string">'4'</span> , <span class="string">'address:region'</span> , <span class="string">' 朝阳区 </span></span><br><span class="line"><span class="string">//</span></span><br><span class="line"><span class="string">get '</span>user<span class="string">' , '</span>1<span class="string">' , '</span>address<span class="string">'</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>使用HappyBase编写代码</li>
+</ul>
+<p>在开始编写 HappyBase脚本时， 先要将 HBase的 thrift服务打开， 这样才能进行正常连接和通信，<br>使用的命令如下， 开启并使用 compact 协议。</p>
+<p>(base) root@usr# hbase-daemon.sh start thrift -c compact protocol # 开<br>启 thrift 服务<br>starting thrift, logging to /usr/hbase-1.2.2/logs/hbase-root-thriftubuntu.out</p>
+<pre><code class="python"><span class="keyword">import</span> happybase <span class="comment"># 导入 HappyBase 库</span>
+connection = happybase.Connection(host=<span class="string">'hadoop_env.com'</span>,port=<span class="number">9090</span>,timeout=<span class="number">100000</span>) <span class="comment"># 连接 Hbase</span>
+<span class="comment"># connection.open() 由于在 Connection 中的 autoconnect=True 默认是直连的，所以可以不使用 open 函数</span>
+tables_list = connection.tables() <span class="comment"># 获取所有的表</span>
+
+user = connection.table(<span class="string">'user'</span>)    <span class="comment"># 连接user表</span>
+scaner=user.scan()                   <span class="comment"># 查看数据 </span>
+<span class="keyword">for</span> key, data <span class="keyword">in</span> scaner:
+    <span class="keyword">print</span> key, data
+</code></pre>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/BigData/" rel="tag"># BigData</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/06/27/3-airflow-脚本/" rel="next" title="3-airflow-脚本">
+                <i class="fa fa-chevron-left"></i> 3-airflow-脚本
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/10/06/下载安装HDP大数据平台/" rel="prev" title="2-下载安装HDP大数据平台">
+                2-下载安装HDP大数据平台 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div onclick="showGitment()" id="gitment-display-button">显示 Gitment 评论</div>
+        <div id="gitment-container" style="display:none"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/fly.jpg"
+                alt="LYJ__hi@163.com" />
+            
+              <p class="site-author-name" itemprop="name">LYJ__hi@163.com</p>
+              <p class="site-description motion-element" itemprop="description">知道了书的结尾，才会明白书的开头</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">63</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">2</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">12</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Windows环境安装-Spark环境："><span class="nav-number">1.</span> <span class="nav-text">Windows环境安装 Spark环境：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#下载必要的安装包-到对应的URL下进行下载"><span class="nav-number">1.1.</span> <span class="nav-text">下载必要的安装包 (到对应的URL下进行下载)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装Anaconda，并安装PySpark库-–"><span class="nav-number">1.2.</span> <span class="nav-text">安装Anaconda，并安装PySpark库 –</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#验证完毕后的验证使用"><span class="nav-number">1.3.</span> <span class="nav-text">验证完毕后的验证使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装HDP大数据环境"><span class="nav-number">2.</span> <span class="nav-text">安装HDP大数据环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#下载必要的安装包-到对应的URL下进行下载-–-演示"><span class="nav-number">2.1.</span> <span class="nav-text">下载必要的安装包 (到对应的URL下进行下载)  – 演示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HDP大数据平台的使用"><span class="nav-number">2.2.</span> <span class="nav-text">HDP大数据平台的使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自安装大数据环境"><span class="nav-number">3.</span> <span class="nav-text">自安装大数据环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据导入方式"><span class="nav-number">4.</span> <span class="nav-text">数据导入方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HDFS演示操作"><span class="nav-number">5.</span> <span class="nav-text">HDFS演示操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PyHive的使用"><span class="nav-number">6.</span> <span class="nav-text">PyHive的使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HappyBase-amp-Pig-UDF"><span class="nav-number">7.</span> <span class="nav-text">HappyBase &amp; Pig UDF</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LYJ__hi@163.com</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv" title="总访客量">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="site-pv" title="总访问量">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.4.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+      <style>
+        a.gitment-editor-footer-tip { display: none; }
+        .gitment-container.gitment-footer-container { display: none; }
+      </style>
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname,
+            owner: 'LYJ-NEO',
+            repo: 'LYJ-NEO.github.io',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '84e9d01a0e208628585fc510f19acf65242314f9',
+            
+                client_id: '775bf5cff2e26a9fbabb'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      function showGitment(){
+        document.getElementById("gitment-display-button").style.display = "none";
+        document.getElementById("gitment-container").style.display = "block";
+        renderGitment();
+      }
+      
+      </script>
+    
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

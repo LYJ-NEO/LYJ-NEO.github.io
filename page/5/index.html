@@ -319,6 +319,360 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/05/1-导入数据到Hive/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LYJ__hi@163.com">
+      <meta itemprop="description" content="知道了书的结尾，才会明白书的开头">
+      <meta itemprop="image" content="/images/fly.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="IT杂文-大数据、Python">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/05/1-导入数据到Hive/" itemprop="url">
+                  1-导入数据到Hive
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-11-05 14:56:45" itemprop="dateCreated datePublished" datetime="2018-11-05T14:56:45+08:00">2018-11-05</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-02-03 13:53:45" itemprop="dateModified" datetime="2020-02-03T13:53:45+08:00">2020-02-03</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Tec/" itemprop="url" rel="index"><span itemprop="name">Tec</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p></p><h2>导入数据到Hive</h2><br>    可以通过各种不同的方法和工具，将各种不同数据源导入Hive中,对于Hive中的数据库本质上仅仅是表的一个目录或者命名空间。<br>所以Hive实际上并不存储实际的数据。对于要导入到Hive的数据，是存放在HDFS上的各种格式数据文件。<p></p>
+<p></p><h3>文本文件数据</h3><br>    从文本文件（CSV，TSV）将文件存放到HDFS后导入到Hive中<p></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">将文本文件上传到HDFS文件系统，使用 hadoop hdfs dfs -put local_file_path  hdfs_file_path</span><br><span class="line"></span><br><span class="line">具体的导入数据的操作方法:</span><br><span class="line"></span><br><span class="line">1 先将本地文件上传到虚拟机中(数据是AdventureWorks中的部分表数据)</span><br><span class="line">$ scp.exe -P 2222 *.csv root@sandbox-hdp.hortonworks.com:~/hive_data</span><br></pre></td></tr></table></figure>
+<p><img src="/2018/11/05/1-导入数据到Hive/1_scp_file.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2 将数据文件直接导入到HDFS文件系统</span><br><span class="line">hdfs dfs -put file_name</span><br></pre></td></tr></table></figure>
+<p><img src="/2018/11/05/1-导入数据到Hive/2_put_file.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">3 创建相应的表,指定数据路径</span><br><span class="line"></span><br><span class="line">创建数据库:</span><br><span class="line">CREATE DATABASE IF NOT EXISTS AdventureWorksDW;</span><br><span class="line">由于使用的Hadoop是分布式配置模式，</span><br><span class="line">&lt;property&gt; </span><br><span class="line">      &lt;name&gt;hive.metastore.warehouse.dir&lt;/name&gt;   </span><br><span class="line">      &lt;value&gt;/apps/hive/warehouse&lt;/value&gt; </span><br><span class="line">&lt;/property&gt;</span><br></pre></td></tr></table></figure>
+<p><img src="/2018/11/05/1-导入数据到Hive/4_db_position.png" alt=""></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/11/05/1-导入数据到Hive/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/06/4概率计算/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LYJ__hi@163.com">
+      <meta itemprop="description" content="知道了书的结尾，才会明白书的开头">
+      <meta itemprop="image" content="/images/fly.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="IT杂文-大数据、Python">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/06/4概率计算/" itemprop="url">
+                  4概率计算
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-02-06 17:02:20" itemprop="dateCreated datePublished" datetime="2019-02-06T17:02:20+08:00">2019-02-06</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-02-03 13:59:54" itemprop="dateModified" datetime="2020-02-03T13:59:54+08:00">2020-02-03</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2>概率计算</h2>
+
+<h3>相关概念</h3>
+
+<ul>
+<li>随机现象：在一定条件下，并不总是出现相同结果的现象。</li>
+<li>随机试验：可以重复的随机现象。</li>
+<li>基本结果：随机现象最简单的结果，是统计中的抽样的基本单元，故也称为样本点。</li>
+<li>基本空间：随机现象所有基本结果的全体。</li>
+<li>随机事件：某些基本结果组成的集合称为随机事件。</li>
+<li>必然事件和不可能事件：一定会发生的时间和不可能发生的事件。</li>
+<li><p>维恩图：可以用来表示在基本空间中的事件关系的椭圆形图，较直观。</p>
+</li>
+<li><p>事件的包含关系：<br>  事件A的任意结果都在事件B中，B包含A，使用符号 A⊂B，注意开口方向。<br><img src="/2019/02/06/4概率计算/4_1_include.png" alt=""><br>$$<br>  A \subset B<br>$$</p>
+</li>
+<li><p>事件相等 : 事件A中的任意结果都在B中，而B中的任意结果也都在A中 A = B</p>
+</li>
+<li>事件互斥 : 事件A和B没有相同的结果</li></ul>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/02/06/4概率计算/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/27/3-airflow-脚本/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1799,366 +2153,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/15/Sql-Window-Functions/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="LYJ__hi@163.com">
-      <meta itemprop="description" content="知道了书的结尾，才会明白书的开头">
-      <meta itemprop="image" content="/images/fly.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="IT杂文-大数据、Python">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/10/15/Sql-Window-Functions/" itemprop="url">
-                  Sql Window Functions
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-10-15 09:52:03" itemprop="dateCreated datePublished" datetime="2018-10-15T09:52:03+08:00">2018-10-15</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-02-23 13:44:57" itemprop="dateModified" datetime="2019-02-23T13:44:57+08:00">2019-02-23</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Tec/" itemprop="url" rel="index"><span itemprop="name">Tec</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2>何谓SQL窗口函数</h2>
-
-<p>窗口函数主要应用于由Over子句定义的行集的函数，在应用关联的开窗函数前确定行集的分区和排序,OVER 子句定义查询结果集内的窗口或用户指定的行<br>集。 然后，开窗函数将计算窗口中每一行的值。 可以将 OVER 子句与函数一起使用，以便计算各种聚合值，例如移动平均值、累积聚合、运行总计或每<br>组结果的前N个结果。</p>
-<p>窗口函数主要用于分析作用，对于窗口函数的主要依据标准SQL中的window概念，在这个概念下，允许针对集合，窗口，行集执行各种的计算并放回一个结果<br>通过窗口函数有助于解决各种查询任务通过更简单，直观，有效的数据集。</p>
-<p>对于窗口函数的使用，目前主流的关系数据库都有支持，针对Hive Sql也支持使用窗口函数。为简单期间，使用sqlserver进行对窗口函数的使用说明</p>
-<h2>数据的准备</h2><br>针对在Sqlserver上使用窗口函数，使用的测试数据为AdventureWorks，相关的表结构信息：<br><br><a href="http://jeremykdev.github.io/SqlServerDatabaseDocumentationGenerator/AdventureWorks-sample.html" target="_blank" rel="noopener">表结构信息</a><br><br><a href="https://github.com/Microsoft/sql-server-samples/releases/tag/adventureworks" target="_blank" rel="noopener">AdventureWorks数据库Github地址</a><br><br><a href="https://docs.microsoft.com/zh-cn/sql/t-sql/queries/select-over-clause-transact-sql?view=sql-server-2017" target="_blank" rel="noopener">MSDN文档参考</a><br><br><h2>窗口函数语法</h2>
-
-<ul>
-<li><p>OVER 语法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">OVER (   </span><br><span class="line">       [ &lt;PARTITION BY clause&gt; ]  </span><br><span class="line">       [ &lt;ORDER BY clause&gt; ]   </span><br><span class="line">       [ &lt;ROW or RANGE clause&gt; ]  </span><br><span class="line">      )</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>PARTITION BY 子句 </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;PARTITION BY clause&gt; ::=  </span><br><span class="line">PARTITION BY value_expression , ... [ n ]  </span><br><span class="line"></span><br><span class="line">PARTITION BY</span><br><span class="line">将查询结果集分为多个分区。 开窗函数分别应用于每个分区，并为每个分区重新启动计算。</span><br><span class="line"></span><br><span class="line">value_expression</span><br><span class="line">指定行集按其分区的列。 value_expression 只能引用可供 FROM 子句使用的列。 value_expression 不能引用选择列表中的表达式或别名。 value_expression 可以是列表达式、标量子查询、标量函数或用户定义的变量。</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/10/15/Sql-Window-Functions/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/11/秋天/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="LYJ__hi@163.com">
-      <meta itemprop="description" content="知道了书的结尾，才会明白书的开头">
-      <meta itemprop="image" content="/images/fly.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="IT杂文-大数据、Python">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/10/11/秋天/" itemprop="url">
-                  秋天
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-10-11 18:24:50" itemprop="dateCreated datePublished" datetime="2018-10-11T18:24:50+08:00">2018-10-11</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-04-04 08:56:50" itemprop="dateModified" datetime="2019-04-04T08:56:50+08:00">2019-04-04</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/feeling/" itemprop="url" rel="index"><span itemprop="name">feeling</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><strong>每个夏天的离去就是一次年轻的死亡，抓不住的夏蝉，悟不透夏禅 。</strong><br><img src="/2018/10/11/秋天/summer.jpg" alt=""></p>
-<p><strong>每个秋天的到来就是一次抑郁的滋长，挽不住的秋叶，勾不住秋思 。</strong><br><img src="/2018/10/11/秋天/autumn.jpg" alt=""></p>
-<p><strong>现在冬天来了，而我却没有一张照片来应景，真是萧条的季节啊,哈哈哈。</strong></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2210,7 +2204,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">61</span>
+                    <span class="site-state-item-count">63</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2227,9 +2221,7 @@
                     
                       
                     
-                      
-                    
-                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-count">2</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
